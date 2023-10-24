@@ -3,6 +3,7 @@ defmodule TimeManagerWeb.ClockController do
 
   alias TimeManager.Clocks
   alias TimeManager.Clocks.Clock
+  alias TimeManager.Accounts
 
   action_fallback TimeManagerWeb.FallbackController
 
@@ -21,8 +22,9 @@ defmodule TimeManagerWeb.ClockController do
   end
 
   def show(conn, %{"id" => id}) do
-    clock = Clocks.get_clock!(id)
-    render(conn, :show, clock: clock)
+    clocks = Clocks.list_clocks()
+    filtered_clocks = Enum.filter(clocks, fn clock -> clock.fk_user == id end)
+    render(conn, :show, clocks: filtered_clocks)
   end
 
   def update(conn, %{"id" => id, "clock" => clock_params}) do

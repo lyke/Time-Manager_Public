@@ -9,10 +9,10 @@ defmodule TimeManagerWeb.ClockJSON do
   end
 
   @doc """
-  Renders a single clock.
+  Renders the list of clock linked with a user.
   """
-  def show(%{clock: clock}) do
-    %{data: data(clock)}
+  def show(%{clocks: clocks}) do
+    %{data: for(clock <- clocks, do: data(clock))}
   end
 
   defp data(%Clock{} = clock) do
