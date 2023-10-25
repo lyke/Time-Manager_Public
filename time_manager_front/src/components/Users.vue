@@ -1,10 +1,6 @@
 <template>
 <div class="user">
-  <h1 @click="routeToDashboard()">{{ firstname }} {{ lastname }}</h1>
-  <!-- <p>{{ email }}</p> -->
-  <!-- <p>{{ team }}</p> -->
-  <p>{{ role }}</p>
-  <!-- <p>{{ password }}</p> -->
+  <h1 @click="routeToDashboard()">{{ firstname }} {{ lastname }}  : {{ role }}</h1>
 </div>
 </template>
 
@@ -29,4 +25,7 @@ export default {
 </script>
 
 <style>
+h1:hover{
+  color: grey;
+}
 </style>

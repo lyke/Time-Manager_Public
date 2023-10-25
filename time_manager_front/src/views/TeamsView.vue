@@ -1,17 +1,44 @@
 <template>
   <div class="teams">
-    <div>
       <h1>Teams</h1>
-      <div class="team-card">
-        <h2 class="teams-title">Team 1</h2>
-        <Users v-for="(user, index) in filteredManager" :firstname="user.firstname" :lastname="user.lastname" :role="user.role" :key="index"/>
-        <Users v-for="(user, index) in filteredUsers" :firstname="user.firstname" :lastname="user.lastname" :role="user.role" :key="index"/>
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div class="box">
+              <h2 class="teams-title">Team 1</h2>
+              <p>
+                <Users v-for="(user, index) in filteredManager" :firstname="user.firstname" :lastname="user.lastname" :role="user.role" :key="index"/>
+                <Users v-for="(user, index) in filteredUsers" :firstname="user.firstname" :lastname="user.lastname" :role="user.role" :key="index"/>
+              </p>
+            </div>
+          </div>
+          <div class="column">
+            <div class="box">
+              <h2 class="teams-title">Team 1</h2>
+              <Users v-for="(user, index) in filteredManager" :firstname="user.firstname" :lastname="user.lastname" :role="user.role" :key="index"/>
+              <Users v-for="(user, index) in filteredUsers" :firstname="user.firstname" :lastname="user.lastname" :role="user.role" :key="index"/>
+            </div>
+          </div>
+          <div class="column">
+            <div class="box">
+              <h2 class="teams-title">Team 1</h2>
+              <Users v-for="(user, index) in filteredManager" :firstname="user.firstname" :lastname="user.lastname" :role="user.role" :key="index"/>
+              <Users v-for="(user, index) in filteredUsers" :firstname="user.firstname" :lastname="user.lastname" :role="user.role" :key="index"/>
+            </div>
+          </div>
 
+        </div>
       </div>
 
 
-    </div>
     <Users v-for="(user, index) in users" :firstname="user.firstname" :lastname="user.lastname" :role="user.role" :key="index"/>
+  </div>
+  <div>
+    <h2>Teams List</h2>
+    <ul>
+      <li v-for="(team, index) in allTeamNumber()" :key="index">{{ team }}</li>
+      <li v-for="(user, index) in filterUserByTeam()" :key="index">{{ user }}</li>
+    </ul>
   </div>
 </template>
 
@@ -33,7 +60,8 @@ export default {
         { id: 4, firstname: 'Jane', lastname: 'Smith', email: 'jane.smith@example.com', team: 2, role: 'manager', password: 'password' },
         { id: 5, firstname: 'John', lastname: 'Brown', email: 'jonh.brown@example.com', team: 2, role: 'user', password: 'password' },
         { id: 6, firstname: 'Jane', lastname: 'Brown', email: 'jane.brown@example.com', team: 2, role: 'user', password: 'password' }
-      ]
+      ],
+      teams: []
     };
   },
   computed: {
@@ -43,20 +71,59 @@ export default {
   filteredManager() {
     return this.users.filter(user => user.team === 1 && user.role === 'manager');
   }
-}
+},
+  methods: {
+    allTeamNumber() {
+      // const teams = [];
+      this.users.forEach(element => {
+        if (this.teams.includes(element.team)) {
+          return;
+        } else {
+          this.teams.push(element.team);
+        }
+      });
+      return this.teams.sort();
+    },
+    // filterUserByTeam(team) {
+    //   return this.users.filter(user => user.team === team);
+    // },
+
+    // filterUserByTeam() {
+    //   this.teams.forEach(element => {
+    //   const use = this.users.filter(user => user.team === element);
+    //   // return use;
+
+    //   // console.log(use);
+    //   console.log(use.forEach(element => {
+    //     return element.firstname;
+    //   }));
+    //   })
+    // }
+    filterUserByTeam() {
+      this.teams.forEach(element => {
+        const team = [];
+        const teamUsers = this.users.map(user => {
+          if (user.team === element) {
+            team.push(user);
+          }
+        });
+        // return team;
+
+        console.log(team);
+      });
+      // const userNamesByTeam = this.teams.map(team => {
+        // const usersInTeam = this.users.filter(user => user.team === team);
+        // return usersInTeam.map(user => user);
+        // return usersInTeam;
+      // });
+      // console.log(userNamesByTeam);
+    }
+
+  }
 
 }
 </script>
-<style>
-.team-card {
-  border: 1px solid lightgrey;
-  box-shadow: 5px 5px 5px lightgrey;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 4vw;
-  align-items: center;
-  width: 30%;
-}
+<style scoped>
 .teams-title {
   font-weight: bold;
 }
