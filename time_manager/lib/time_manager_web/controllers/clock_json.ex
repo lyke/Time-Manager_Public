@@ -11,15 +11,16 @@ defmodule TimeManagerWeb.ClockJSON do
   @doc """
   Renders the list of clock linked with a user.
   """
-  def show(%{clocks: clocks}) do
-    %{data: for(clock <- clocks, do: data(clock))}
+  def show(%{clock: clock}) do
+    %{data: data(clock)}
   end
 
   defp data(%Clock{} = clock) do
     %{
       id: clock.id,
       time: clock.time,
-      status: clock.status
+      status: clock.status,
+      fk_user: clock.fk_user
     }
   end
 end
