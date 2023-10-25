@@ -1,12 +1,12 @@
 <template>
-    <section class="hero has-background-black is-fullheight">
+    <section class="hero">
         <div class="hero-body">
             <div class="container">
                 <div class="columns is-centered">
                     <div class="column is-5-tablet is-4-desktop is-3-widescreen">
                         <form action="" class="box">
                             <div class="field">
-                            <label for="" class="label">Email</label>
+                                <label for="" class="label">Email</label>
                                 <div class="control">
                                     <input type="email" placeholder="e.g. bobsmith@gmail.com" class="input" required>
                                 </div>
