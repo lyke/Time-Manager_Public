@@ -8,7 +8,10 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "bootstrap": "^5.3.2",
+=======
+>>>>>>> ef27e55bc0faddaefb0967bb205d53928112dde1
     "bulma": "^0.9.4",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
