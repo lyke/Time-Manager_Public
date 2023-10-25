@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: postgres
 
   web:
-    build: .
+    build: time_manager
     ports:
       - "4000:4000"
     volumes:
@@ -17,4 +17,4 @@ services:
     depends_on:
       - db
     env_file:
-      - time-manager.env
+      - time_manager/time-manager.env

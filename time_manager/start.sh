@@ -1,6 +1,7 @@
 #!/bin/bash
 # Docker entrypoint script.
 # Wait until Postgres is ready
+cd /app/time_manager
 
 mix deps.get
 

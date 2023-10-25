@@ -21,6 +21,6 @@ RUN mix local.hex --force && \
 EXPOSE 4000
 
 # Define the command to start your Phoenix app
-CMD ["sh", "start.sh"]
+CMD ["sh", "/app/time_manager/start.sh"]
 
 
