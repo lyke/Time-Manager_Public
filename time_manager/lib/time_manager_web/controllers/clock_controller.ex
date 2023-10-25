@@ -24,7 +24,7 @@ defmodule TimeManagerWeb.ClockController do
   def show(conn, %{"id" => id}) do
     clocks = Clocks.list_clocks()
     filtered_clocks = Enum.filter(clocks, fn clock -> clock.fk_user == id end)
-    render(conn, :show, clocks: filtered_clocks)
+    render(conn, :index, clocks: filtered_clocks)
   end
 
   def update(conn, %{"id" => id, "clock" => clock_params}) do
