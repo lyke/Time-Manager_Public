@@ -84,9 +84,9 @@ export default {
       });
       return this.teams.sort();
     },
-    // filterUserByTeam(team) {
-    //   return this.users.filter(user => user.team === team);
-    // },
+    filterUserByTeam(team) {
+      return this.users.filter(user => user.team === team);
+    },
 
     // filterUserByTeam() {
     //   this.teams.forEach(element => {
@@ -99,25 +99,25 @@ export default {
     //   }));
     //   })
     // }
-    filterUserByTeam() {
-      this.teams.forEach(element => {
-        const team = [];
-        const teamUsers = this.users.map(user => {
-          if (user.team === element) {
-            team.push(user);
-          }
-        });
-        // return team;
+    // filterUserByTeam() {
+    //   this.teams.forEach(element => {
+    //     const team = [];
+    //     const teamUsers = this.users.map(user => {
+    //       if (user.team === element) {
+    //         team.push(user);
+    //       }
+    //     });
+    //     return team;
 
-        console.log(team);
-      });
-      // const userNamesByTeam = this.teams.map(team => {
-        // const usersInTeam = this.users.filter(user => user.team === team);
-        // return usersInTeam.map(user => user);
-        // return usersInTeam;
-      // });
-      // console.log(userNamesByTeam);
-    }
+    //     console.log(team);
+    //   });
+    //   const userNamesByTeam = this.teams.map(team => {
+    //     const usersInTeam = this.users.filter(user => user.team === team);
+    //     return usersInTeam.map(user => user);
+    //     return usersInTeam;
+    //   });
+    //   console.log(userNamesByTeam);
+    // }
 
   }
 
