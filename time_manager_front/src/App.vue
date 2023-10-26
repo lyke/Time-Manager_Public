@@ -10,6 +10,14 @@
 </template>
 
 <style>
+html {
+  height: 100%;
+}
+
+body{
+  min-height: 100%;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

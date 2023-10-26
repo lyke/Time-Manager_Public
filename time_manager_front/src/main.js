@@ -4,4 +4,6 @@ import router from './router'
 
 require('@/assets/main.scss');
 
-createApp(App).use(router).mount('#app')
+createApp(App)
+    .use(router)
+    .mount('#app')
