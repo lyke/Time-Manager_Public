@@ -1,7 +1,6 @@
 version: '3.1'
 
 services:
-
   db:
     image: postgres
     restart: always
@@ -22,4 +21,6 @@ services:
   vue:
     build: time_manager_front
     ports:
-      - "8080:8080"
+      - "8000:8080"
+    volumes:
+      - ./time_manager_front/:/app

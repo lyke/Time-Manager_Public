@@ -12,5 +12,10 @@ RUN npm install
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
 
+RUN npm run build
+
+RUN npm rebuild node-sass
+
+
 EXPOSE 8080
 CMD [ "npm", "run", "serve" ]
