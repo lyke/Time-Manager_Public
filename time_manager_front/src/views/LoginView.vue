@@ -8,13 +8,13 @@
                             <div class="field">
                                 <label for="" class="label">Email</label>
                                 <div class="control">
-                                    <input type="email" placeholder="e.g. bobsmith@gmail.com" class="input" required>
+                                    <input v-model="email" type="email" placeholder="e.g. bobsmith@gmail.com" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Password</label>
                                 <div class="control">
-                                    <input type="password" placeholder="*******" class="input" required>
+                                    <input v-model="password" type="password" placeholder="*******" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
@@ -23,7 +23,7 @@
                                 </label>
                             </div>
                             <div class="field">
-                                <button class="button is-success">Login</button>
+                                <button class="button is-success" method="post" @click.prevent="sendPost()">Login</button>
                             </div>
                         </form>
                     </div>
@@ -32,3 +32,30 @@
         </div>
     </section>
 </template>
+
+
+<script>
+import axios from 'axios';
+
+export default {
+    data: function() {
+        return {
+            email: "",
+            password: ""
+        };
+    },
+    methods: {
+        sendPost() {
+            const postData = {
+                email: this.email,
+                password: this.password,
+            };
+            axios.defaults.baseURL = 'http://localhost:4000/api';
+            axios
+                .post("/login", postData)
+                .then(res => { console.log(res.body); })
+                .catch(function (error) { console.log(error); });
+        }
+    }
+};
+</script>

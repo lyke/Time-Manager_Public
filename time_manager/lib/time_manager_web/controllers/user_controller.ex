@@ -6,6 +6,15 @@ defmodule TimeManagerWeb.UserController do
 
   action_fallback TimeManagerWeb.FallbackController
 
+  def login(conn, %{"email" => email, "password" => password}) do
+    user = Accounts.get_user_by_email!(email)
+
+    IO.inspect(user)
+    with {:ok, %User{} = user} <- Accounts.login_user(user, password) do
+      render(conn, :show, user: user)
+    end
+  end
+
   def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, :index, users: users)
