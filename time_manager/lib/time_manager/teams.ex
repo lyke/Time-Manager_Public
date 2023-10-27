@@ -49,7 +49,6 @@ defmodule TimeManager.Teams do
     Repo.all(TimeManager.Teams.Team) |> Repo.preload(:users)
   end
 
-
   @doc """
   Creates a team.
 

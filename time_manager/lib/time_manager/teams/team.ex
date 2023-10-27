@@ -13,7 +13,6 @@ defmodule TimeManager.Teams.Team do
     has_many :user_teams, TimeManager.UserTeams.UserTeam
     many_to_many :users, TimeManager.Accounts.User, join_through: TimeManager.UserTeams.UserTeam
     # has_many :users, through: [:user_teams, :fk_user]
-
     timestamps(type: :utc_datetime)
   end
 
