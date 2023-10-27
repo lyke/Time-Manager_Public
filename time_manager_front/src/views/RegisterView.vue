@@ -48,8 +48,6 @@
 
 <script>
 import axios from 'axios';
-import { formValidation } from '@form-validation/bundle/popular';
-import { Bulma } from '@form-validation/plugin-bulma';
 
 export default {
   data: function() {
@@ -60,49 +58,26 @@ export default {
         password: ""
     };
   },
-  methods: {
-    sendPost() {
-      const postData = {
-        "user": {
-            firstname: this.firstname, 
-            lastname: this.lastname,
-            email: this.email,
-            password: this.password,
-            role: "user"
-        }
-    };
-      axios.defaults.baseURL = 'http://localhost:4000/api';
-      axios
-        .post("/users", postData)
-        .then(res => {
-          console.log(res.body);
-        })
-        .catch(function (error){
-            console.log(error);
-        });
-    },
-    formValidation() {
-            formValidation(
-                document.getElementById('register-form'),
-                {
-                    fields: {
-                        firstName: {
-                            validators: {
-                                notEmpty: {
-                                    message: 'The username is required',
-                                },
-                                stringLength: {
-                                    min: 6,
-                                    message: 'The name must be more than 6 characters long',
-                                },
-                            },
-                        }
-                    },
-                    plugins: {
-                        bulma: new Bulma(),
-                    }
+    methods: {
+        sendPost() {
+            const postData = {
+                "user": {
+                    firstname: this.firstname, 
+                    lastname: this.lastname,
+                    email: this.email,
+                    password: this.password,
+                    role: "user"
                 }
-            )
+            };
+            axios.defaults.baseURL = 'http://localhost:4000/api';
+            axios
+                .post("/users", postData)
+                .then(res => {
+                    console.log(res.body);
+                })
+                .catch(function (error){
+                    console.log(error);
+                });
         }
     }
 };
