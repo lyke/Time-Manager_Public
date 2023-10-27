@@ -12,5 +12,7 @@ defmodule TimeManager.Repo.Migrations.CreateUsers do
 
       timestamps(type: :utc_datetime)
     end
+
+    create unique_index(:users, [:email])
   end
 end
