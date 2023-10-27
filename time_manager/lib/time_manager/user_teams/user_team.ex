@@ -5,10 +5,6 @@ defmodule TimeManager.UserTeams.UserTeam do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "user_teams" do
-    # field :fk_user, :binary_id
-    # field :fk_team, :binary_id
-    # belongs_to :user, TimeManager.Accounts.User, foreign_key: :fk_user
-    # belongs_to :team, TimeManager.Teams.Team, foreign_key: :fk_team
     belongs_to :user, TimeManager.Accounts.User
     belongs_to :team, TimeManager.Teams.Team
 

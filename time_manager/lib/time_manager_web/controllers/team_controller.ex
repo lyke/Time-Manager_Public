@@ -12,11 +12,6 @@ defmodule TimeManagerWeb.TeamController do
     render(conn, :index, teams: teams)
   end
 
-  # def index(conn, _params) do
-  #   teams = Repo.all(TimeManager.Teams.Team) |> Repo.preload(:users)
-  #   render(conn, :index, teams: teams)
-  # end
-
   def create(conn, %{"team" => team_params}) do
     with {:ok, %Team{} = team} <- Teams.create_team(team_params) do
       conn
