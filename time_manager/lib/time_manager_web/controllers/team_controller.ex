@@ -7,7 +7,6 @@ defmodule TimeManagerWeb.TeamController do
   action_fallback TimeManagerWeb.FallbackController
 
   def index(conn, _params) do
-    # teams = Teams.list_teams()
     teams = Teams.get_teams_with_users()
     render(conn, :index, teams: teams)
   end
