@@ -24,5 +24,3 @@ services:
     build: time_manager_front
     ports:
       - "8000:8080"
-    volumes:
-      - ./time_manager_front/:/app
