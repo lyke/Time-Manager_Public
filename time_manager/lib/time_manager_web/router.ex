@@ -11,9 +11,7 @@ defmodule TimeManagerWeb.Router do
     resources "/clocks", ClockController, except: [:new, :edit, :index, :update, :delete]
     resources "/working_times", WorkingTimeController, except: [:new, :edit]
     resources "/teams", TeamController, except: [:new, :edit]
-    resources "/user_teams", UserTeamController, except: [:new, :edit, :show]
-    get "/user_teams/:id", UserTeamController, :show
-
+    resources "/user_teams", UserTeamController, except: [:new, :edit]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

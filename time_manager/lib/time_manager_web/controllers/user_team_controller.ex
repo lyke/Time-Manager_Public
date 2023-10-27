@@ -24,7 +24,7 @@ defmodule TimeManagerWeb.UserTeamController do
   def show(conn, %{"id" => id}) do
     user_team = UserTeams.get_user_team!(id)
     # user = Accounts.get_user!(id)
-    
+
     render(conn, :show, user_team: user_team)
   end
 
