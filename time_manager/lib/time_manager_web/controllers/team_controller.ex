@@ -3,6 +3,7 @@ defmodule TimeManagerWeb.TeamController do
 
   alias TimeManager.Teams
   alias TimeManager.Teams.Team
+  alias TimeManager.Repo
 
   action_fallback TimeManagerWeb.FallbackController
 
@@ -11,6 +12,11 @@ defmodule TimeManagerWeb.TeamController do
     teams = Teams.get_teams_with_users()
     render(conn, :index, teams: teams)
   end
+
+  # def index(conn, _params) do
+  #   teams = Repo.all(TimeManager.Teams.Team) |> Repo.preload(:users)
+  #   render(conn, :index, teams: teams)
+  # end
 
   def create(conn, %{"team" => team_params}) do
     with {:ok, %Team{} = team} <- Teams.create_team(team_params) do
@@ -42,3 +48,15 @@ defmodule TimeManagerWeb.TeamController do
     end
   end
 end
+
+
+# def index(conn, _params) do
+#   teams = Repo.all(TimeManager.Teams.Team) |> Repo.preload(:users)
+#   render(conn, :index, teams: teams)
+# end
+# def show(conn, %{"id" => id}) do
+#   team = Teams.get_team!(id)
+#   team = Repo.preload(team, :users)
+#   users = Teams.get_users(team)
+#   render(conn, :show, team: team, users: users)
+# end
