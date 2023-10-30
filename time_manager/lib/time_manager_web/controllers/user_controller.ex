@@ -37,6 +37,7 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+    user_params = Map.put(user_params, "role", Enum.at(@roles, 0))
     with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
       conn
       |> put_status(:created)
