@@ -5,7 +5,7 @@ defmodule TimeManager.Teams.Team do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  @derive {Jason.Encoder, only: [:name]}
+  @derive {Jason.Encoder, only: [:id, :name]}
 
   schema "teams" do
     field :name, :string
