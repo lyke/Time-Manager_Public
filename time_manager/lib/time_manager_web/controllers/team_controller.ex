@@ -29,7 +29,7 @@ defmodule TimeManagerWeb.TeamController do
 
   def show(conn, %{"id" => id}) do
     team = Teams.get_team!(id)
-    render(conn, :show, team: team)
+    render(conn, :show, team: team,)
   end
 
   def update(conn, %{"id" => id, "team" => team_params}) do

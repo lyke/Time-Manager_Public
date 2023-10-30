@@ -5,7 +5,6 @@ defmodule TimeManager.UserTeams.UserTeam do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "user_teams" do
-    @derive {Jason.Encoder, only: [:name, :title]}
     # field :fk_user, :binary_id
     # field :fk_team, :binary_id
     # belongs_to :user, TimeManager.Accounts.User, foreign_key: :fk_user
