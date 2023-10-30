@@ -15,6 +15,10 @@ defmodule TimeManagerWeb.UserJSON do
     %{data: data(user)}
   end
 
+  def show_time_credit(%{time_credit: time_credit}) do
+    %{"time_credit"=> time_credit}
+  end
+
 
   defp data(%User{} = user) do
     %{

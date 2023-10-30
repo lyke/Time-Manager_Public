@@ -8,6 +8,7 @@ defmodule TimeManagerWeb.Router do
   scope "/api", TimeManagerWeb do
     pipe_through :api
     resources "/users", UserController, except: [:new, :edit]
+    get "/users/time_credit/:id", UserController, :get_time_credit
     post "/login", UserController, :login
     resources "/clocks", ClockController, except: [:new, :edit, :index, :update, :delete]
     resources "/working_times", WorkingTimeController, except: [:new, :edit]

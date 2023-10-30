@@ -62,4 +62,16 @@ defmodule TimeManagerWeb.UserController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def get_time_credit(conn, %{"id" => id}) do
+    minutes_per_day = 7 * 60
+
+    working_times = TimeManager.WorkingTimes.list_working_times()
+    user_wts = Enum.filter(working_times, fn working_time -> working_time.fk_user == id end)
+    credit_time = Enum.reduce(user_wts, 0, fn working_time, acc ->
+      daily_minutes_working = NaiveDateTime.diff(working_time.end, working_time.start) /60
+      acc + (daily_minutes_working - minutes_per_day)
+    end)
+    render(conn, :show_time_credit, time_credit: credit_time)
+  end
 end
