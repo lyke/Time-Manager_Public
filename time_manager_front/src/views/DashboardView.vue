@@ -1,4 +1,5 @@
 <template>
+    <NavMenu></NavMenu>
     <section class="hero">
         <div class="hero-body">
             <div class="container">
@@ -68,21 +69,22 @@
 </template>
 
 <script>
-    import Chart from 'chart.js/auto';
+import NavMenu from '@/components/NavMenu.vue';
+import Chart from 'chart.js/auto';
 
     export default{
-        props: {
-            user_id: String
-        },
-        mounted() {
-            const ctx = document.getElementById('myChart');
-            const data = {
-                labels: [
-                    'Task 1',
-                    'Task 2',
-                    'Task 3'
-                ],
-                datasets: [{
+    props: {
+        user_id: String
+    },
+    mounted() {
+        const ctx = document.getElementById('myChart');
+        const data = {
+            labels: [
+                'Task 1',
+                'Task 2',
+                'Task 3'
+            ],
+            datasets: [{
                     label: 'My First Dataset',
                     data: [300, 50, 100],
                     backgroundColor: [
@@ -92,9 +94,9 @@
                     ],
                     hoverOffset: 4
                 }]
-            };
-
-            new Chart(ctx, { type: 'doughnut', data: data });
-        }
-    }
+        };
+        new Chart(ctx, { type: 'doughnut', data: data });
+    },
+    components: { NavMenu }
+}
 </script>

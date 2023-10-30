@@ -1,4 +1,5 @@
 <template>
+  <NavMenu></NavMenu>
   <div class="teams">
       <h1>Teams</h1>
       <div class="container">
@@ -44,13 +45,15 @@
 
 <script>
 // @ is an alias to /src
+import NavMenu from '@/components/NavMenu.vue';
 import Users from '@/components/Users.vue'
 
 export default {
   name: 'TeamsView',
   components: {
-    Users
-  },
+    Users,
+    NavMenu
+},
   data() {
     return {
       users: [
