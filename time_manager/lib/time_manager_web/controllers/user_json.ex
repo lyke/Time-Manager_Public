@@ -15,6 +15,7 @@ defmodule TimeManagerWeb.UserJSON do
     %{data: data(user)}
   end
 
+
   defp data(%User{} = user) do
     %{
       id: user.id,
@@ -26,4 +27,10 @@ defmodule TimeManagerWeb.UserJSON do
       team: user.team
     }
   end
+end
+
+defmodule TimeManagerWeb.UserResult do
+  @derive {Jason.Encoder, only: [:token, :user_id]}
+
+  defstruct [:token, :user_id]
 end
