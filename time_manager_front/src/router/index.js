@@ -21,9 +21,10 @@ const routes = [
     component: TeamsView
   },
   {
-    path: '/dashboard',
+    path: '/dashboard/:user_id',
     name: 'dashboard',
-    component: DashboardView
+    component: DashboardView,
+    props: true
   }
 ]
 

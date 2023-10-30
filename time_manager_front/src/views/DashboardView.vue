@@ -7,13 +7,13 @@
                     <div class="column is-one-third">
                         <form action="" class="box">
                             <div class="field">
-                                <label for="" class="label">Email :</label>
+                                <label class="label">Email : {{ email }}</label>
                             </div>
                             <div class="field">
-                                <label for="" class="label">First name :</label>
+                                <label for="" class="label">First name : {{ firstname }}</label>
                             </div>
                             <div class="field">
-                                <label for="" class="label">Last name :</label>
+                                <label for="" class="label">Last name : {{ lastname }}</label>
                             </div>
                             <div class="field">
                                 <label for="" class="label">Password : ******</label>
@@ -26,10 +26,10 @@
 
                         <form action="" class="box">
                             <div class="field">
-                                <label for="" class="label">Role :</label>
+                                <label for="" class="label">Role : {{ role }}</label>
                             </div>
                             <div class="field">
-                                <label for="" class="label">Team :</label>
+                                <label for="" class="label">Team : {{ team }}</label>
                             </div>
                             <div class="field">
                                 <button class="button is-info">Edit</button>
@@ -71,32 +71,68 @@
 <script>
 import NavMenu from '@/components/NavMenu.vue';
 import Chart from 'chart.js/auto';
+import axios from 'axios';
 
     export default{
-    props: {
-        user_id: String
-    },
-    mounted() {
-        const ctx = document.getElementById('myChart');
-        const data = {
-            labels: [
-                'Task 1',
-                'Task 2',
-                'Task 3'
-            ],
-            datasets: [{
-                    label: 'My First Dataset',
-                    data: [300, 50, 100],
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)'
-                    ],
-                    hoverOffset: 4
-                }]
-        };
-        new Chart(ctx, { type: 'doughnut', data: data });
-    },
-    components: { NavMenu }
+        props: {
+            user_id: String
+        },
+        data: function() {
+            return {
+                firstname: "",
+                lastname: "",
+                email: "",
+                role: "",
+                team: ""
+            };
+        },
+        methods: {
+            getUser() {
+                axios.defaults.baseURL = 'http://localhost:4000/api';
+                axios
+                    .get("/users", {
+                        timeout: 5000,
+                    })
+                    .then(res => {
+                        if (Array.isArray(res.data.data)) { res.data.data.forEach(user => {
+                                this.email = user.email;
+                                this.firstname = user.firstname;
+                                this.lastname = user.lastname;
+                                this.role = user.role;
+                                this.team = user.team;
+                            });
+                        } else {
+                            console.error('Users not found:', res.data);
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error('Error fetching user data:', error);
+                    });
+            }
+        },
+        mounted() {
+            this.getUser();
+            
+            const ctx = document.getElementById('myChart');
+            const data = {
+                labels: [
+                    'Task 1',
+                    'Task 2',
+                    'Task 3'
+                ],
+                datasets: [{
+                        label: 'My First Dataset',
+                        data: [300, 50, 100],
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)'
+                        ],
+                        hoverOffset: 4
+                    }]
+            };
+            new Chart(ctx, { type: 'doughnut', data: data });
+        },
+        components: { NavMenu }
 }
 </script>
