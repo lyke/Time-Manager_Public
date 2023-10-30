@@ -6,6 +6,9 @@ defmodule TimeManagerWeb.UserController do
 
   action_fallback TimeManagerWeb.FallbackController
 
+  # this is an enum of all available role for users
+  @roles ["user", "manager", "super_manager"]
+
   def login(conn, %{"email" => email, "password" => password}) do
     case Accounts.get_user_by_email!(email) do
       {:ok, %User{} = user} ->
@@ -49,7 +52,9 @@ defmodule TimeManagerWeb.UserController do
 
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Accounts.get_user!(id)
-
+    if Map.has_key?(user_params, "role") && ! Enum.member?(@roles, user_params["role"]) do
+      raise "role is not correct, please select a correct value"
+    end
     with {:ok, %User{} = user} <- Accounts.update_user(user, user_params) do
       render(conn, :show, user: user)
     end
