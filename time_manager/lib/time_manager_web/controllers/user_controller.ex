@@ -63,6 +63,7 @@ defmodule TimeManagerWeb.UserController do
     end
   end
 
+#  get the (+ or -) time credit of the user, in minutes.
   def get_time_credit(conn, %{"id" => id}) do
     minutes_per_day = 7 * 60
 

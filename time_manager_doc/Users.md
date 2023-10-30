@@ -1,7 +1,9 @@
 # Documentation sur les users
 
-## Particularité
+## Routes
 
-**warning** l'attribut time credit doit être mis à jour à chaque création/supression/update d’une workingTime.
+la route /api/users/time_credit/:id :
+- calcul le nombre d'heures supp/manquantes du user dont l'id est passé en paramètre.
+- chiffre donné en minute, positif si heures supp, négatif si heures en moins.
 
 # To Complete
