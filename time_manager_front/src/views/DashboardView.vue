@@ -71,6 +71,9 @@
     import Chart from 'chart.js/auto';
 
     export default{
+        props: {
+            user_id: String
+        },
         mounted() {
             const ctx = document.getElementById('myChart');
             const data = {

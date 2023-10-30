@@ -53,7 +53,9 @@ export default {
             axios.defaults.baseURL = 'http://localhost:4000/api';
             axios
                 .post("/login", postData)
-                .then(res => { console.log(res.body); })
+                .then(res => { 
+                    var user_id = res.data.user_id;
+                })
                 .catch(function (error) { console.log(error); });
         }
     }
