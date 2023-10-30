@@ -7,11 +7,24 @@ defmodule TimeManagerWeb.UserController do
   action_fallback TimeManagerWeb.FallbackController
 
   def login(conn, %{"email" => email, "password" => password}) do
-    user = Accounts.get_user_by_email!(email)
-
-    IO.inspect(user)
-    with {:ok, %User{} = user} <- Accounts.login_user(user, password) do
-      render(conn, :show, user: user)
+    case Accounts.get_user_by_email!(email) do
+      {:ok, %User{} = user} ->
+        case Accounts.login_user(user, password) do
+          {:ok, _token} ->
+            token = Phoenix.Token.sign(TimeManagerWeb.Endpoint, "user auth", user)
+            result = %TimeManagerWeb.UserResult{user_id: user.id, token: token}
+            conn
+            |> put_status(:ok)
+            |> json(result)
+          {:error, _} ->
+            conn
+            |> put_status(:unprocessable_entity)
+            |> json(%{error: gettext("email or password is incorrect")})
+        end
+      {:error, _} ->
+        conn
+        |> put_status(:not_found)
+        |> json(%{error: gettext("user not found")})
     end
   end
 

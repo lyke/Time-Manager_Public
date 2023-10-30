@@ -37,7 +37,12 @@ defmodule TimeManager.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
-  def get_user_by_email!(email), do: Repo.get_by!(User, email: email)
+  def get_user_by_email!(email) do
+    case Repo.get_by(User, email: email) do
+      nil -> {:error, "User not found"}
+      user -> {:ok, user}
+    end
+  end
 
   def login_user(%User{} = user, password) do
     if user.password == password do
