@@ -19,6 +19,7 @@ defmodule TimeManager.Accounts do
   """
   def list_users do
     Repo.all(User)
+    |> Repo.preload(:teams)
   end
 
   @doc """
@@ -35,7 +36,10 @@ defmodule TimeManager.Accounts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user!(id) do
+    Repo.get!(User, id)
+    |> Repo.preload(:teams)
+  end
 
   def get_user_by_email!(email) do
     case Repo.get_by(User, email: email) do

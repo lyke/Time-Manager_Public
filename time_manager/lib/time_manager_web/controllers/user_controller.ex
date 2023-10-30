@@ -44,7 +44,7 @@ defmodule TimeManagerWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    render(conn, :show, user: user)
+    render(conn, :show_with_teams, user: user)
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
