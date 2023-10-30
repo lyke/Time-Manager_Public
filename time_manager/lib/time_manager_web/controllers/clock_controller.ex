@@ -3,7 +3,6 @@ defmodule TimeManagerWeb.ClockController do
 
   alias TimeManager.Clocks
   alias TimeManager.Clocks.Clock
-  alias TimeManager.Accounts
 
   action_fallback TimeManagerWeb.FallbackController
 

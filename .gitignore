@@ -1,2 +1,4 @@
 time_manager/config/dev.exs
 /.idea/
+
+node_modules

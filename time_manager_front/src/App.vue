@@ -1,9 +1,4 @@
 <template>
-  <nav>
-    <router-link to="/">Login</router-link> |
-    <router-link to="/teams">Teams</router-link> |
-    <router-link to="/dashboard">Dashboard</router-link>
-  </nav>
   <router-view/>
 </template>
 
