@@ -5,7 +5,7 @@ defmodule TimeManagerWeb.UserJSON do
   Renders a list of users.
   """
   def index(%{users: users}) do
-    %{data: for(user <- users, do: data(user))}
+    %{data: for(user <- users, do: data_with_teams(user))}
   end
 
   @doc """
@@ -15,8 +15,12 @@ defmodule TimeManagerWeb.UserJSON do
     %{data: data(user)}
   end
 
+  def show_with_teams(%{user: user}) do
+    %{data: data_with_teams(user)}
+  end
+
   def show_time_credit(%{time_credit: time_credit}) do
-    %{"time_credit"=> time_credit}
+    %{"time_credit_in_minutes" => time_credit}
   end
 
 
@@ -28,6 +32,18 @@ defmodule TimeManagerWeb.UserJSON do
       email: user.email,
       password: user.password,
       role: "user",
+    }
+  end
+
+  defp data_with_teams(%User{} = user) do
+    %{
+      id: user.id,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      password: user.password,
+      role: "user",
+      teams: user.teams
     }
   end
 end
