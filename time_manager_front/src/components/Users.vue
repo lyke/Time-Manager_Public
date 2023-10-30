@@ -12,7 +12,6 @@ export default {
     lastname: String,
     email: String,
     team: Number,
-    role: String,
     password: String
   },
   methods: {
