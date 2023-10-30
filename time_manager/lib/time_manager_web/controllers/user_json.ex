@@ -31,7 +31,7 @@ defmodule TimeManagerWeb.UserJSON do
       lastname: user.lastname,
       email: user.email,
       password: user.password,
-      role: "user",
+      role: user.role
     }
   end
 
@@ -42,7 +42,7 @@ defmodule TimeManagerWeb.UserJSON do
       lastname: user.lastname,
       email: user.email,
       password: user.password,
-      role: "user",
+      role: user.role,
       teams: user.teams
     }
   end
