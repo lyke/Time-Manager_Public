@@ -1,9 +1,14 @@
 # To do
 
+## Questions :
+
+- Est-ce que seul un super manager à le droit de créer des users ? il serait une sorte d'admin.
+
 ## Liste des développements à faire, dans l'ordre de priorité
 
-1. Register (possible pour un user lambda qui peut s'inscrire en tant que user uniquement)
-1. Login (email + mdp)
-1. Besoin d'une table many to many
-1. Création du endpoint GetTeamUsers (liste des utilisateurs dans une équipe)
-1. Continuer le front (tâches encore à définir et à prioriser)
+1. [back] création d'une working-time automatiquement dès qu'on clock-out
+1. [appli] lancement du dev de l'appli (react native)
+1. [back] affichage propre et en Json des messages d'erreurs
+1. [back] protection des routes → on doit être connecté sauf pour login
+1. [back] protection des routes uniquements accessibles par les managers / super-managers
+1. [back] règles spéciales : seul un super-manager peut changer le role de quelqu'un
