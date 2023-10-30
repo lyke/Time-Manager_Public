@@ -76,7 +76,7 @@ export default {
                 .then(res => {
                         var user_id = res.data.user_id;
                         this.$router.push({
-                            path: "/dashboard", params: { user_id}
+                            name: "dashboard", params: {user_id}
                         }) 
                     })
                 .catch(function() {
