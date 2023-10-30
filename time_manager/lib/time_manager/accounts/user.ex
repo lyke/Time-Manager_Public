@@ -11,10 +11,8 @@ defmodule TimeManager.Accounts.User do
     field :firstname, :string
     field :lastname, :string
     field :email, :string
-    field :team, :integer
     has_many :user_teams, TimeManager.UserTeams.UserTeam
     many_to_many :teams, TimeManager.Teams.Team, join_through: TimeManager.UserTeams.UserTeam
-    # has_many :teams, through: [:user_teams, :fk_teams]
 
     timestamps(type: :utc_datetime)
   end
@@ -22,7 +20,7 @@ defmodule TimeManager.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:firstname, :lastname, :email, :password, :role, :team])
+    |> cast(attrs, [:firstname, :lastname, :email, :password, :role])
     |> validate_required([:firstname, :lastname, :email, :password, :role])
   end
 end
