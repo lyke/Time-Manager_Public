@@ -7,7 +7,6 @@ defmodule TimeManager.Clocks do
   alias TimeManager.Repo
 
   alias TimeManager.Clocks.Clock
-
   @doc """
   Returns the list of clocks.
 

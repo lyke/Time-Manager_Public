@@ -19,7 +19,7 @@ defmodule TimeManager.MixProject do
   def application do
     [
       mod: {TimeManager.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :timex]
     ]
   end
 
@@ -48,7 +48,8 @@ defmodule TimeManager.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
       {:cors_plug, "~> 3.0"},
-      {:guardian, "~> 2.0"}
+      {:guardian, "~> 2.0"},
+      {:timex, "~> 3.7"}
     ]
   end
 
