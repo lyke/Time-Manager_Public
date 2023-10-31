@@ -4,6 +4,7 @@ import RegisterView from '../views/RegisterView'
 import TeamsView from '../views/TeamsView'
 import DashboardView from '../views/DashboardView'
 import ParameterView from '../views/ParameterView'
+import AdministrationView from '../views/AdministrationView'
 
 const routes = [
   {
@@ -31,6 +32,11 @@ const routes = [
     path: '/parameter',
     name: 'parameter',
     component: ParameterView,
+  }, 
+  {
+    path: '/administration',
+    name: 'administration',
+    component: AdministrationView
   }
 ]
 
