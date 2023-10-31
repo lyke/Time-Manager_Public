@@ -98,9 +98,6 @@ import Chart from 'chart.js/auto';
 import axios from 'axios';
 
     export default{
-        props: {
-            user_id: String
-        },
         data: function() {
             return {
                 id: "",
@@ -116,22 +113,18 @@ import axios from 'axios';
         },
         methods: {
             getUser() {
-                axios.defaults.baseURL = 'http://localhost:4000/api';
+                const url = "http://localhost:4000/api/users/" + localStorage.getItem("user_id");
                 axios
-                    .get("/users")
+                    .get(url)
                     .then(res => {
-                        if (Array.isArray(res.data.data)) { res.data.data.forEach(user => {
-                                this.id = user.id;
-                                this.email = user.email;
-                                this.firstname = user.firstname;
-                                this.lastname = user.lastname;
-                                this.role = user.role;
-                                this.team = user.team;
-                            });
-                        } else {
-                            console.error('Users not found:', res.data);
-                        }
-
+                        this.id = res.data.data.id;
+                        this.email = res.data.data.email;
+                        this.firstname = res.data.data.firstname;
+                        this.lastname = res.data.data.lastname;
+                        this.role = res.data.data.role;
+                        res.data.data.teams.forEach(team => {
+                            this.team = team.name;
+                        });
                         this.isUserManager();
                     })
                     .catch(function(error) {
@@ -169,7 +162,7 @@ import axios from 'axios';
 
                 axios.defaults.baseURL = 'http://localhost:4000/api';
                 axios
-                    .put("/users/" + this.id, putUser)
+                    .put("/users/" + localStorage.getItem("user_id"), putUser)
                     .then(
                         this.hide()
                     )
@@ -201,7 +194,7 @@ import axios from 'axios';
                     "clock": {
                         time: this.clockin = this.getCurrentTime(),
                         status: "true",
-                        fk_user: this.id
+                        fk_user: localStorage.getItem("user_id")
                     }
                 }
 
@@ -218,7 +211,7 @@ import axios from 'axios';
                     "clock": {
                         time: this.clockin = this.getCurrentTime(),
                         status: "false",
-                        fk_user: this.id
+                        fk_user: localStorage.getItem("user_id")
                     }
                 }
 
@@ -233,7 +226,7 @@ import axios from 'axios';
         },
         mounted() {
             this.getUser();
-            
+
             const ctx = document.getElementById('myChart');
             const data = {
                 labels: [

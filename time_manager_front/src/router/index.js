@@ -22,7 +22,7 @@ const routes = [
     component: TeamsView
   },
   {
-    path: '/dashboard/:user_id',
+    path: "/dashboard",
     name: 'dashboard',
     component: DashboardView,
     props: true

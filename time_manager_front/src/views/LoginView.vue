@@ -68,12 +68,13 @@ export default {
             axios
                 .post("/login", postData)
                 .then(res => {
-                        var user_id = res.data.user_id;
+                        localStorage.setItem("user_id", res.data.user_id);
                         this.$router.push({
-                            name: "dashboard", params: {user_id}
+                            name: "dashboard"
                         }) 
                     })
-                .catch(function() {
+                .catch(function(error) {
+                    console.log(error)
                     document.getElementById("error").style.display = "block"; 
                 });
         },

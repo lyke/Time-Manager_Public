@@ -1,7 +1,7 @@
 <template>
     <nav>
         <router-link to="/teams">Teams | </router-link>
-        <router-link to="/dashboard/:user_id">Dashboard | </router-link>
+        <router-link to="/dashboard">Dashboard | </router-link>
         <router-link to="/parameter">Parameter</router-link>
     </nav>
 </template>
