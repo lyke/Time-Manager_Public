@@ -1,5 +1,6 @@
 <template>
     <nav>
+        <router-link v-if="isSuperManager" to="/administration">Administration | </router-link>
         <router-link v-if="isManager" to="/teams">Teams | </router-link>
         <router-link to="/dashboard">Dashboard | </router-link>
         <router-link to="/parameter">Parameter</router-link>
@@ -27,16 +28,25 @@ import axios from 'axios';
 export default {
   data: function() {
     return {
+      isSuperManager: false,
       isManager: false,
       role: ""
     }
   },
   methods: {
     isUserManager() {
-      if (this.role === "manager" || this.role === "super_manager") {
+      if (this.role === "manager") {
         this.isManager = true;
       } else {
         this.isManager = false; 
+      }
+    },
+    isUserSuperManager() {
+      if (this.role === "super_manager") {
+        this.isSuperManager = true;
+        this.isManager = true;
+      } else {
+        this.isSuperManager = false;
       }
     },
     getRole() {
@@ -45,6 +55,8 @@ export default {
         .get(url)
         .then(res => {
             this.role = res.data.data.role;
+            this.isUserManager();
+            this.isUserSuperManager();
         })
         .catch(function(error) {
             console.error('Error fetching user data:', error);
@@ -53,7 +65,6 @@ export default {
   },
   mounted() {
     this.getRole();
-    this.isUserManager();
   }
 }
 </script>
