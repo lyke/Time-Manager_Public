@@ -2,34 +2,28 @@
     <section class="hero">
         <div class="hero-body">
             <div class="container">
+                <p class="title has-text-white">Login</p>
                 <div class="columns is-centered">
                     <div class="column is-two-fifths">
                         <form action="" class="box">
                             <div class="field">
-                                <label for="" class="label">Email</label>
                                 <div class="control">
-                                    <input v-model="email" type="email" placeholder="e.g. bobsmith@gmail.com" class="input" required>
+                                    <input v-model="email" type="email" placeholder="Email" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
-                                <label for="" class="label">Password</label>
                                 <div class="control">
-                                    <input v-model="password" type="password" placeholder="*******" class="input" required>
+                                    <input v-model="password" type="password" placeholder="Password" class="input" required>
                                 </div>
                             </div>
                             <div class="field">
-                                <label for="" class="checkbox">
-                                    <input type="checkbox">Remember me
-                                </label>
-                            </div>
-                            <div class="field">
-                                <button class="button is-success" method="post" @click.prevent="sendPost()">Login</button>
+                                <button class="button gradiant has-text-white" method="post" @click.prevent="sendPost()">Login</button>
                             </div>
                         </form>
 
                         <article class="message is-danger" id="error">
                             <div class="message-header">
-                                <p>Danger</p>
+                                <p>Error</p>
                                 <button class="delete" aria-label="delete" @click.prevent="closeError()"></button>
                             </div>
                             <div class="message-body">
