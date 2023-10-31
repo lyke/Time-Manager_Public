@@ -5,30 +5,17 @@
 <style>
 html {
   height: 100%;
-}
-
-body{
-  min-height: 100%;
-}
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
+body {
+  min-height: 100%;
+  background: rgb(118,0,148);
+  background: linear-gradient(45deg, rgba(118,0,148,1) 0%, rgba(9,9,121,1) 56%, rgba(0,212,255,1) 100%);
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.gradiant {
+  background: rgb(118,0,148);
+  background: linear-gradient(45deg, rgba(118,0,148,1) 0%, rgba(9,9,121,1) 56%, rgba(0,212,255,1) 100%);
 }
 </style>

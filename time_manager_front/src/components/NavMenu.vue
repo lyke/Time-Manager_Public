@@ -1,11 +1,22 @@
 <template>
-    <div class="columns">
-        <div class="column is-full">
-            <nav>
-                <router-link to="/teams">Teams</router-link> |
-                <router-link to="/dashboard/:user_id">Dashboard</router-link>
-            </nav>
-            <a href="/" class="button is-danger is-outlined">Logout</a>
-        </div>
-    </div>
+    <nav>
+        <router-link to="/teams">Teams | </router-link>
+        <router-link to="/dashboard">Dashboard | </router-link>
+        <router-link to="/parameter">Parameter</router-link>
+    </nav>
 </template>
+
+<style>
+nav {
+  padding: 20px;
+}
+
+nav a {
+  font-weight: bold;
+  color: white;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
+</style>

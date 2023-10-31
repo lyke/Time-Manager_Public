@@ -3,6 +3,7 @@ import LoginView from '../views/LoginView'
 import RegisterView from '../views/RegisterView'
 import TeamsView from '../views/TeamsView'
 import DashboardView from '../views/DashboardView'
+import ParameterView from '../views/ParameterView'
 
 const routes = [
   {
@@ -21,10 +22,15 @@ const routes = [
     component: TeamsView
   },
   {
-    path: '/dashboard/:user_id',
+    path: "/dashboard",
     name: 'dashboard',
     component: DashboardView,
     props: true
+  },
+  {
+    path: '/parameter',
+    name: 'parameter',
+    component: ParameterView,
   }
 ]
 

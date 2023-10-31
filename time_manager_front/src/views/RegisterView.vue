@@ -2,51 +2,47 @@
     <section class="hero">
         <div class="hero-body">
             <div class="container">
+                <p class="title has-text-white">Regitser</p>
                 <div class="columns is-centered">
                     <div class="column is-two-thirds">
                         <form action="" class="box" id="register-form">
                             <div class="field columns">
                                 <div class="column">
-                                    <label for="" class="label" name="firstName">First name</label>
                                     <div class="control">
-                                        <input v-model="firstname" type="text" placeholder="e.g. Bob" class="input" required>
+                                        <input v-model="firstname" type="text" placeholder="First name" class="input" required>
                                     </div>
                                 </div>
                                 <div class="column">
-                                    <label for="" class="label">Last name</label>
                                     <div class="control">
-                                        <input v-model="lastname" type="text" placeholder="e.g. Bobby" class="input" required>
+                                        <input v-model="lastname" type="text" placeholder="Last name" class="input" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="field">
-                                <label for="" class="label">Email</label>
                                 <div class="control">
-                                    <input v-model="email" type="email" placeholder="e.g. bobsmith@gmail.com" class="input" required>
+                                    <input v-model="email" type="email" placeholder="Email" class="input" required>
                                 </div>
                             </div>
                             <div class="columns">
                                 <div class="field column">
-                                    <label for="" class="label">Password</label>
                                     <div class="control">
-                                        <input v-model="password" type="password" placeholder="*******" class="input" min="10" required>
+                                        <input v-model="password" type="password" placeholder="Password" class="input" min="10" required>
                                     </div>
                                 </div>
                                 <div class="field column">
-                                    <label for="" class="label">Confirm password</label>
                                     <div class="control">
-                                        <input type="password" placeholder="*******" class="input" min="10" required>
+                                        <input type="password" placeholder="Confirm password" class="input" min="10" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="field">
-                                <button @click.prevent="sendPost()" class="button is-success" method="post">Register</button>
+                                <button @click.prevent="sendPost()" class="button gradiant has-text-white" method="post">Validate</button>
                             </div>
                         </form>
 
                         <article class="message is-danger" id="error">
                             <div class="message-header">
-                                <p>Danger</p>
+                                <p>Error</p>
                                 <button class="delete" aria-label="delete" @click.prevent="closeError()"></button>
                             </div>
                             <div class="message-body">
