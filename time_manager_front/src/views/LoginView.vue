@@ -7,14 +7,20 @@
                     <div class="column is-two-fifths">
                         <form action="" class="box">
                             <div class="field">
-                                <div class="control">
+                                <p class="control has-icons-left">
                                     <input v-model="email" type="email" placeholder="Email" class="input" required>
-                                </div>
+                                    <span class="icon is-small is-left">
+                                        <ion-icon name="mail-outline"></ion-icon>
+                                    </span>
+                                </p>
                             </div>
                             <div class="field">
-                                <div class="control">
+                                <p class="control has-icons-left">
                                     <input v-model="password" type="password" placeholder="Password" class="input" required>
-                                </div>
+                                    <span class="icon is-small is-left">
+                                        <ion-icon name="key-outline"></ion-icon>
+                                    </span>
+                                </p>
                             </div>
                             <div class="field">
                                 <button class="button gradiant has-text-white" method="post" @click.prevent="sendPost()">Login</button>
