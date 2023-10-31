@@ -61,7 +61,7 @@
                             <p><strong>Arrival and departure times</strong></p>
                             <br>
                             <div class="field">
-                                <button class="button gradiant has-text-white" @click.prevent="clockIn()">Clock'in</button>
+                                <button id="clockin" class="button gradiant has-text-white" @click.prevent="clockIn()">Clock'in</button>
                             </div>
                             <div class="field">
                                 <button class="button gradiant has-text-white" @click.prevent="clockOut()">Clock'out</button>
@@ -201,7 +201,9 @@ import axios from 'axios';
                 axios.defaults.baseURL = 'http://localhost:4000/api';
                 axios
                     .post("/clocks", postClock)
-                    .then()
+                    .then(
+                        document.getElementById("clockin").disabled = "true"
+                    )
                     .catch(function(error) {
                         console.log(error);
                     })
