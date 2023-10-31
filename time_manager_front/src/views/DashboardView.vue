@@ -192,7 +192,7 @@ import axios from 'axios';
             clockIn() {
                 const postClock = {
                     "clock": {
-                        time: this.clockin = this.getCurrentTime(),
+                        time: this.getCurrentTime(),
                         status: "true",
                         fk_user: localStorage.getItem("user_id")
                     }
@@ -211,7 +211,7 @@ import axios from 'axios';
             clockOut() {
                 const postClock = {
                     "clock": {
-                        time: this.clockin = this.getCurrentTime(),
+                        time: this.getCurrentTime(),
                         status: "false",
                         fk_user: localStorage.getItem("user_id")
                     }
@@ -225,6 +225,9 @@ import axios from 'axios';
                         console.log(error);
                     })
             }
+        },
+        getLastClockin() {
+            axios.defaults.baseURL = 'http://localhost:4000/api';
         },
         mounted() {
             this.getUser();
