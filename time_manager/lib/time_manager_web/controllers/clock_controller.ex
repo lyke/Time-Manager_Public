@@ -4,6 +4,8 @@ defmodule TimeManagerWeb.ClockController do
   alias TimeManager.Clocks
   alias TimeManager.Clocks.Clock
 
+
+
   action_fallback TimeManagerWeb.FallbackController
 
   def index(conn, _params) do
@@ -12,13 +14,31 @@ defmodule TimeManagerWeb.ClockController do
   end
 
   def create(conn, %{"clock" => clock_params}) do
-    with {:ok, %Clock{} = clock} <- Clocks.create_clock(clock_params) do
+    user_id = clock_params["fk_user"]
+    last_clock = Clocks.get_last_clock(user_id)
+    new_status =
+    case last_clock do
+      nil -> true
+      %Clock{status: false} -> true
+      _ -> false
+    end
+
+    with {:ok, %Clock{} = clock} <- Clocks.create_clock(Map.put(clock_params, "status", new_status)) do
+      if new_status == false do
+        working_time_params = %{
+          "fk_user" => user_id,
+          "start" => last_clock.time,
+          "end" => clock.time
+        }
+        TimeManagerWeb.WorkingTimeController.create(conn, %{"working_time" => working_time_params})
+      end
       conn
       |> put_status(:created)
       |> put_resp_header("location", ~p"/api/clocks/#{clock}")
       |> render(:show, clock: clock)
     end
   end
+
 
   def show(conn, %{"id" => id}) do
     clocks = Clocks.list_clocks()

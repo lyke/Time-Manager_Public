@@ -12,7 +12,6 @@ defmodule TimeManager.UserTeams.UserTeam do
     timestamps(type: :utc_datetime)
   end
 
-  @primary_key {:user_id, :team_id}
 
   @doc false
   def changeset(user_team, attrs) do

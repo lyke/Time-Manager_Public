@@ -2,7 +2,7 @@ defmodule TimeManager.Clocks do
   @moduledoc """
   The Clocks context.
   """
-
+  use Ecto.Schema
   import Ecto.Query, warn: false
   alias TimeManager.Repo
 
@@ -101,4 +101,16 @@ defmodule TimeManager.Clocks do
   def change_clock(%Clock{} = clock, attrs \\ %{}) do
     Clock.changeset(clock, attrs)
   end
+
+  def get_last_clock(user_id) do
+    from(c in Clock, where: c.fk_user == ^user_id, order_by: [desc: c.inserted_at])
+    |> limit(1)
+    |> Repo.one()
+  end
+  # def get_last_clock_for_user(user_id) do
+  #   from(c in Clocks, where: c.fk_user == ^user_id)
+  #   |> order_by([c], desc: c.time)
+  #   |> limit(1)
+  #   |> Repo.one()
+  # end
 end

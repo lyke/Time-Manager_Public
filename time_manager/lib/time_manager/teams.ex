@@ -39,12 +39,6 @@ defmodule TimeManager.Teams do
      Repo.get!(Team, id) |> Repo.preload(:users)
   end
 
-  # def get_team!(id) do
-  #   Repo.get!(Team, id)
-  #   |> Repo.preload([teams: :users])
-  #   # |>Repo.preload(TimeManager.Teams.Team, :users)
-  # end
-
   def get_teams_with_users() do
     Repo.all(TimeManager.Teams.Team) |> Repo.preload(:users)
   end
