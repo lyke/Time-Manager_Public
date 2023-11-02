@@ -1,0 +1,88 @@
+import {StyleSheet, Text, TextInput, View} from "react-native";
+import {useState} from "react";
+
+export default function Input({value, onChangeText, title, isMail = false}) {
+    const [error, setError] = useState()
+
+    const buildInput = (value, onChangeText, title) => {
+        return (
+            <TextInput
+                placeholderTextColor={"#ccc"}
+                style={styles.input}
+                onChangeText={ value => {
+                    onChangeText(value)
+                    checkError(value)
+                } }
+                value={value}
+                placeholder={title}
+            />
+        )
+    }
+
+    const buildMailInput = (value, onChangeText, title) => {
+        return (
+            <TextInput
+                placeholderTextColor={"#ccc"}
+                style={styles.input}
+                onChangeText={ value => {
+                    onChangeText(value)
+                    checkError(value)
+                } }            value={value}
+                placeholder={title}
+                autoComplete={"email"}
+                keyboardType={"email-address"}
+            />
+        )
+    }
+    const buildError = errorMessage => {
+        return (<Text style={styles.error}> {errorMessage} </Text>)
+    }
+
+    const checkError = value => {
+        if (value === null || value.trim() === ""){
+            setError(buildError(title + " is required"))
+            return
+        }
+        if (isMail && ! /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value)){
+            setError(buildError("this field should be a valid email"))
+            return
+        }
+        setError(null)
+    }
+
+
+    const buildedInput = isMail ? buildMailInput(value, onChangeText, title) : buildInput(value, onChangeText, title)
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}> {title} </Text>
+            {buildedInput}
+            {error}
+        </View>
+    )
+}
+
+const styles = StyleSheet.create({
+    container: {
+        width: '90%',
+        marginBottom: "5%",
+    },
+    title: {
+        fontSize: 'medium',
+        fontWeight: 'bold',
+        paddingLeft: 5,
+        marginBottom: '1%',
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        paddingVertical: "3%"
+    },
+    error: {
+        color: 'red',
+        textAlign: 'right',
+        fontSize: 'x-small',
+    }
+});
