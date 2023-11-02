@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="column">
-                        <button v-if="user.role === 'user'" class="button is-info has-text-white mx-1">
+                        <button v-if="user.role === 'user'" @click.prevent="updateUserToManager(user.id)" class="button is-info has-text-white mx-1">
                             <ion-icon name="chevron-up-sharp"></ion-icon>
                         </button>
                         <button v-if="user.role === 'user' || user.role === 'manager'" class="button is-danger mx-1">
@@ -115,6 +115,21 @@ export default {
               .catch(function(error) {
                     console.log(error)
                 })
+        },
+        updateUserToManager(id) {
+            const user = {
+                "user": {
+                    "role": "manager"
+                }
+            }
+            axios.defaults.baseURL = 'http://localhost:4000/api';
+            axios
+                .put("/users/" + id, user)
+                .then()
+                .catch(function(error) {
+                    console.log(error);
+                })
+
         },
         openModal(user) {
             this.currentUser = user;
