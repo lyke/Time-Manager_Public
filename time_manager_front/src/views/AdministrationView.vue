@@ -66,9 +66,9 @@
                         <button v-if="user.role === 'user' || user.role === 'manager'" class="button is-danger mx-1">
                             <ion-icon name="trash-bin-sharp"></ion-icon>
                         </button>
-                        <button class="button mx-1 is-success">
+                        <router-link :to="{name:'userDashboard', params: {id: user.id}} " class="button mx-1 is-success">
                             <ion-icon name="clipboard-sharp"></ion-icon>
-                        </button>
+                        </router-link>
                     </div>
                 </div>
             </div>

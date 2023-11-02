@@ -38,9 +38,9 @@
                 <p><strong class="has-text-black">Email :</strong> {{ user.email }}</p>
               </div>
               <div class="column is-2 has-text-right">
-                <button class="button is-success">
+                <router-link :to="{name:'userDashboard', params: {id: user.id}}" class="button is-success">
                   <ion-icon name="clipboard-sharp"></ion-icon>
-                </button>
+                </router-link>
               </div>
             </div>
           </div>
