@@ -49,6 +49,7 @@ defmodule TimeManager.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:cors_plug, "~> 3.0"},
       {:guardian, "~> 2.0"},
+      {:canada, "~> 2.0.0"},
       {:timex, "~> 3.7"}
     ]
   end
