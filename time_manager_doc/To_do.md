@@ -12,3 +12,4 @@
 1. [back] protection des routes → on doit être connecté sauf pour login
 1. [back] protection des routes uniquements accessibles par les managers / super-managers
 1. [back] règles spéciales : seul un super-manager peut changer le role de quelqu'un
+1. [back] delete on cascade : exemple -> quand on supprime un user, les lignes avec ce user dans user_team doivents disparaitrent. Pareil pour les teams 
