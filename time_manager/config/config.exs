@@ -64,3 +64,9 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
+
+## config.exs
+
+config :auth_me, TimeManager.Accounts.Guardian,
+  issuer: "auth_me",
+  secret_key: "54uXpU+xCfmN92ZZ+ehpjMZYuTQUsVj6v32HZT0luXRFm3nO4GphLCN" # put the result of the mix command above here

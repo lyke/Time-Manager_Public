@@ -39,7 +39,7 @@ defmodule TimeManager.Seeds do
       email: "john.doe@example.com",
       password: "my_password",
       role: "user"
-    }    |> Repo.insert()
+    }    |> TimeManager.Repo.insert()
 
     alice_user = %TimeManager.Accounts.User{
       firstname: "Alice",
