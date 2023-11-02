@@ -6,7 +6,6 @@
 
 ## Liste des développements à faire, dans l'ordre de priorité
 
-1. [back] création d'une working-time automatiquement dès qu'on clock-out
 1. [appli] lancement du dev de l'appli (react native)
 1. [back] affichage propre et en Json des messages d'erreurs
 1. [back] protection des routes → on doit être connecté sauf pour login
