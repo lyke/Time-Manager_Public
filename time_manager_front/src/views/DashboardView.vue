@@ -2,83 +2,81 @@
     <NavMenu></NavMenu>
     <section class="hero">
         <div class="hero-body">
-            <div class="container">
-                <div class="columns box">
-                    <div class="column is-4">
-                        <form class="box">
-                            <div class="field columns">
-                                <label class="label column">Email : </label>
-                                <div class="control">
-                                    <input v-model="email" type="text" class="input" name="email" disabled>
-                                </div>
+            <div class="columns box">
+                <div class="column is-4">
+                    <form class="box">
+                        <div class="field columns">
+                            <label class="label column">Email : </label>
+                            <div class="control">
+                                <input v-model="email" type="text" class="input" name="email" disabled>
                             </div>
-                            <div class="field columns">
-                                <label for="" class="label column">First name : </label>
-                                <div class="control">
-                                    <input v-model="firstname" type="text" class="input" name="firstname" disabled>
-                                </div>
-                            </div>
-                            <div class="field columns">
-                                <label for="" class="label column">Last name : </label>
-                                <div class="control">
-                                    <input v-model="lastname" type="text" class="input" name="lastname" disabled>
-                                </div>
-                            </div>
-                            <div class="field columns">
-                                <label for="" class="label column">Password : </label>
-                                <div class="control">
-                                    <input v-model="password" type="text" class="input" name="password" placeholder="*****" disabled>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <button @click.prevent="enableInputs()" class="button is-info mx-1">Edit</button>
-                                <button @click.prevent="updateUser()" class="button is-success mx-1" id="update-user-button" method="put">Validate</button>
-                                <button class="button is-danger mx-1">Delete</button>
-                            </div>
-                        </form>
-
-                        <form action="" class="box">
-                            <div class="field columns">
-                                <label class="label column">Role : </label>
-                                <div class="control">
-                                    <input v-model="role" type="text" class="input" disabled>
-                                </div>
-                            </div>
-                            <div class="field columns">
-                                <label class="label column">Team : </label>
-                                <div class="control">
-                                    <input v-model="team" type="text" class="input" disabled>
-                                </div>
-                            </div>
-                            <div class="field" v-if="isManager">
-                                <button class="button is-info">Edit</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="column is-3">
-                        <form action="" class="box">
-                            <p><strong>Arrival and departure times</strong></p>
-                            <br>
-                            <div class="field">
-                                <button id="clockin" class="button gradiant has-text-white" @click.prevent="clockIn()">Clock'in</button>
-                            </div>
-                            <div class="field">
-                                <button class="button gradiant has-text-white" @click.prevent="clockOut()">Clock'out</button>
-                            </div>
-                        </form>
-                        
-                        <div class="box">
-                            <p><strong>{{ new Date().toLocaleDateString('fr-FR') }}</strong></p>
-                            <p>Arrival time : {{ clockin }}</p>
-                            <p>Departure time : {{ clockout }}</p>
                         </div>
-                    </div>
+                        <div class="field columns">
+                            <label for="" class="label column">First name : </label>
+                            <div class="control">
+                                <input v-model="firstname" type="text" class="input" name="firstname" disabled>
+                            </div>
+                        </div>
+                        <div class="field columns">
+                            <label for="" class="label column">Last name : </label>
+                            <div class="control">
+                                <input v-model="lastname" type="text" class="input" name="lastname" disabled>
+                            </div>
+                        </div>
+                        <div class="field columns">
+                            <label for="" class="label column">Password : </label>
+                            <div class="control">
+                                <input v-model="password" type="text" class="input" name="password" placeholder="*****" disabled>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button @click.prevent="enableInputs()" class="button is-info mx-1">Edit</button>
+                            <button @click.prevent="updateUser()" class="button is-success mx-1" id="update-user-button" method="put">Validate</button>
+                            <button class="button is-danger mx-1">Delete</button>
+                        </div>
+                    </form>
+
+                    <form action="" class="box">
+                        <div class="field columns">
+                            <label class="label column">Role : </label>
+                            <div class="control">
+                                <input v-model="role" type="text" class="input" disabled>
+                            </div>
+                        </div>
+                        <div class="field columns">
+                            <label class="label column">Team : </label>
+                            <div class="control">
+                                <input v-model="team" type="text" class="input" disabled>
+                            </div>
+                        </div>
+                        <div class="field" v-if="isManager">
+                            <button class="button is-info">Edit</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="column is-3">
+                    <form action="" class="box">
+                        <p><strong>Arrival and departure times</strong></p>
+                        <br>
+                        <div class="field">
+                            <button id="clockin" class="button gradiant has-text-white" @click.prevent="clockIn()">Clock'in</button>
+                        </div>
+                        <div class="field">
+                            <button class="button gradiant has-text-white" @click.prevent="clockOut()">Clock'out</button>
+                        </div>
+                    </form>
                     
-                    <div class="column is-5">
-                        <div class="box">
-                            <canvas id="myChart"></canvas>                        
-                        </div>
+                    <div class="box">
+                        <p><strong>{{ new Date().toLocaleDateString('fr-FR') }}</strong></p>
+                        <p>Arrival time : {{ clockin }}</p>
+                        <p>Departure time : {{ clockout }}</p>
+                    </div>
+                </div>
+                
+                <div class="column is-5">
+                    <div class="box">
+                        <canvas id="myChart"></canvas>                        
                     </div>
                 </div>
             </div>

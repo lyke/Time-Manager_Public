@@ -1,13 +1,11 @@
 <template>
     <NavMenu></NavMenu>
     <section class="hero">
-        <div class="hero-body">
-            <div class="container has-text-left">
-                <div class="box">
-                    <p class="title grey-color">Profil</p>
-                    <hr class="grey-backgroundcolor">
-                    <button  @click.prevent="logout()" class="button is-danger">Logout</button>
-                </div>
+        <div class="hero-body has-text-left">
+            <div class="box">
+                <p class="title grey-color">Profil</p>
+                <hr class="grey-backgroundcolor">
+                <button  @click.prevent="logout()" class="button is-danger">Logout</button>
             </div>
         </div>
     </section>
