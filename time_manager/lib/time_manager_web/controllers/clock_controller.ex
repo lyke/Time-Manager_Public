@@ -30,26 +30,6 @@ defmodule TimeManagerWeb.ClockController do
     render(conn, :index, clocks: filtered_clocks)
   end
 
-  # def index_per_user_per_day(conn, %{"user_id" => id}) do
-  #   clocks = Clocks.list_clocks()
-  #   today_date = Timex.now("Europe/Paris") |> Timex.date
-  #   filtered_clocks = filter_clocks_for_today(clocks, id, today_date)
-  #   render(conn, :index, clocks: filtered_clocks)
-  # end
-
-  # defp filter_clocks_for_today(clocks, user_id, today_date) do
-  #   Enum.filter(clocks, fn clock ->
-  #     user_id == clock.fk_user &&
-  #     is_today(clock.time, today_date)
-  #   end)
-  # end
-
-  # defp is_today(timestamp_str, today_date) do
-  #   {:ok, timestamp} = Timex.from_string(timestamp_str, "{YYYY}-{0M}-{0D}T{0h}:{0m}:{0s}")
-  #   date = Timex.date(timestamp)
-  #   date == today_date
-  # end
-
   def create(conn, %{"clock" => clock_params}) do
     user_id = clock_params["fk_user"]
     last_clock = Clocks.get_last_clock(user_id)

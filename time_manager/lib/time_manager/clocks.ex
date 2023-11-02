@@ -106,10 +106,4 @@ defmodule TimeManager.Clocks do
     |> limit(1)
     |> Repo.one()
   end
-  # def get_last_clock_for_user(user_id) do
-  #   from(c in Clocks, where: c.fk_user == ^user_id)
-  #   |> order_by([c], desc: c.time)
-  #   |> limit(1)
-  #   |> Repo.one()
-  # end
 end
