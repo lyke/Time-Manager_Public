@@ -8,6 +8,9 @@ defmodule TimeManagerWeb.ClockJSON do
     %{data: for(clock <- clocks, do: data(clock))}
   end
 
+  def index_per_user_per_day(%{clocks: clocks}) do
+    %{data: for(clock <- clocks, do: data(clock))}
+  end
   @doc """
   Renders the list of clock linked with a user.
   """

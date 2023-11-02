@@ -3,6 +3,8 @@ defmodule TimeManagerWeb.ClockController do
 
   alias TimeManager.Clocks
   alias TimeManager.Clocks.Clock
+  import Timex
+  use Timex
 
 
 
@@ -11,6 +13,21 @@ defmodule TimeManagerWeb.ClockController do
   def index(conn, _params) do
     clocks = Clocks.list_clocks()
     render(conn, :index, clocks: clocks)
+  end
+
+  def index_per_user_per_day(conn, %{"user_id" => id}) do
+    clocks = Clocks.list_clocks()
+    filtered_clocks = Enum.filter(clocks, fn clock -> clock.fk_user == id end)
+
+    {:ok, today_date} = DateTime.now("Europe/Paris")
+    naive_datetime = DateTime.to_naive(today_date)
+    naive_datetime = NaiveDateTime.to_string(naive_datetime)
+    naive_datetime = String.slice(naive_datetime, 0..9)
+
+
+    filtered_clocks = Enum.filter(filtered_clocks, fn clock -> String.slice(NaiveDateTime.to_string(clock.time), 0..9) == naive_datetime end)
+
+    render(conn, :index, clocks: filtered_clocks)
   end
 
   def create(conn, %{"clock" => clock_params}) do
