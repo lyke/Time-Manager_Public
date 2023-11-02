@@ -1,7 +1,7 @@
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import {useState} from "react";
 
-export default function Input({value, onChangeText, title, isMail = false}) {
+export default function Input({value, onChangeText, title, isMail = false, isPwd = false}) {
     const [error, setError] = useState()
 
     const buildInput = (value, onChangeText, title) => {
@@ -9,12 +9,29 @@ export default function Input({value, onChangeText, title, isMail = false}) {
             <TextInput
                 placeholderTextColor={"#ccc"}
                 style={styles.input}
-                onChangeText={ value => {
+                onChangeText={value => {
                     onChangeText(value)
                     checkError(value)
-                } }
+                }}
                 value={value}
                 placeholder={title}
+            />
+        )
+    }
+
+    const buildPwdInput = (value, onChangeText, title) => {
+        return (
+            <TextInput
+                placeholderTextColor={"#ccc"}
+                style={styles.input}
+                onChangeText={value => {
+                    onChangeText(value)
+                    checkError(value)
+                }}
+                value={value}
+                placeholder={title}
+                textContentType={"password"}
+                secureTextEntry
             />
         )
     }
@@ -24,13 +41,13 @@ export default function Input({value, onChangeText, title, isMail = false}) {
             <TextInput
                 placeholderTextColor={"#ccc"}
                 style={styles.input}
-                onChangeText={ value => {
+                onChangeText={value => {
                     onChangeText(value)
                     checkError(value)
-                } }            value={value}
+                }} value={value}
                 placeholder={title}
                 autoComplete={"email"}
-                keyboardType={"email-address"}
+                inputMode={"email"}
             />
         )
     }
@@ -39,11 +56,11 @@ export default function Input({value, onChangeText, title, isMail = false}) {
     }
 
     const checkError = value => {
-        if (value === null || value.trim() === ""){
+        if (value === null || value.trim() === "") {
             setError(buildError(title + " is required"))
             return
         }
-        if (isMail && ! /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value)){
+        if (isMail && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value)) {
             setError(buildError("this field should be a valid email"))
             return
         }
@@ -51,7 +68,9 @@ export default function Input({value, onChangeText, title, isMail = false}) {
     }
 
 
-    const buildedInput = isMail ? buildMailInput(value, onChangeText, title) : buildInput(value, onChangeText, title)
+    const buildedInput = isMail ? buildMailInput(value, onChangeText, title)
+        : isPwd ? buildPwdInput(value, onChangeText, title)
+        : buildInput(value, onChangeText, title)
 
     return (
         <View style={styles.container}>
