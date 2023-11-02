@@ -10,7 +10,7 @@
                                 <p class="control has-icons-left">
                                     <input v-model="email" type="email" placeholder="Email" class="input" required>
                                     <span class="icon is-small is-left">
-                                        <ion-icon name="mail-outline"></ion-icon>
+                                        <ion-icon name="mail-sharp"></ion-icon>
                                     </span>
                                 </p>
                             </div>
@@ -18,7 +18,7 @@
                                 <p class="control has-icons-left">
                                     <input v-model="password" type="password" placeholder="Password" class="input" required>
                                     <span class="icon is-small is-left">
-                                        <ion-icon name="key-outline"></ion-icon>
+                                        <ion-icon name="key-sharp"></ion-icon>
                                     </span>
                                 </p>
                             </div>
