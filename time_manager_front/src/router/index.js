@@ -5,6 +5,7 @@ import TeamsView from '../views/TeamsView'
 import DashboardView from '../views/DashboardView'
 import ParameterView from '../views/ParameterView'
 import AdministrationView from '../views/AdministrationView'
+import UserDashboardView from '../views/UserDashboardView'
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     path: '/administration',
     name: 'administration',
     component: AdministrationView
+  },
+  {
+    path: '/userDashboard/:id',
+    name: 'userDashboard',
+    component: UserDashboardView
   }
 ]
 
