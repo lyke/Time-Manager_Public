@@ -4,9 +4,11 @@ import {useContext, useState} from "react";
 import TM_RequiredInput from "../components/TM_RequiredInput";
 import TM_Modal from "../components/TM_Modal";
 import {Context} from "../components/TM_ContextProvider";
+import {useNavigation} from "@react-navigation/native";
 
 export default function Register() {
     const {baseUri} = useContext(Context)
+    const navigation = useNavigation();
 
     const [modalVisible, setModalVisible] = useState(false)
     const [modalTextError, setModalTextError] = useState("")
@@ -21,6 +23,7 @@ export default function Register() {
     const [mailIsValid, setMailIsValid] = useState(false)
     const [pwdIsValid, setPwdIsValid] = useState(false)
 
+    const goToLogin = () => navigation.navigate('Login')
 
     const register = async () => {
         if (!validate()) return
@@ -41,10 +44,11 @@ export default function Register() {
                 },
                 body: JSON.stringify(body)
             })
-            if (response.status !== 201){
+            if (response.status !== 201) {
                 setModalTextError("cette address email est déjà utilisé")
                 setModalVisible(true)
             }
+            goToLogin()
         } catch (error) {
             setModalTextError("une erreur est survenue lors de la connection au serveur.\n\n veuillez réessayer plus tard")
             setModalVisible(true)
@@ -53,21 +57,21 @@ export default function Register() {
     }
 
     const validate = () => {
-        if ( ! firstnameIsValid ) return false
-        if ( ! lastnameIsValid ) return false
-        if ( ! mailIsValid ) return false
-        if ( ! pwdIsValid ) return false
+        if (!firstnameIsValid) return false
+        if (!lastnameIsValid) return false
+        if (!mailIsValid) return false
+        if (!pwdIsValid) return false
 
         return true
     }
 
-        return (
-            <View style={styles.container}>
-                <TM_Modal
-                    text={modalTextError}
-                    modalVisible={modalVisible}
-                    setModalVisible={setModalVisible}
-                    />
+    return (
+        <View style={styles.container}>
+            <TM_Modal
+                text={modalTextError}
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+            />
             <View style={styles.form}>
                 <Text style={styles.title}>Register</Text>
                 <TM_RequiredInput
@@ -97,14 +101,19 @@ export default function Register() {
                     isPwd
                 />
 
-                <View>
+                <View style={styles.buttonContainer}>
                     <Pressable
                         style={styles.button}
                         onPress={register}
                     >
-                        <Text
-                            style={styles.buttonText}
-                        > {"register"}</Text>
+                        <Text style={styles.buttonText}> {"register"}</Text>
+                    </Pressable>
+
+                    <Pressable
+                        style={styles.button}
+                        onPress={() => goToLogin()}
+                    >
+                        <Text style={styles.buttonText}> {"Go to Login"}</Text>
                     </Pressable>
                 </View>
             </View>
@@ -143,12 +152,19 @@ const styles = StyleSheet.create({
         marginBottom: "5%",
         paddingHorizontal: 10,
     },
+    buttonContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        width: "100%"
+    },
     button: {
         backgroundColor: 'blue',
         paddingHorizontal: 20,
         paddingVertical: 10,
         borderRadius: 5,
         marginTop: 10,
+        width: "max-content"
     },
     buttonText: {
         color: 'white',
