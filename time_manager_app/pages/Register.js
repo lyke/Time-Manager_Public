@@ -7,7 +7,8 @@ import TM_Modal from "../components/TM_Modal";
 export default function Register() {
     const baseUri = "http://localhost:4000/api"
 
-    const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false)
+    const [modalTextError, setModalTextError] = useState("")
 
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
@@ -34,9 +35,11 @@ export default function Register() {
                 body: JSON.stringify(body)
             })
             if (response.status !== 201){
+                setModalTextError("cette address email est déjà utilisé")
                 setModalVisible(true)
             }
         } catch (error) {
+            setModalTextError("une erreur est survenue lors de la connection au serveur.\n\n veuillez réessayer plus tard")
             setModalVisible(true)
         }
 
@@ -55,7 +58,7 @@ export default function Register() {
         return (
             <View style={styles.container}>
                 <TM_Modal
-                    text={"cette address email est déjà utilisé"}
+                    text={modalTextError}
                     modalVisible={modalVisible}
                     setModalVisible={setModalVisible}
                     />
