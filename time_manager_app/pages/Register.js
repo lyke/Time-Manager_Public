@@ -1,11 +1,12 @@
 import {StatusBar} from 'expo-status-bar';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import TM_Input from "../components/TM_Input";
 import TM_Modal from "../components/TM_Modal";
+import {Context} from "../components/TM_ContextProvider";
 
 export default function Register() {
-    const baseUri = "http://localhost:4000/api"
+    const {baseUri} = useContext(Context)
 
     const [modalVisible, setModalVisible] = useState(false)
     const [modalTextError, setModalTextError] = useState("")
