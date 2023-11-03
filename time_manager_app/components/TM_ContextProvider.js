@@ -12,12 +12,13 @@ export const TM_ContextProvider = ({children}) => {
     function logout() {
         setToken(null)
         setUser(null)
-        goToLogin()
+        goToPages.goToLogin()
     }
 
     const goToPages = {
         goToLogin: () => { goTo('Login') },
-        goToRegister: () => { goTo('Register') }
+        goToRegister: () => { goTo('Register') },
+        goToDashBoard: () => { goTo('Dashboard') }
     }
 
     function goTo(page){ navigation.navigate(page)}

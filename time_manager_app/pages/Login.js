@@ -7,6 +7,7 @@ import {Context} from "../components/TM_ContextProvider";
 
 export default function Login() {
     const context = useContext(Context)
+    const {goToPages} = useContext(Context)
 
     const [modalVisible, setModalVisible] = useState(false)
     const [modalTextError, setModalTextError] = useState("")
@@ -45,6 +46,7 @@ export default function Login() {
             const idUser = data.user_id
             const userResponse = await fetch(context.baseUri + "/users/" + idUser)
             context.setUser((await userResponse.json()).data)
+            goToPages.goToDashBoard()
         } catch (error) {
             setModalTextError("une erreur est survenue lors de la connection au serveur.\n\n veuillez réessayer plus tard")
             setModalVisible(true)
@@ -94,7 +96,7 @@ export default function Login() {
                     </Pressable>
                     <Pressable
                         style={styles.button}
-                        onPress={() => context.goToPages.goToRegister()}
+                        onPress={() => goToPages.goToRegister()}
                     >
                         <Text style={styles.buttonText}> {"Go to register"}</Text>
                     </Pressable>
