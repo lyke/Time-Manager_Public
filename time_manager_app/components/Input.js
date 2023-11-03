@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
         marginBottom: "5%",
     },
     title: {
-        fontSize: 'medium',
+        fontSize: 16,
         fontWeight: 'bold',
         paddingLeft: 5,
         marginBottom: '1%',
@@ -102,6 +102,6 @@ const styles = StyleSheet.create({
     error: {
         color: 'red',
         textAlign: 'right',
-        fontSize: 'x-small',
+        fontSize: 10,
     }
 });

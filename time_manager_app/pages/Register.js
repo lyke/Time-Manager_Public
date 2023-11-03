@@ -5,7 +5,7 @@ import Input from "../components/Input";
 import {Context} from "../components/ContextProvider";
 
 export default function Register() {
-    const {baseUri} = useContext(Context)
+    const baseUri = "http://localhost:4000/api"
 
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
@@ -45,7 +45,7 @@ export default function Register() {
             body: JSON.stringify(body)
         })
         if (response.status !== 201){
-
+            console.log("erreur mail")
         }
     }
 
@@ -83,6 +83,7 @@ export default function Register() {
                     value={pwd}
                     onChangeText={setPwd}
                     title={"password"}
+                    isPwd
                 />
 
                 <View>
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
         padding: "3%"
     },
     title: {
-        fontSize: "Large",
+        fontSize: 20,
         fontWeight: "bold",
         marginBottom: "6%",
     },
