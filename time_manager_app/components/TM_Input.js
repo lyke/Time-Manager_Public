@@ -1,7 +1,7 @@
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import {useState} from "react";
 
-export default function Input({value, onChangeText, title, isMail = false, isPwd = false}) {
+export default function TM_Input({value, onChangeText, title, isMail = false, isPwd = false}) {
     const [error, setError] = useState()
 
     const buildInput = (value, onChangeText, title) => {
