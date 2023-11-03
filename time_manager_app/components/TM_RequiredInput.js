@@ -1,7 +1,7 @@
 import {StyleSheet, Text, TextInput, View} from "react-native";
 import {useState} from "react";
 
-export default function TM_Input({value, onChangeText, title, isMail = false, isPwd = false}) {
+export default function TM_RequiredInput({value, onChangeText, title, setIsValide, isMail = false, isPwd = false}) {
     const [error, setError] = useState()
 
     const buildInput = (value, onChangeText, title) => {
@@ -58,13 +58,16 @@ export default function TM_Input({value, onChangeText, title, isMail = false, is
     const checkError = value => {
         if (value === null || value.trim() === "") {
             setError(buildError(title + " is required"))
+            setIsValide(false)
             return
         }
         if (isMail && !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value)) {
             setError(buildError("this field should be a valid email"))
+            setIsValide(false)
             return
         }
         setError(null)
+        setIsValide(true)
     }
 
 

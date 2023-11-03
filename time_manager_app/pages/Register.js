@@ -1,7 +1,7 @@
 import {StatusBar} from 'expo-status-bar';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {useContext, useState} from "react";
-import TM_Input from "../components/TM_Input";
+import TM_RequiredInput from "../components/TM_RequiredInput";
 import TM_Modal from "../components/TM_Modal";
 import {Context} from "../components/TM_ContextProvider";
 
@@ -15,6 +15,12 @@ export default function Register() {
     const [lastname, setLastname] = useState('')
     const [mail, setMail] = useState('')
     const [pwd, setPwd] = useState('')
+
+    const [firstnameIsValid, setFirstnameIsValid] = useState(false)
+    const [lastnameIsValid, setLastnameIsValid] = useState(false)
+    const [mailIsValid, setMailIsValid] = useState(false)
+    const [pwdIsValid, setPwdIsValid] = useState(false)
+
 
     const register = async () => {
         if (!validate()) return
@@ -47,11 +53,10 @@ export default function Register() {
     }
 
     const validate = () => {
-        if (firstname === null || firstname.trim() === "") return false
-        if (lastname === null || lastname.trim() === "") return false
-        if (mail === null || mail.trim() === "") return false
-        if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(mail)) return false
-        if (pwd === null || pwd.trim() === "") return false
+        if ( ! firstnameIsValid ) return false
+        if ( ! lastnameIsValid ) return false
+        if ( ! mailIsValid ) return false
+        if ( ! pwdIsValid ) return false
 
         return true
     }
@@ -65,25 +70,29 @@ export default function Register() {
                     />
             <View style={styles.form}>
                 <Text style={styles.title}>Register</Text>
-                <TM_Input
+                <TM_RequiredInput
                     value={firstname}
                     onChangeText={setFirstname}
+                    setIsValide={setFirstnameIsValid}
                     title={"firstname"}
                 />
-                <TM_Input
+                <TM_RequiredInput
                     value={lastname}
                     onChangeText={setLastname}
+                    setIsValide={setLastnameIsValid}
                     title={"lastname"}
                 />
-                <TM_Input
+                <TM_RequiredInput
                     value={mail}
                     onChangeText={setMail}
+                    setIsValide={setMailIsValid}
                     title={"mail"}
                     isMail
                 />
-                <TM_Input
+                <TM_RequiredInput
                     value={pwd}
                     onChangeText={setPwd}
+                    setIsValide={setPwdIsValid}
                     title={"password"}
                     isPwd
                 />
