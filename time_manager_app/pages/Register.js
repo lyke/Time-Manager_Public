@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         width: "80%",
         maxWidth: 600,
+        borderRadius: 30,
         alignItems: 'center',
         justifyContent: 'center',
         padding: "3%"
@@ -139,15 +140,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: "bold",
         marginBottom: "6%",
-    },
-    input: {
-        width: '90%',
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        marginBottom: "5%",
-        paddingHorizontal: 10,
     },
     buttonContainer: {
         display: "flex",
