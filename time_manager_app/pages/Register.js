@@ -1,8 +1,7 @@
 import {StatusBar} from 'expo-status-bar';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {useContext, useEffect, useState} from "react";
+import {useState} from "react";
 import Input from "../components/Input";
-import {Context} from "../components/ContextProvider";
 
 export default function Register() {
     const baseUri = "http://localhost:4000/api"
