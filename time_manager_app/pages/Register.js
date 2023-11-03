@@ -12,20 +12,6 @@ export default function Register() {
     const [mail, setMail] = useState('')
     const [pwd, setPwd] = useState('')
 
-    // Listen for enter key pressed
-    useEffect(() => {
-        const keyDownHandler = event => {
-            if (event.key === 'Enter') {
-                event.preventDefault()
-                register()
-            }
-        };
-        document.addEventListener('keydown', keyDownHandler);
-        return () => {
-            document.removeEventListener('keydown', keyDownHandler);
-        };
-    });
-
     const register = async () => {
         if (!validate()) return
 
