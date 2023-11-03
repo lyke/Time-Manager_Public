@@ -1,10 +1,13 @@
 import {StatusBar} from 'expo-status-bar';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {useState} from "react";
-import Input from "../components/Input";
+import TM_Input from "../components/TM_Input";
+import TM_Modal from "../components/TM_Modal";
 
 export default function Register() {
     const baseUri = "http://localhost:4000/api"
+
+    const [modalVisible, setModalVisible] = useState(false);
 
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
@@ -22,16 +25,21 @@ export default function Register() {
                 password: pwd
             }
         }
-        const response = await fetch(baseUri + "/users", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(body)
-        })
-        if (response.status !== 201){
-            console.log("erreur mail")
+        try {
+            const response = await fetch(baseUri + "/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body)
+            })
+            if (response.status !== 201){
+                setModalVisible(true)
+            }
+        } catch (error) {
+            setModalVisible(true)
         }
+
     }
 
     const validate = () => {
@@ -44,27 +52,32 @@ export default function Register() {
         return true
     }
 
-    return (
-        <View style={styles.container}>
+        return (
+            <View style={styles.container}>
+                <TM_Modal
+                    text={"cette address email est déjà utilisé"}
+                    modalVisible={modalVisible}
+                    setModalVisible={setModalVisible}
+                    />
             <View style={styles.form}>
                 <Text style={styles.title}>Register</Text>
-                <Input
+                <TM_Input
                     value={firstname}
                     onChangeText={setFirstname}
                     title={"firstname"}
                 />
-                <Input
+                <TM_Input
                     value={lastname}
                     onChangeText={setLastname}
                     title={"lastname"}
                 />
-                <Input
+                <TM_Input
                     value={mail}
                     onChangeText={setMail}
                     title={"mail"}
                     isMail
                 />
-                <Input
+                <TM_Input
                     value={pwd}
                     onChangeText={setPwd}
                     title={"password"}
