@@ -6,8 +6,6 @@ import TM_Modal from "../components/TM_Modal";
 import {Context} from "../components/TM_ContextProvider";
 
 export default function Login() {
-    const {baseUri} = useContext(Context)
-    const {token} = useContext(Context)
     const context = useContext(Context)
 
     const [modalVisible, setModalVisible] = useState(false)
@@ -28,7 +26,7 @@ export default function Login() {
                 password: pwd
         }
         try {
-            const response = await fetch(baseUri + "/login", {
+            const response = await fetch(context.baseUri + "/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -43,7 +41,10 @@ export default function Login() {
 
             const data = await response.json()
             context.setToken(data.token)
-            console.log(token)
+
+            const idUser = data.user_id
+            const userResponse = await fetch(context.baseUri+"/users/"+idUser)
+            context.setUser( (await userResponse.json()).data )
         } catch (error) {
             setModalTextError("une erreur est survenue lors de la connection au serveur.\n\n veuillez réessayer plus tard")
             setModalVisible(true)
