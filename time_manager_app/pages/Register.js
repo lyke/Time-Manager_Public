@@ -6,7 +6,7 @@ import TM_Modal from "../components/TM_Modal";
 import {Context} from "../components/TM_ContextProvider";
 
 export default function Register() {
-    const context = useContext(Context)
+    const {goToPages} = useContext(Context)
     const {baseUri} = useContext(Context)
 
     const [modalVisible, setModalVisible] = useState(false)
@@ -45,7 +45,7 @@ export default function Register() {
                 setModalTextError("cette address email est déjà utilisé")
                 setModalVisible(true)
             }
-            context.goToLogin()
+            goToPages.goToLogin()
         } catch (error) {
             setModalTextError("une erreur est survenue lors de la connection au serveur.\n\n veuillez réessayer plus tard")
             setModalVisible(true)
@@ -108,7 +108,7 @@ export default function Register() {
 
                     <Pressable
                         style={styles.button}
-                        onPress={() => context.goToLogin()}
+                        onPress={() => goToPages.goToLogin()}
                     >
                         <Text style={styles.buttonText}> {"Go to Login"}</Text>
                     </Pressable>

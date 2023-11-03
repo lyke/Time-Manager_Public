@@ -15,12 +15,15 @@ export const TM_ContextProvider = ({children}) => {
         goToLogin()
     }
 
-    function goToLogin() {
-        navigation.navigate('Login')
+    const goToPages = {
+        goToLogin: () => { goTo('Login') },
+        goToRegister: () => { goTo('Register') }
     }
 
+    function goTo(page){ navigation.navigate(page)}
+
     return (
-        <Context.Provider value={{baseUri, token, setToken, user, setUser, goToLogin, logout}}>
+        <Context.Provider value={{baseUri, token, setToken, user, setUser, goToPages, logout}}>
             {children}
         </Context.Provider>
     )

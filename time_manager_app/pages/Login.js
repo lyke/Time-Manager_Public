@@ -22,8 +22,8 @@ export default function Login() {
         if (!validate()) return
 
         const body = {
-                email: mail,
-                password: pwd
+            email: mail,
+            password: pwd
         }
         try {
             const response = await fetch(context.baseUri + "/login", {
@@ -33,7 +33,7 @@ export default function Login() {
                 },
                 body: JSON.stringify(body)
             })
-            if (response.status !== 200){
+            if (response.status !== 200) {
                 setModalTextError("Erreur d'identifiants.\n\nConnexion impossible")
                 setModalVisible(true)
                 return
@@ -43,8 +43,8 @@ export default function Login() {
             context.setToken(data.token)
 
             const idUser = data.user_id
-            const userResponse = await fetch(context.baseUri+"/users/"+idUser)
-            context.setUser( (await userResponse.json()).data )
+            const userResponse = await fetch(context.baseUri + "/users/" + idUser)
+            context.setUser((await userResponse.json()).data)
         } catch (error) {
             setModalTextError("une erreur est survenue lors de la connection au serveur.\n\n veuillez réessayer plus tard")
             setModalVisible(true)
@@ -53,8 +53,8 @@ export default function Login() {
     }
 
     const validate = () => {
-        if ( ! mailIsValid ) return false
-        if ( ! pwdIsValid ) return false
+        if (!mailIsValid) return false
+        if (!pwdIsValid) return false
 
         return true
     }
@@ -83,7 +83,7 @@ export default function Login() {
                     isPwd
                 />
 
-                <View>
+                <View style={styles.buttonContainer}>
                     <Pressable
                         style={styles.button}
                         onPress={login}
@@ -91,6 +91,12 @@ export default function Login() {
                         <Text
                             style={styles.buttonText}
                         > {"Log In"}</Text>
+                    </Pressable>
+                    <Pressable
+                        style={styles.button}
+                        onPress={() => context.goToPages.goToRegister()}
+                    >
+                        <Text style={styles.buttonText}> {"Go to register"}</Text>
                     </Pressable>
                 </View>
             </View>
@@ -128,6 +134,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: "5%",
         paddingHorizontal: 10,
+    },
+    buttonContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        width: "100%"
     },
     button: {
         backgroundColor: 'blue',
