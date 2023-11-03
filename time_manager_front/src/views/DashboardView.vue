@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="field">
-                            <button @click.prevent="enableInputs()" class="button is-info mx-1">Edit</button>
+                            <button @click.prevent="enableUpdateUserInputs()" class="button is-info mx-1">Edit</button>
                             <button @click.prevent="updateUser()" class="button is-success mx-1" id="update-user-button" method="put">Validate</button>
                             <button class="button is-danger mx-1">Delete</button>
                         </div>
@@ -60,10 +60,10 @@
                         <p><strong>Arrival and departure times</strong></p>
                         <br>
                         <div class="field">
-                            <button id="clockin" class="button gradiant has-text-white" @click.prevent="clockIn()">Clock'in</button>
+                            <button id="clockin" class="button gradiant has-text-white" @click.prevent="clock()">Clock'in</button>
                         </div>
                         <div class="field">
-                            <button class="button gradiant has-text-white" @click.prevent="clockOut()">Clock'out</button>
+                            <button class="button gradiant has-text-white" @click.prevent="clock()">Clock'out</button>
                         </div>
                     </form>
                     
@@ -76,7 +76,7 @@
                 
                 <div class="column is-5">
                     <div class="box">
-                        <canvas id="myChart"></canvas>                        
+                        <ChartDoughnut></ChartDoughnut>
                     </div>
                 </div>
             </div>
@@ -92,164 +92,81 @@
 
 <script>
 import NavMenu from '@/components/NavMenu.vue';
-import Chart from 'chart.js/auto';
+import ChartDoughnut from '@/components/ChartDoughnut.vue'
+// eslint-disable-next-line no-unused-vars
+import { enableUpdateUserInputs, disableUpdateUserInputs } from '@/plugins/DashboardPlugin.js'
+import { getCurrentTime } from '@/plugins/DatetimePlugin.js';
+import { isUserManager } from '@/plugins/UserPlugin.js'
 import axios from 'axios';
 
-    export default{
-        data: function() {
-            return {
-                id: "",
-                firstname: "",
-                lastname: "",
-                email: "",
-                role: "",
-                team: "",
-                isManager: false,
-                clockin: null,
-                clockout: null
-            };
-        },
-        methods: {
-            getUser() {
-                const url = "http://localhost:4000/api/users/" + localStorage.getItem("user_id");
-                axios
-                    .get(url)
-                    .then(res => {
-                        this.id = res.data.data.id;
-                        this.email = res.data.data.email;
-                        this.firstname = res.data.data.firstname;
-                        this.lastname = res.data.data.lastname;
-                        this.role = res.data.data.role;
-                        res.data.data.teams.forEach(team => {
-                            this.team = team.name;
-                        });
-                        this.isUserManager();
-                    })
-                    .catch(function(error) {
-                        console.error('Error fetching user data:', error);
+export default {
+    data: function() {
+        return {
+            id: "",
+            firstname: "",
+            lastname: "",
+            email: "",
+            role: "",
+            team: "",
+            isManager: false,
+            clockin: null,
+            clockout: null
+        };
+    },
+    methods: {
+        getUser() {
+            axios.get("/users/" + this.id)
+                .then(res => {
+                    this.id = res.data.data.id;
+                    this.email = res.data.data.email;
+                    this.firstname = res.data.data.firstname;
+                    this.lastname = res.data.data.lastname;
+                    this.role = res.data.data.role;
+                    res.data.data.teams.forEach(team => {
+                        this.team = team.name;
                     });
-            },
-            hide() {
-                document.getElementsByName("email")[0].disabled = true;
-                document.getElementsByName("firstname")[0].disabled = true;
-                document.getElementsByName("lastname")[0].disabled = true;
-                document.getElementsByName("password")[0].disabled = true;
-                document.getElementById("update-user-button").style.display = "none";
-            },
-            enableInputs() {
-                var updateUserButton = document.getElementById("update-user-button").style.display;
-                if (updateUserButton == "initial") {
-                    this.hide();
-                } else {
-                    document.getElementsByName("email")[0].disabled = false;
-                    document.getElementsByName("firstname")[0].disabled = false;
-                    document.getElementsByName("lastname")[0].disabled = false;
-                    document.getElementsByName("password")[0].disabled = false;
-                    document.getElementById("update-user-button").style.display = "initial";
+                    this.isManager = isUserManager();
+                });
+        },
+        updateUser() {
+            const putUser = {
+                "user": {
+                    email: this.email,
+                    firstname: this.firstname,
+                    lastname: this.lastname,
+                    password: this.password
                 }
-            },
-            updateUser() {
-                const putUser = {
-                    "user": {
-                        email: this.email,
-                        firstname: this.firstname,
-                        lastname: this.lastname,
-                        password: this.password
-                    }
-                }
-
-                axios.defaults.baseURL = 'http://localhost:4000/api';
-                axios
-                    .put("/users/" + localStorage.getItem("user_id"), putUser)
-                    .then(
-                        this.hide()
-                    )
-                    .catch(function(error) {
-                        console.log(error);
-                    })
-            },
-            isUserManager() {
-                if (this.role === "manager" || this.role === "super_manager") {
-                    this.isManager = true;
-                } else {
-                    this.isManager = false; 
-                }
-            },
-            getCurrentTime() {
-                var date = new Date();
-                const year = date.getFullYear();
-                const month = date.getMonth() + 1;
-                const day = date.getDate();
-                const hours = date.getHours();
-                const formattedHours = hours < 10 ? '0' + hours : hours;
-                const minutes = date.getMinutes();
-                const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-
-                return year + "-" + month + "-" + day + "T" + formattedHours + ":" + formattedMinutes;
-            },
-            clockIn() {
-                const postClock = {
-                    "clock": {
-                        time: this.getCurrentTime(),
-                        status: "true",
-                        fk_user: localStorage.getItem("user_id")
-                    }
-                }
-
-                axios.defaults.baseURL = 'http://localhost:4000/api';
-                axios
-                    .post("/clocks", postClock)
-                    .then(
-                        document.getElementById("clockin").disabled = "true"
-                    )
-                    .catch(function(error) {
-                        console.log(error);
-                    })
-            },
-            clockOut() {
-                const postClock = {
-                    "clock": {
-                        time: this.getCurrentTime(),
-                        status: "false",
-                        fk_user: localStorage.getItem("user_id")
-                    }
-                }
-
-                axios.defaults.baseURL = 'http://localhost:4000/api';
-                axios
-                    .post("/clocks", postClock)
-                    .then()
-                    .catch(function(error) {
-                        console.log(error);
-                    })
             }
+            axios.put("/users/" + this.id, putUser).then(disableUpdateUserInputs());
         },
-        getLastClockin() {
-            axios.defaults.baseURL = 'http://localhost:4000/api';
+        clock() {
+            const postClock = {
+                "clock": {
+                    time: getCurrentTime(),
+                    fk_user: this.id
+                }
+            }
+            axios.post("/clocks", postClock).then(document.getElementById("clockin").disabled = "true");
         },
-        mounted() {
-            this.getUser();
-
-            const ctx = document.getElementById('myChart');
-            const data = {
-                labels: [
-                    'Task 1',
-                    'Task 2',
-                    'Task 3'
-                ],
-                datasets: [{
-                        label: 'My First Dataset',
-                        data: [300, 50, 100],
-                        backgroundColor: [
-                            'rgb(255, 99, 132)',
-                            'rgb(54, 162, 235)',
-                            'rgb(255, 205, 86)'
-                        ],
-                        hoverOffset: 4
-                    }]
-            };
-            new Chart(ctx, { type: 'doughnut', data: data });
-        },
-        components: { NavMenu }
+        getTodayClocks() {
+            axios
+                .get('/users/' + this.id + '/today_clocks')
+                .then(res => {
+                    res.data.data.forEach(result => {
+                        if(result.status === true) {
+                            this.clockin = result.time.split("T")[1];
+                        } else {
+                            this.clockout = result.time.split("T")[1];
+                        }
+                    })
+                });
+        }
+    },
+    mounted() {
+        this.id = localStorage.getItem("user_id");
+        this.getUser();
+        this.getTodayClocks();
+    },
+    components: { NavMenu, ChartDoughnut }
 }
 </script>

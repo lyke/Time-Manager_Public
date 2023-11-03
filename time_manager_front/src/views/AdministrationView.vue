@@ -111,7 +111,6 @@ export default {
             axios.defaults.baseURL = 'http://localhost:4000/api';
             axios
               .post("/teams", team)
-              .then()
               .catch(function(error) {
                     console.log(error)
                 })
@@ -125,7 +124,6 @@ export default {
             axios.defaults.baseURL = 'http://localhost:4000/api';
             axios
                 .put("/users/" + id, user)
-                .then()
                 .catch(function(error) {
                     console.log(error);
                 })

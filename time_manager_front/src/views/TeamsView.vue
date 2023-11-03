@@ -107,10 +107,8 @@ export default{
         var filter = this.teams.filter(team =>
           team.user.some(user => user.id === this.id)
         );
-
         return filter;
       }
-
       return this.teams;
     }
   },
