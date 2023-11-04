@@ -2,7 +2,7 @@
     <nav>
         <router-link v-if="isSuperManager" to="/administration">Administration | </router-link>
         <router-link v-if="isManager" to="/teams">Teams | </router-link>
-        <router-link to="/dashboard">Dashboard | </router-link>
+        <router-link :to="{name:'dashboard', params: {id: userId}}">Dashboard | </router-link>
         <router-link to="/parameter">Parameter</router-link>
     </nav>
 </template>
@@ -30,7 +30,8 @@ export default {
     return {
       isSuperManager: false,
       isManager: false,
-      role: ""
+      role: "",
+      userId: localStorage.getItem('user_id')
     }
   },
   methods: {
@@ -50,16 +51,12 @@ export default {
       }
     },
     getRole() {
-      const url = "http://localhost:4000/api/users/" + localStorage.getItem("user_id");
       axios
-        .get(url)
+        .get("/users/" + localStorage.getItem("user_id"))
         .then(res => {
             this.role = res.data.data.role;
             this.isUserManager();
             this.isUserSuperManager();
-        })
-        .catch(function(error) {
-            console.error('Error fetching user data:', error);
         });
     }
   },

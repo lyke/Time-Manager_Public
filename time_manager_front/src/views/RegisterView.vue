@@ -90,21 +90,11 @@ export default {
                     role: "user"
                 }
             };
-            axios.defaults.baseURL = 'http://localhost:4000/api';
+
             axios
                 .post("/users", postData)
-                .then(res => {
-                    console.log(res.body);
-                })
-                axios
-                .post("/users", postData)
-                .then(res => {
-                console.log(res.body);
-                })
-                .catch(function (error){
-                    document.getElementById("error").style.display = "block";
-                    console.log(error);
-                });
+                .then(this.$router.push({name: "login"}))
+                .catch(document.getElementById("error").style.display = "block");
         },
         closeError() {
             document.getElementById("error").style.display = "none";
