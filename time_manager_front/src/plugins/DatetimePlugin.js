@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 export function getCurrentTime() {
     var date = new Date();
     const year = date.getFullYear();
