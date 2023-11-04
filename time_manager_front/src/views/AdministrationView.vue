@@ -38,12 +38,12 @@
                         <p>{{ user.role }}</p>
                     </div>
                     <div class="column">
-                        <p v-if="user.role == 'super_manager'">admin</p>
+                        <p v-if="user.role == 'super_manager'">Admin</p>
                         <p v-else-if="user.teams.length == 0">not assigned</p>
-                        <label v-else v-for="team in user.teams" :key="team.id">{{ team.name }} </label>
+                        <label v-else v-for="team in user.teams" :key="team.id">{{ team.name }} <label></label></label>
                     </div>
                     <div class="column">
-                        <button v-if="user.role == 'user' && user.teams.length == 1" @click.prevent="openModal(user)" class="button is-success" disabled>
+                        <button v-if="user.role == 'user' && user.teams.length > 0" @click.prevent="openModal(user)" class="button is-success" disabled>
                             <ion-icon name="person-add-sharp"></ion-icon>
                         </button>
                         <button v-else-if="user.role != 'super_manager'" @click.prevent="openModal(user)" class="button is-success">
@@ -63,10 +63,13 @@
                         <button v-if="user.role === 'user'" @click.prevent="updateUserToManager(user.id)" class="button is-info has-text-white mx-1">
                             <ion-icon name="chevron-up-sharp"></ion-icon>
                         </button>
+                        <button v-if="user.role === 'manager'" @click.prevent="downgradeManagerToUser(user.id)" class="button is-warning has-text-black mx-1">
+                            <ion-icon name="chevron-down-sharp"></ion-icon>
+                        </button>
                         <button v-if="user.role === 'user' || user.role === 'manager'" class="button is-danger mx-1">
                             <ion-icon name="trash-bin-sharp"></ion-icon>
                         </button>
-                        <router-link :to="{name:'userDashboard', params: {id: user.id}} " class="button mx-1 is-success">
+                        <router-link :to="{name:'dashboard', params: {id: user.id}} " class="button mx-1 is-success">
                             <ion-icon name="clipboard-sharp"></ion-icon>
                         </router-link>
                     </div>
@@ -92,15 +95,9 @@ export default {
     },
     methods: {
         getAllUsers() {
-            axios.defaults.baseURL = 'http://localhost:4000/api';
             axios
                 .get("/users")
-                .then(res => {
-                    this.users = res.data.data;
-                })
-                .catch(function(error) {
-                    console.log(error)
-                })
+                .then(res => {this.users = res.data.data;});
         },
         createTeam() {
             const team = {
@@ -108,12 +105,7 @@ export default {
                     name: this.teamName
                 }
             }
-            axios.defaults.baseURL = 'http://localhost:4000/api';
-            axios
-              .post("/teams", team)
-              .catch(function(error) {
-                    console.log(error)
-                })
+            axios.post("/teams", team);
         },
         updateUserToManager(id) {
             const user = {
@@ -121,13 +113,15 @@ export default {
                     "role": "manager"
                 }
             }
-            axios.defaults.baseURL = 'http://localhost:4000/api';
-            axios
-                .put("/users/" + id, user)
-                .catch(function(error) {
-                    console.log(error);
-                })
-
+            axios.put("/users/" + id, user)
+        },
+        downgradeManagerToUser(id) {
+            const user = {
+                "user": {
+                    "role": "user"
+                }
+            }
+            axios.put("/users/" + id, user)
         },
         openModal(user) {
             this.currentUser = user;
@@ -145,6 +139,9 @@ export default {
     mounted() {
         this.getAllUsers();
         document.addEventListener('keydown', this.onKeyDown);
+    },
+    updated() {
+        this.getAllUsers();  
     },
     beforeUnmount() {
         document.removeEventListener('keydown', this.onKeyDown);

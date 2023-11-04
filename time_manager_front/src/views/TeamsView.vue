@@ -38,7 +38,7 @@
                 <p><strong class="has-text-black">Email :</strong> {{ user.email }}</p>
               </div>
               <div class="column is-2 has-text-right">
-                <router-link :to="{name:'userDashboard', params: {id: user.id}}" class="button is-success">
+                <router-link :to="{name:'dashboard', params: {id: user.id}}" class="button is-success">
                   <ion-icon name="clipboard-sharp"></ion-icon>
                 </router-link>
               </div>
@@ -65,7 +65,6 @@ export default{
   },
   methods: {
     getAllTeams() {
-      axios.defaults.baseURL = "http://localhost:4000/api"
       axios
         .get("/teams")
         .then(res => {
@@ -89,9 +88,8 @@ export default{
         })
     },
     getUser() {
-      const url = "http://localhost:4000/api/users/" + localStorage.getItem("user_id");
       axios
-        .get(url)
+        .get("/users/" + localStorage.getItem("user_id"))
         .then(res => {
           this.role = res.data.data.role;
           this.id = res.data.data.id;

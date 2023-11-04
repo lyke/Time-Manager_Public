@@ -70,19 +70,16 @@ export default {
                 email: this.email,
                 password: this.password,
             };
-            axios.defaults.baseURL = 'http://localhost:4000/api';
             axios
                 .post("/login", postData)
                 .then(res => {
                         localStorage.setItem("user_id", res.data.user_id);
                         this.$router.push({
-                            name: "dashboard"
+                            name: "dashboard",
+                            params: {id: localStorage.getItem("user_id")}
                         }) 
                     })
-                .catch(function(error) {
-                    console.log(error)
-                    document.getElementById("error").style.display = "block"; 
-                });
+                .catch(document.getElementById("error").style.display = "block");
         },
         closeError() {
             document.getElementById("error").style.display = "none";

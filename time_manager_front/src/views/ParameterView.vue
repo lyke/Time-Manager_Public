@@ -26,9 +26,7 @@ import NavMenu from '@/components/NavMenu.vue';
 
 export default{
     methods: {
-        logout() {
-            this.$router.push({name: "login"})
-        }
+        logout() {this.$router.push({name: "login"})}
     },
     components: { NavMenu }
 }
