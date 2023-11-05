@@ -23,14 +23,4 @@ defmodule TimeManager.Accounts.User do
     |> cast(attrs, [:firstname, :lastname, :email, :password, :role])
     |> validate_required([:firstname, :lastname, :email, :password, :role])
   end
-
-  defimpl Canada.Can, for: MyApp.User do
-    def can?(%MyApp.User{id: user_id}, action, %Post{user_id: user_id})
-      when action in [:update, :read, :destroy, :touch], do: true
-
-    def can?(%MyApp.User{admin: admin}, action, _)
-      when action in [:update, :read, :destroy, :touch], do: admin
-
-    def can?(%MyApp.User{}, :create, Post), do: true
-  end
 end
