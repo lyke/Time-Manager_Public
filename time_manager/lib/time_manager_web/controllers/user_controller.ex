@@ -33,14 +33,14 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def index(conn, _params) do
-    if verify_role_manager(conn, "manager") || verify_role_super_manager(conn, "super_manager") do
+    # if verify_role_manager(conn, "manager") || verify_role_super_manager(conn, "super_manager") do
       users = Accounts.list_users()
       render(conn, :index, users: users)
-    else
-      conn
-      |> put_status(:unauthorized)
-      |> json(%{error: gettext("unauthorized")})
-    end
+    # else
+    #   conn
+    #   |> put_status(:unauthorized)
+    #   |> json(%{error: gettext("unauthorized")})
+    # end
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -54,7 +54,7 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    if verify_role_manager(conn, "manager") || verify_role_super_manager(conn, "super_manager") || verify_user_id(conn, id) do
+    if verify_role_manager(conn, "manager") || verify_role_super_manager(conn, "super_manager") ||verify_user_id(conn, id) do
       user = Accounts.get_user!(id)
       render(conn, :show, user: user)
     else
