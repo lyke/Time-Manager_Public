@@ -3,7 +3,7 @@ import {useNavigation} from "@react-navigation/native";
 
 export const Context = createContext()
 export const TM_ContextProvider = ({children}) => {
-    const baseUri = "http://localhost:4000/api"
+    const baseUri = "https://time-manager-epitech.gigalixirapp.com/api"
     const [token, setToken] = useState(null)
     const [user, setUser] = useState(null)
 
