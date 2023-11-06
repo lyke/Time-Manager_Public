@@ -3,7 +3,8 @@ defmodule TimeManagerWeb.ClockController do
 
   alias TimeManager.Clocks
   alias TimeManager.Clocks.Clock
-  import Timex
+  import TimeManagerWeb.Authorization
+  # import Timex
   use Timex
 
 
@@ -11,8 +12,14 @@ defmodule TimeManagerWeb.ClockController do
   action_fallback TimeManagerWeb.FallbackController
 
   def index(conn, _params) do
-    clocks = Clocks.list_clocks()
-    render(conn, :index, clocks: clocks)
+    if verify_role_super_manager(conn, "super_manager") do
+      clocks = Clocks.list_clocks()
+      render(conn, :index, clocks: clocks)
+    else
+      conn
+      |> put_status(:unauthorized)
+      |> json(%{error: gettext("unauthorized")})
+    end
   end
 
   def index_per_user_per_day(conn, %{"user_id" => id}) do

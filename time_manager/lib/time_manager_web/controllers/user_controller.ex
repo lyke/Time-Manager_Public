@@ -33,14 +33,14 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def index(conn, _params) do
-    # if verify_role_manager(conn, "manager") || verify_role_super_manager(conn, "super_manager") do
+    if verify_role_super_manager(conn, "super_manager") do
       users = Accounts.list_users()
       render(conn, :index, users: users)
-    # else
-    #   conn
-    #   |> put_status(:unauthorized)
-    #   |> json(%{error: gettext("unauthorized")})
-    # end
+    else
+      conn
+      |> put_status(:unauthorized)
+      |> json(%{error: gettext("unauthorized")})
+    end
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -54,7 +54,8 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    if verify_role_manager(conn, "manager") || verify_role_super_manager(conn, "super_manager") ||verify_user_id(conn, id) do
+    IO.inspect(verify_role_manager(conn, "manager"))
+    if verify_role_super_manager(conn, "super_manager") || (verify_role_manager(conn, "manager") && is_same_team(conn, id)) || verify_user_id(conn, id) do
       user = Accounts.get_user!(id)
       render(conn, :show, user: user)
     else
@@ -65,7 +66,7 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    if verify_role_manager(conn, "manager") || verify_role_super_manager(conn, "super_manager") || verify_user_id(conn, id) do
+    if verify_role_super_manager(conn, "super_manager") || verify_user_id(conn, id) do
       user = Accounts.get_user!(id)
       if Map.has_key?(user_params, "role") && ! Enum.member?(@roles, user_params["role"]) do
         raise "role is not correct, please select a correct value"
@@ -81,7 +82,7 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def delete(conn, %{"id" => id}) do
-    if verify_role_manager(conn, "manager") || verify_user_id(conn, id) do
+    if verify_role_super_manager(conn, "super_manager") || verify_user_id(conn, id) do
       user = Accounts.get_user!(id)
 
       with {:ok, %User{}} <- Accounts.delete_user(user) do
