@@ -43,6 +43,7 @@
 
 <script>
 import axios from 'axios';
+import { notify } from "@kyvg/vue3-notification";
 
 export default {
     props: {
@@ -64,14 +65,19 @@ export default {
     },
     methods: {
         getAllTeams() {
-            axios.defaults.baseURL = 'http://localhost:4000/api';
             axios
                 .get('/teams')
                 .then(res => {
                     this.teams = res.data.data;
                 })
-                .catch(function(error) {
-                    console.log(error);
+                .catch(function() {
+                    notify({
+                        title: "Something went wrong",
+                        text: "Please try to refresh the page",
+                        duration: 7000,
+                        pauseOnHover: true,
+                        type: "error",
+                    })
                 })
         },
         openClose() {
@@ -84,13 +90,25 @@ export default {
                     "team_id": this.selectedTeam.id,
                 }
             }
-
-            axios.defaults.baseURL = 'http://localhost:4000/api'
             axios
                 .post('/user_teams', add)
-                .then()
-                .catch(function(error) {
-                    console.log(error);
+                .then(() => {
+                    notify({
+                        title: "Well done",
+                        text: "Selected user has been added to the team",
+                        duration: 7000,
+                        pauseOnHover: true,
+                        type: "success",
+                    })
+                })
+                .catch(function() {
+                    notify({
+                        title: "Something went wrong",
+                        text: "Please try again",
+                        duration: 7000,
+                        pauseOnHover: true,
+                        type: "error",
+                    })
                 })
         }
     },
