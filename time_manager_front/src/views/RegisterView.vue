@@ -20,18 +20,18 @@
                             </div>
                             <div class="field">
                                 <div class="control">
-                                    <input v-model="email" type="email" placeholder="Email" class="input" required>
+                                    <input @focusout="handleFocusout()" v-model="email" :class="activeEmail ? 'is-primary' : 'is-danger'" id="email" type="email" placeholder="Email" class="input" required>
                                 </div>
                             </div>
                             <div class="columns">
                                 <div class="field column">
                                     <div class="control">
-                                        <input v-model="password" type="password" placeholder="Password" class="input" min="10" required>
+                                        <input v-model="password" id="password" type="password" placeholder="Password" class="input" min="10" required>
                                     </div>
                                 </div>
                                 <div class="field column">
                                     <div class="control">
-                                        <input type="password" placeholder="Confirm password" class="input" min="10" required>
+                                        <input id="confirmPassword" type="password" placeholder="Confirm password" class="input" min="10" required>
                                     </div>
                                 </div>
                             </div>
@@ -39,17 +39,6 @@
                                 <button @click.prevent="sendPost()" class="button gradiant has-text-white" method="post">Validate</button>
                             </div>
                         </form>
-
-                        <article class="message is-danger" id="error">
-                            <div class="message-header">
-                                <p>Error</p>
-                                <button class="delete" aria-label="delete" @click.prevent="closeError()"></button>
-                            </div>
-                            <div class="message-body">
-                                An error occur, please try again
-                            </div>
-                        </article>
-
                         <div class="box">
                             <p>Already an account ? <a href="/">Sign in</a></p>
                             <a  href="#">CGU</a>
@@ -61,24 +50,21 @@
     </section>
 </template>
 
-<style>
-#error {
-    display: none;
-}
-</style>
-
 <script>
 import axios from 'axios';
+import { notify } from "@kyvg/vue3-notification";
 
 export default {
-  data: function() {
-    return {
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: ""
-    };
-  },
+    data: function() {
+        return {
+            firstname: "",
+            lastname: "",
+            email: "",
+            password: "",
+            activeEmail: null,
+            activePassword: null,
+        };
+    },
     methods: {
         sendPost() {
             const postData = {
@@ -90,14 +76,33 @@ export default {
                     role: "user"
                 }
             };
-
             axios
                 .post("/users", postData)
-                .then(this.$router.push({name: "login"}))
-                .catch(document.getElementById("error").style.display = "block");
+                .then(() => {
+                    this.$router.push({name: "login"})
+                })
+                .catch(function() {
+                    notify({
+                        title: "Something went wrong",
+                        text: "Check entered informations",
+                        duration: 7000,
+                        pauseOnHover: true,
+                        type: "error",
+                    })
+                });
         },
-        closeError() {
-            document.getElementById("error").style.display = "none";
+        handleFocusout() {
+            if(/^[^@]+@\w+(\.\w+)+\w$/.test(this.email) === false){
+                notify({
+                    title: "Something went wrong",
+                    text: "Check the entered email",
+                    duration: 7000,
+                    pauseOnHover: true,
+                    type: "error",
+                })
+            } else {
+                this.activeEmail = true;
+            }
         }
     }
 };

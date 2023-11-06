@@ -27,16 +27,6 @@
                             </div>
                         </form>
 
-                        <article class="message is-danger" id="error">
-                            <div class="message-header">
-                                <p>Error</p>
-                                <button class="delete" aria-label="delete" @click.prevent="closeError()"></button>
-                            </div>
-                            <div class="message-body">
-                                An error occur, please try again
-                            </div>
-                        </article>
-
                         <div class="box">
                             <p>Don't have an account ? <a href="/register">Sign up</a></p>
                             <a  href="#">CGU</a>
@@ -56,6 +46,7 @@
 
 <script>
 import axios from 'axios';
+import { notify } from "@kyvg/vue3-notification";
 
 export default {
     data: function() {
@@ -79,10 +70,15 @@ export default {
                             params: {id: localStorage.getItem("user_id")}
                         }) 
                     })
-                .catch(document.getElementById("error").style.display = "block");
-        },
-        closeError() {
-            document.getElementById("error").style.display = "none";
+                .catch(function() {
+                    notify({
+                        title: "Something went wrong",
+                        text: "Check your login informations",
+                        duration: 7000,
+                        pauseOnHover: true,
+                        type: "error",
+                    })
+                });
         }
     }
 };
