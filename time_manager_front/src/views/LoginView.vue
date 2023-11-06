@@ -79,7 +79,9 @@ export default {
                             params: {id: localStorage.getItem("user_id")}
                         }) 
                     })
-                .catch(document.getElementById("error").style.display = "block");
+                .catch(function() {
+                    document.getElementById("error").style.display = "block"
+                });
         },
         closeError() {
             document.getElementById("error").style.display = "none";
