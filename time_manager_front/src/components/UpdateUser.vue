@@ -41,7 +41,8 @@
         <div class="field columns">
             <label class="label column">Team : </label>
             <div class="control">
-                <input v-model="team" type="text" class="input" disabled>
+                <input v-if="isSuperManager" placeholder="Admin" type="text" class="input" disabled>
+                <input v-else v-model="team" type="text" class="input" disabled>
             </div>
         </div>
         <div class="field" v-if="isManager">
@@ -58,7 +59,7 @@
 
 <script>
 import { enableUpdateUserInputs, disableUpdateUserInputs } from '@/plugins/DashboardPlugin.js'
-import { isUserManager } from '@/plugins/UserPlugin.js'
+import { isUserManager, isUserSuperManager } from '@/plugins/UserPlugin.js'
 import axios from 'axios';
 
 export default {
@@ -69,7 +70,8 @@ export default {
             email: "",
             role: "",
             team: "",
-            isManager: false
+            isManager: false,
+            isSuperManager: false,
         };
     },
     methods: {
@@ -83,7 +85,8 @@ export default {
                     res.data.data.teams.forEach(team => {
                         this.team = team.name;
                     });
-                    this.isManager = isUserManager();
+                    this.isManager = isUserManager(this.role);
+                    this.isSuperManager = isUserSuperManager(this.role);
                 });
         },
         updateUser() {
