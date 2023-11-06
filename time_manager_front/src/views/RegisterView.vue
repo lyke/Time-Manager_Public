@@ -80,6 +80,13 @@ export default {
                 .post("/users", postData)
                 .then(() => {
                     this.$router.push({name: "login"})
+                    notify({
+                        title: "Well done",
+                        text: "Your account as been created",
+                        duration: 7000,
+                        pauseOnHover: true,
+                        type: "success",
+                    })
                 })
                 .catch(function() {
                     notify({

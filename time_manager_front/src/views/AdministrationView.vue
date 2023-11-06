@@ -80,9 +80,10 @@
 </template>
 
 <script>
+import axios from 'axios';
 import NavMenu from '@/components/NavMenu.vue';
 import DropDown from '@/components/DropDown.vue';
-import axios from 'axios';
+import { notify } from "@kyvg/vue3-notification";
 
 export default {
     data: function() {
@@ -105,7 +106,18 @@ export default {
                     name: this.teamName
                 }
             }
-            axios.post("/teams", team);
+            axios
+                .post("/teams", team)
+                .then(() => {
+                    this.teamName = "";
+                    notify({
+                        title: "Well done",
+                        text: "Team as been created",
+                        duration: 7000,
+                        pauseOnHover: true,
+                        type: "success",
+                    })
+                });
         },
         updateUserToManager(id) {
             const user = {
