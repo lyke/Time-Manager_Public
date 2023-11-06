@@ -4,6 +4,7 @@ import {useContext, useState} from "react";
 import TM_RequiredInput from "../components/TM_RequiredInput";
 import TM_Modal from "../components/TM_Modal";
 import {Context} from "../components/TM_ContextProvider";
+import commonStyles from "../components/commonStyles";
 
 export default function Login() {
     const context = useContext(Context)
@@ -68,8 +69,8 @@ export default function Login() {
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
             />
-            <View style={styles.form}>
-                <Text style={styles.title}>Log In</Text>
+            <View style={commonStyles.box}>
+                <Text style={commonStyles.title}>Log In</Text>
                 <TM_RequiredInput
                     value={mail}
                     onChangeText={setMail}
@@ -85,20 +86,20 @@ export default function Login() {
                     isPwd
                 />
 
-                <View style={styles.buttonContainer}>
+                <View style={commonStyles.buttonContainer}>
                     <Pressable
-                        style={styles.button}
+                        style={commonStyles.button}
                         onPress={login}
                     >
                         <Text
-                            style={styles.buttonText}
+                            style={commonStyles.buttonText}
                         > {"Log In"}</Text>
                     </Pressable>
                     <Pressable
-                        style={styles.button}
+                        style={commonStyles.button}
                         onPress={() => goToPages.goToRegister()}
                     >
-                        <Text style={styles.buttonText}> {"Go to register"}</Text>
+                        <Text style={commonStyles.buttonText}> {"Go to register"}</Text>
                     </Pressable>
                 </View>
             </View>
@@ -114,46 +115,5 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    form: {
-        backgroundColor: "white",
-        width: "80%",
-        maxWidth: 600,
-        borderRadius: 15,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: "3%"
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: "bold",
-        marginBottom: "6%",
-    },
-    input: {
-        width: '90%',
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        marginBottom: "5%",
-        paddingHorizontal: 10,
-    },
-    buttonContainer: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        width: "100%"
-    },
-    button: {
-        backgroundColor: 'blue',
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        borderRadius: 5,
-        marginTop: 10,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
     },
 });
