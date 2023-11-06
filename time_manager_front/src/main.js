@@ -4,7 +4,7 @@ import router from './router'
 import axios from 'axios';
 import notifications from '@kyvg/vue3-notification'
 
-axios.defaults.baseURL = 'http://localhost:4000/api';
+axios.defaults.baseURL = 'https://time-manager-epitech.gigalixirapp.com/api';
 
 require('@/assets/main.scss');
 
