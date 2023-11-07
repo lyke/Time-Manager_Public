@@ -96,9 +96,6 @@ export default{
         .then(res => {
           this.role = res.data.data.role;
           this.id = res.data.data.id;
-        })
-        .catch(function(error) {
-          console.error('Error fetching user data:', error);
         });
     },
   },
