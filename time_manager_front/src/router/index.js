@@ -6,6 +6,7 @@ import DashboardView from '../views/DashboardView'
 import ParameterView from '../views/ParameterView'
 import AdministrationView from '../views/AdministrationView'
 import CalendarView from '../views/CalendarView'
+import GtsView from '../views/GtsView.vue'
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/administration',
     name: 'administration',
     component: AdministrationView
+  },
+  {
+    path: '/gts',
+    name: 'gts',
+    component: GtsView
   }
 ]
 

@@ -11,7 +11,9 @@
                 <div class="field">
                     <p class="title grey-color">Other</p>
                     <hr class="grey-backgroundcolor">
-                    <a  href="#">GTS</a>                    
+                    <router-link :to="{name:'gts'}">
+                        <a>GTS</a>
+                    </router-link>                  
                 </div>
             </div>
         </div>
