@@ -3,6 +3,7 @@ defmodule TimeManagerWeb.WorkingTimeController do
 
   alias TimeManager.WorkingTimes
   alias TimeManager.WorkingTimes.WorkingTime
+  import TimeManagerWeb.Authorization
 
   action_fallback TimeManagerWeb.FallbackController
 

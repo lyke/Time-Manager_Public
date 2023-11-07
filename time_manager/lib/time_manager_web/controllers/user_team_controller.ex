@@ -3,6 +3,7 @@ defmodule TimeManagerWeb.UserTeamController do
 
   alias TimeManager.UserTeams
   alias TimeManager.UserTeams.UserTeam
+  import TimeManagerWeb.Authorization
   # alias TimeManager.Accounts
 
   action_fallback TimeManagerWeb.FallbackController
