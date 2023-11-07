@@ -45,7 +45,9 @@ export default function Login() {
             context.setToken(data.token)
 
             const idUser = data.user_id
-            const userResponse = await fetch(context.baseUri + "/users/" + idUser)
+            const userResponse = await fetch(context.baseUri + "/users/" + idUser,{
+                headers: { Authorization: "Bearer "+data.token }
+            })
             context.setUser((await userResponse.json()).data)
             goToPages.goToDashBoard()
         } catch (error) {
