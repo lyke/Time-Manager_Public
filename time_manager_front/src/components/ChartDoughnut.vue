@@ -5,6 +5,7 @@
 <script>
 import axios from 'axios';
 import Chart from 'chart.js/auto';
+import { notify } from "@kyvg/vue3-notification";
 
 export default {
     data: function() {
@@ -37,14 +38,24 @@ export default {
                 .then(res => { 
                     this.creditTime = res.data.time_credit_in_minutes;
                     this.calculCreditTime(this.creditTime);
-                    this.setupChart();
+                    try {
+                        this.setupChart();
+                    }
+                    catch {
+                        notify({
+                            title: "Loading ...",
+                            text: "Chart take time to load",
+                            duration: 4000,
+                            pauseOnHover: true,
+                        })
+                    }
                 });
         },
         calculCreditTime(time) {
             if (time > 0) {
                 this.color = "rgb(50,205,50)";
             } else {
-                this.color = "rgb(255, 205, 86)";
+                this.color = "rgb( 255,97,102";
             }
         }
     },

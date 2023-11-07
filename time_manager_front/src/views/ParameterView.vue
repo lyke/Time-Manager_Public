@@ -3,9 +3,16 @@
     <section class="hero">
         <div class="hero-body has-text-left">
             <div class="box">
-                <p class="title grey-color">Profil</p>
-                <hr class="grey-backgroundcolor">
-                <button  @click.prevent="logout()" class="button is-danger">Logout</button>
+                <div class="field">
+                    <p class="title grey-color">Profil</p>
+                    <hr class="grey-backgroundcolor">
+                    <button  @click.prevent="logout()" class="button is-danger">Logout</button>
+                </div>
+                <div class="field">
+                    <p class="title grey-color">Other</p>
+                    <hr class="grey-backgroundcolor">
+                    <a  href="#">GTS</a>                    
+                </div>
             </div>
         </div>
     </section>

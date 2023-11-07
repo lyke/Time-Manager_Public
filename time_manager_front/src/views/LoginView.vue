@@ -29,7 +29,7 @@
 
                         <div class="box">
                             <p>Don't have an account ? <a href="/register">Sign up</a></p>
-                            <a  href="#">CGU</a>
+                            <a  href="#">GTS</a>
                         </div>
                     </div>
                 </div>

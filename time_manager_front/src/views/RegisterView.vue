@@ -41,7 +41,7 @@
                         </form>
                         <div class="box">
                             <p>Already an account ? <a href="/">Sign in</a></p>
-                            <a  href="#">CGU</a>
+                            <a  href="#">GTS</a>
                         </div>
                     </div>
                 </div>

@@ -72,6 +72,9 @@
                         <router-link :to="{name:'dashboard', params: {id: user.id}} " class="button mx-1 is-success">
                             <ion-icon name="clipboard-sharp"></ion-icon>
                         </router-link>
+                        <router-link :to="{name:'calendar', params: {id: user.id}} " class="button mx-1 is-success">
+                            <ion-icon name="calendar-sharp"></ion-icon>
+                        </router-link>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@
         <router-link v-if="isSuperManager" to="/administration">Administration | </router-link>
         <router-link v-if="isManager" to="/teams">Teams | </router-link>
         <router-link :to="{name:'dashboard', params: {id: userId}}">Dashboard | </router-link>
+        <router-link :to="{name:'calendar', params: {id: userId}}">Calendar | </router-link>
         <router-link to="/parameter">Parameter</router-link>
     </nav>
 </template>
