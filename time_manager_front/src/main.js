@@ -12,7 +12,7 @@ try {
     router.push({name: "login"});
 }
 
-axios.defaults.baseURL = 'http://localhost:4000/api';
+axios.defaults.baseURL = 'https://time-manager-epitech.gigalixirapp.com/api';
 
 require('@/assets/main.scss');
 
