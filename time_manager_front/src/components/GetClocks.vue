@@ -23,7 +23,6 @@
 
 <script>
 import axios from 'axios';
-import { notify } from "@kyvg/vue3-notification";
 import { getCurrentTime } from '@/plugins/DatetimePlugin.js';
 
 export default {
@@ -53,15 +52,7 @@ export default {
                     document.getElementById(clockButton).disabled = "true";
                     this.getTodayClocks();
                 }).
-                catch(function() {
-                    notify({
-                        title: "Something went wrong",
-                        text: "You can't clock in and clock out on the same time",
-                        duration: 7000,
-                        pauseOnHover: true,
-                        type: "error",
-                    })
-                });
+                catch();
         },
         getTodayClocks() {
             axios
