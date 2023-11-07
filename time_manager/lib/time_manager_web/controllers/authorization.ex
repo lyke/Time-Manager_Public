@@ -72,6 +72,24 @@ defmodule TimeManagerWeb.Authorization do
     end
   end
 
+  def is_member_of_team(conn, team_id) do
+    IO.inspect(team_id)
+    case extract_team_from_token(conn) do
+      {:ok, token_team} ->
+        Enum.any?(token_team, fn team -> team.id == team_id end)
+      {:error, _} -> false
+    end
+  end
+
+  def is_identified(conn) do
+    header = Enum.find(conn.req_headers, fn {k, _} -> k == "authorization" end)
+    case header do
+      {"authorization", "Bearer " <> token} ->
+        {:ok, token}
+      _ ->
+        {:error, "unauthorized"}
+    end
+  end
 
   defp extract_team_from_token(conn) do
     header = Enum.find(conn.req_headers, fn {k, _} -> k == "authorization" end)
@@ -98,6 +116,14 @@ defmodule TimeManagerWeb.Authorization do
         {:error, "User not found"}
     end
   end
+
+  # defp get_team_from_team_id(id) do
+  #   if team_with_users = TimeManager.Repo.get(Team, id) do
+  #       {:ok, team_with_users}
+  #   else
+  #       {:error, "Team not found"}
+  #   end
+  # end
 
   defp have_common_teams(manager_teams, user_teams) do
     Enum.any?(manager_teams, fn element ->
