@@ -12,37 +12,37 @@
             </div>
             <div class="box">
                 <div class="columns is-vcentered">
-                    <div class="column">
+                    <div class="column is-2">
                         <p class="label">Email</p>
                     </div>
-                    <div class="column">
+                    <div class="column is-2">
                         <p class="label">Role</p>
                     </div>
-                    <div class="column">
+                    <div class="column is-3">
                         <p class="label">Team</p>
                     </div>
-                    <div class="column">
+                    <div class="column is-2">
                         <p class="label">Add to team</p>
                     </div>
-                    <div class="column">
+                    <div class="column is-3">
                         <p class="label">Options</p>
                     </div>
                 </div>
             </div>
             <div v-for="user in users" :key="user.id" class="box">
                 <div class="columns is-vcentered">
-                    <div class="column">
+                    <div class="column is-2">
                         <p>{{ user.email }}</p>
                     </div>
-                    <div class="column">
+                    <div class="column is-2">
                         <p>{{ user.role }}</p>
                     </div>
-                    <div class="column">
+                    <div class="column is-3">
                         <p v-if="user.role == 'super_manager'">Admin</p>
                         <p v-else-if="user.teams.length == 0">not assigned</p>
                         <label v-else v-for="team in user.teams" :key="team.id">{{ team.name }} <label></label></label>
                     </div>
-                    <div class="column">
+                    <div class="column is-2">
                         <button v-if="user.role == 'user' && user.teams.length > 0" @click.prevent="openModal(user)" class="button is-success" disabled>
                             <ion-icon name="person-add-sharp"></ion-icon>
                         </button>
@@ -59,7 +59,7 @@
                             <button @click.prevent="closeModal" class="modal-close is-large" aria-label="close"></button>
                         </div>
                     </div>
-                    <div class="column">
+                    <div class="column is-3">
                         <button v-if="user.role === 'user'" @click.prevent="updateUserToManager(user.id)" class="button is-info has-text-white mx-1">
                             <ion-icon name="chevron-up-sharp"></ion-icon>
                         </button>
@@ -71,6 +71,9 @@
                         </button>
                         <router-link :to="{name:'dashboard', params: {id: user.id}} " class="button mx-1 is-success">
                             <ion-icon name="clipboard-sharp"></ion-icon>
+                        </router-link>
+                        <router-link :to="{name:'calendar', params: {id: user.id}} " class="button mx-1 is-success">
+                            <ion-icon name="calendar-sharp"></ion-icon>
                         </router-link>
                     </div>
                 </div>

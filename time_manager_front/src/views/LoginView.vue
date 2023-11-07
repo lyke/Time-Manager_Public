@@ -29,7 +29,7 @@
 
                         <div class="box">
                             <p>Don't have an account ? <a href="/register">Sign up</a></p>
-                            <a  href="#">CGU</a>
+                            <a  href="#">GTS</a>
                         </div>
                     </div>
                 </div>
@@ -65,6 +65,8 @@ export default {
                 .post("/login", postData)
                 .then(res => {
                         localStorage.setItem("user_id", res.data.user_id);
+                        localStorage.setItem("token", res.data.token);
+                        axios.defaults.headers.common = {'Authorization': `Bearer ${localStorage.getItem("token")}`}
                         this.$router.push({
                             name: "dashboard",
                             params: {id: localStorage.getItem("user_id")}
