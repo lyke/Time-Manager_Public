@@ -6,7 +6,7 @@ defmodule TimeManager.Repo.Migrations.CreateClocks do
       add :id, :binary_id, primary_key: true
       add :time, :naive_datetime, null: false
       add :status, :boolean, default: false, null: false
-      add :fk_user, references(:users, on_delete: :nothing, type: :binary_id), null: false
+      add :fk_user, references(:users, on_delete: :delete_all, type: :binary_id), null: false
 
       timestamps(type: :utc_datetime)
     end
