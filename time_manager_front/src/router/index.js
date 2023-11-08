@@ -5,6 +5,8 @@ import TeamsView from '../views/TeamsView'
 import DashboardView from '../views/DashboardView'
 import ParameterView from '../views/ParameterView'
 import AdministrationView from '../views/AdministrationView'
+import CalendarView from '../views/CalendarView'
+import GtsView from '../views/GtsView.vue'
 
 const routes = [
   {
@@ -28,6 +30,11 @@ const routes = [
     component: DashboardView
   },
   {
+    path: '/calendar/:id',
+    name: 'calendar',
+    component: CalendarView
+  },
+  {
     path: '/parameter',
     name: 'parameter',
     component: ParameterView,
@@ -36,6 +43,11 @@ const routes = [
     path: '/administration',
     name: 'administration',
     component: AdministrationView
+  },
+  {
+    path: '/gts',
+    name: 'gts',
+    component: GtsView
   }
 ]
 

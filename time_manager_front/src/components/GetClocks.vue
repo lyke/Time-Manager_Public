@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import { getCurrentTime } from '@/plugins/DatetimePlugin.js';
 import axios from 'axios';
+import { getCurrentTime } from '@/plugins/DatetimePlugin.js';
 
 export default {
     data: function() {
@@ -51,7 +51,8 @@ export default {
                 .then(() => {
                     document.getElementById(clockButton).disabled = "true";
                     this.getTodayClocks();
-                });
+                }).
+                catch();
         },
         getTodayClocks() {
             axios

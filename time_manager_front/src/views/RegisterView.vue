@@ -2,7 +2,7 @@
     <section class="hero">
         <div class="hero-body">
             <div class="container">
-                <p class="title has-text-white">Regitser</p>
+                <p class="title has-text-white">Register</p>
                 <div class="columns is-centered">
                     <div class="column is-two-thirds">
                         <form action="" class="box" id="register-form">
@@ -20,7 +20,7 @@
                             </div>
                             <div class="field">
                                 <div class="control">
-                                    <input @focusout="handleFocusout()" v-model="email" :class="activeEmail ? 'is-primary' : 'is-danger'" id="email" type="email" placeholder="Email" class="input" required>
+                                    <input @focusout="handleFocusout()" v-model="email" id="email" type="email" placeholder="Email" class="input" required>
                                 </div>
                             </div>
                             <div class="columns">
@@ -41,7 +41,9 @@
                         </form>
                         <div class="box">
                             <p>Already an account ? <a href="/">Sign in</a></p>
-                            <a  href="#">CGU</a>
+                            <router-link :to="{name:'gts'}">
+                                <a>GTS</a>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -61,8 +63,6 @@ export default {
             lastname: "",
             email: "",
             password: "",
-            activeEmail: null,
-            activePassword: null,
         };
     },
     methods: {
@@ -80,6 +80,13 @@ export default {
                 .post("/users", postData)
                 .then(() => {
                     this.$router.push({name: "login"})
+                    notify({
+                        title: "Well done",
+                        text: "Your account as been created",
+                        duration: 7000,
+                        pauseOnHover: true,
+                        type: "success",
+                    })
                 })
                 .catch(function() {
                     notify({
@@ -95,13 +102,11 @@ export default {
             if(/^[^@]+@\w+(\.\w+)+\w$/.test(this.email) === false){
                 notify({
                     title: "Something went wrong",
-                    text: "Check the entered email",
+                    text: "Wrong email",
                     duration: 7000,
                     pauseOnHover: true,
                     type: "error",
                 })
-            } else {
-                this.activeEmail = true;
             }
         }
     }

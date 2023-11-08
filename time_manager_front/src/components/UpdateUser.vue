@@ -27,7 +27,7 @@
         <div class="field">
             <button @click.prevent="enableInputs()" class="button is-info mx-1">Edit</button>
             <button @click.prevent="updateUser()" class="button is-success mx-1" id="update-user-button" method="put">Validate</button>
-            <button class="button is-danger mx-1">Delete</button>
+            <button @click.prevent="deleteUser()" class="button is-danger mx-1">Delete</button>
         </div>
     </form>
 
@@ -41,7 +41,8 @@
         <div class="field columns">
             <label class="label column">Team : </label>
             <div class="control">
-                <input v-model="team" type="text" class="input" disabled>
+                <input v-if="isSuperManager" placeholder="Admin" type="text" class="input" disabled>
+                <input v-else v-model="team" type="text" class="input" disabled>
             </div>
         </div>
         <div class="field" v-if="isManager">
@@ -58,8 +59,9 @@
 
 <script>
 import { enableUpdateUserInputs, disableUpdateUserInputs } from '@/plugins/DashboardPlugin.js'
-import { isUserManager } from '@/plugins/UserPlugin.js'
+import { isUserManager, isUserSuperManager } from '@/plugins/UserPlugin.js'
 import axios from 'axios';
+import { notify } from "@kyvg/vue3-notification";
 
 export default {
     data: function() {
@@ -69,7 +71,8 @@ export default {
             email: "",
             role: "",
             team: "",
-            isManager: false
+            isManager: false,
+            isSuperManager: false,
         };
     },
     methods: {
@@ -83,7 +86,8 @@ export default {
                     res.data.data.teams.forEach(team => {
                         this.team = team.name;
                     });
-                    this.isManager = isUserManager();
+                    this.isManager = isUserManager(this.role);
+                    this.isSuperManager = isUserSuperManager(this.role);
                 });
         },
         updateUser() {
@@ -96,6 +100,22 @@ export default {
                 }
             }
             axios.put("/users/" + this.$route.params.id, putUser).then(disableUpdateUserInputs());
+        },
+        deleteUser() {
+            axios
+                .delete("/users/" + this.$route.params.id)
+                .then(() => {
+                    this.$router.push({name: "login"});
+                })
+                .catch(function() {
+                    notify({
+                        title: "Something went wrong",
+                        text: "Account not deleted, try again",
+                        duration: 7000,
+                        pauseOnHover: true,
+                        type: "error",
+                    });
+                })
         },
         enableInputs() {
             enableUpdateUserInputs();
