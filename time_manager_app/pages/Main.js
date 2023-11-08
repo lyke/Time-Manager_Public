@@ -1,37 +1,64 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Login from "./Login";
 import Register from "./Register";
 import Dashboard from "./Dashboard";
 import MyTeams from "./MyTeams";
-import {useContext} from "react";
-import {Context} from "../components/TM_ContextProvider";
+import TM_LogOut from "../components/TM_LogOut";
+import {Platform} from "react-native";
+import {Ionicons} from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator()
 
 export default function Main() {
-    const {token} = useContext(Context)
-
-    return token === "" ? buildLoggedOutTabs() : buildLoggedInTabs()
-}
-
-function buildLoggedInTabs() {
     return (
-        <Tab.Navigator>
+        <Tab.Navigator
+            tabBarOptions={{
+                    labelPosition: 'below-icon'
+                }}
+            screenOptions={getScreenOptions}
+        >
+            <Tab.Screen name="Login" component={Login} options={{ headerShown: false, tabBarStyle: {display: "none"}, tabBarItemStyle: {display: "none"} }}/>
+            <Tab.Screen name="Register" component={Register} options={{ headerShown: false, tabBarStyle: {display:"none"}, tabBarItemStyle: {display: "none"} }}/>
             <Tab.Screen name="Dashboard" component={Dashboard} options={{headerShown: false}}/>
             <Tab.Screen name="My Teams" component={MyTeams} options={{headerShown: false}}/>
+            <Tab.Screen name="Logout" component={TM_LogOut} options={{headerShown: false}}/>
         </Tab.Navigator>
-    )
+
+    );
 }
 
-function buildLoggedOutTabs() {
-    return (
-        <Tab.Navigator>
-            <Tab.Screen name="Login" component={Login} options={{headerShown: false}}/>
-            <Tab.Screen name="Register" component={Register} options={{headerShown: false}}/>
-        </Tab.Navigator>
-    )
-}
+const getScreenOptions = ({ route }) => ({
+    tabBarIcon: ({ focused, color, size }) => {
+        let iconName = "";
+
+        // Definit le type d icones selon la platforme
+        if (Platform.OS === "android") {
+            iconName += "md-";
+        } else if (Platform.OS === "ios") {
+            iconName += "ios-";
+        }
+
+        // assigne l icone
+        switch (route.name) {
+            case "Dashboard": {
+                iconName += "home";
+                break;
+            }
+            case "My Teams": {
+                iconName += "people-outline";
+                break;
+            }
+            case "Logout": {
+                iconName += "exit-outline";
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+        return <Ionicons name={iconName} size={size} color={color} />;
+    }
+})
