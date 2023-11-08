@@ -41,7 +41,7 @@ defmodule TimeManagerWeb.ClockController do
 
   def create(conn, %{"clock" => clock_params}) do
     IO.inspect(clock_params)
-    if is_identified(conn) do
+    if verify_role_super_manager(conn, "super_manager") || (verify_role_manager(conn, "manager") || is_identified(conn) do
       user_id = clock_params["fk_user"]
       last_clock = Clocks.get_last_clock(user_id)
       new_status =
