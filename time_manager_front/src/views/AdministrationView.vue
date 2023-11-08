@@ -66,7 +66,7 @@
                         <button v-if="user.role === 'manager'" @click.prevent="downgradeManagerToUser(user.id)" class="button is-warning has-text-black mx-1">
                             <ion-icon name="chevron-down-sharp"></ion-icon>
                         </button>
-                        <button v-if="user.role === 'user' || user.role === 'manager'" class="button is-danger mx-1">
+                        <button v-if="user.role === 'user' || user.role === 'manager'" @click.prevent="deleteUser(user.id)" class="button is-danger mx-1">
                             <ion-icon name="trash-bin-sharp"></ion-icon>
                         </button>
                         <router-link :to="{name:'dashboard', params: {id: user.id}} " class="button mx-1 is-success">
@@ -137,6 +137,28 @@ export default {
                 }
             }
             axios.put("/users/" + id, user)
+        },
+        deleteUser(id) {
+            axios
+                .delete("/users/" + id)
+                .then(() => {
+                    notify({
+                        title: "Well done",
+                        text: "User well deleted",
+                        duration: 5000,
+                        pauseOnHover: true,
+                        type: "success",
+                    });
+                })
+                .catch(function() {
+                    notify({
+                        title: "Something went wrong",
+                        text: "Account not deleted, try again",
+                        duration: 7000,
+                        pauseOnHover: true,
+                        type: "error",
+                    });
+                })
         },
         openModal(user) {
             this.currentUser = user;

@@ -27,7 +27,7 @@
         <div class="field">
             <button @click.prevent="enableInputs()" class="button is-info mx-1">Edit</button>
             <button @click.prevent="updateUser()" class="button is-success mx-1" id="update-user-button" method="put">Validate</button>
-            <button class="button is-danger mx-1">Delete</button>
+            <button @click.prevent="deleteUser()" class="button is-danger mx-1">Delete</button>
         </div>
     </form>
 
@@ -61,6 +61,7 @@
 import { enableUpdateUserInputs, disableUpdateUserInputs } from '@/plugins/DashboardPlugin.js'
 import { isUserManager, isUserSuperManager } from '@/plugins/UserPlugin.js'
 import axios from 'axios';
+import { notify } from "@kyvg/vue3-notification";
 
 export default {
     data: function() {
@@ -99,6 +100,22 @@ export default {
                 }
             }
             axios.put("/users/" + this.$route.params.id, putUser).then(disableUpdateUserInputs());
+        },
+        deleteUser() {
+            axios
+                .delete("/users/" + this.$route.params.id)
+                .then(() => {
+                    this.$router.push({name: "login"});
+                })
+                .catch(function() {
+                    notify({
+                        title: "Something went wrong",
+                        text: "Account not deleted, try again",
+                        duration: 7000,
+                        pauseOnHover: true,
+                        type: "error",
+                    });
+                })
         },
         enableInputs() {
             enableUpdateUserInputs();
