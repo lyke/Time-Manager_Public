@@ -5,6 +5,7 @@ import TM_RequiredInput from "../components/TM_RequiredInput";
 import TM_Modal from "../components/TM_Modal";
 import {Context} from "../components/TM_ContextProvider";
 import commonStyles from "../components/commonStyles";
+import TM_container from "../components/TM_container";
 
 export default function Register() {
     const {goToPages} = useContext(Context)
@@ -64,7 +65,7 @@ export default function Register() {
     }
 
     return (
-        <View style={styles.container}>
+        <TM_container>
             <TM_Modal
                 text={modalTextError}
                 modalVisible={modalVisible}
@@ -117,15 +118,6 @@ export default function Register() {
             </View>
 
             <StatusBar style="auto"/>
-        </View>
+        </TM_container>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'blue',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
