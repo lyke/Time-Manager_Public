@@ -106,9 +106,6 @@ function getUtcDate(date) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-    },
     boxOverride: {
         width: '90%',
     },

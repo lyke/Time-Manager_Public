@@ -8,7 +8,8 @@ const commonStyles = StyleSheet.create({
         borderRadius: 15,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: "3%"
+        padding: "3%",
+        marginBottom: "2%"
     },
     title: {
         fontSize: 20,
