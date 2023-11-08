@@ -32,6 +32,7 @@ export default function TM_RequiredInput({value, onChangeText, title, setIsValid
                 placeholder={title}
                 textContentType={"password"}
                 secureTextEntry
+                autoCapitalize={"none"}
             />
         )
     }
@@ -48,6 +49,7 @@ export default function TM_RequiredInput({value, onChangeText, title, setIsValid
                 placeholder={title}
                 autoComplete={"email"}
                 inputMode={"email"}
+                autoCapitalize={"none"}
             />
         )
     }

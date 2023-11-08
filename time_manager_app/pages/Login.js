@@ -4,6 +4,8 @@ import {useContext, useState} from "react";
 import TM_RequiredInput from "../components/TM_RequiredInput";
 import TM_Modal from "../components/TM_Modal";
 import {Context} from "../components/TM_ContextProvider";
+import commonStyles from "../components/commonStyles";
+import TM_container from "../components/TM_container";
 
 export default function Login() {
     const context = useContext(Context)
@@ -44,7 +46,9 @@ export default function Login() {
             context.setToken(data.token)
 
             const idUser = data.user_id
-            const userResponse = await fetch(context.baseUri + "/users/" + idUser)
+            const userResponse = await fetch(context.baseUri + "/users/" + idUser,{
+                headers: { Authorization: "Bearer "+data.token }
+            })
             context.setUser((await userResponse.json()).data)
             goToPages.goToDashBoard()
         } catch (error) {
@@ -62,14 +66,14 @@ export default function Login() {
     }
 
     return (
-        <View style={styles.container}>
+        <TM_container>
             <TM_Modal
                 text={modalTextError}
                 modalVisible={modalVisible}
                 setModalVisible={setModalVisible}
             />
-            <View style={styles.form}>
-                <Text style={styles.title}>Log In</Text>
+            <View style={commonStyles.box}>
+                <Text style={commonStyles.title}>Log In</Text>
                 <TM_RequiredInput
                     value={mail}
                     onChangeText={setMail}
@@ -85,75 +89,26 @@ export default function Login() {
                     isPwd
                 />
 
-                <View style={styles.buttonContainer}>
+                <View style={commonStyles.buttonContainer}>
                     <Pressable
-                        style={styles.button}
+                        style={commonStyles.button}
                         onPress={login}
                     >
                         <Text
-                            style={styles.buttonText}
+                            style={commonStyles.buttonText}
                         > {"Log In"}</Text>
                     </Pressable>
                     <Pressable
-                        style={styles.button}
+                        style={commonStyles.button}
                         onPress={() => goToPages.goToRegister()}
                     >
-                        <Text style={styles.buttonText}> {"Go to register"}</Text>
+                        <Text style={commonStyles.buttonText}> {"Go to register"}</Text>
                     </Pressable>
                 </View>
             </View>
 
             <StatusBar style="auto"/>
-        </View>
+        </TM_container>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'blue',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    form: {
-        backgroundColor: "white",
-        width: "80%",
-        maxWidth: 600,
-        borderRadius: 15,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: "3%"
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: "bold",
-        marginBottom: "6%",
-    },
-    input: {
-        width: '90%',
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        marginBottom: "5%",
-        paddingHorizontal: 10,
-    },
-    buttonContainer: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-evenly",
-        width: "100%"
-    },
-    button: {
-        backgroundColor: 'blue',
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        borderRadius: 5,
-        marginTop: 10,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-});
