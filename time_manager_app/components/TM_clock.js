@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet, Text, TextInput, View} from "react-native";
+import {Pressable, StyleSheet, Text, View} from "react-native";
 import {useContext, useEffect, useState} from "react";
 import {Context} from "./TM_ContextProvider";
 import commonStyles from "./commonStyles";
