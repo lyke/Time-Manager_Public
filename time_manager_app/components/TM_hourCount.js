@@ -13,7 +13,7 @@ export default function TM_hourCount() {
         const response = await fetch(url, {
             headers:{ Authorization: context.token }
         })
-        const data = (await response.json()).data
+        const data = await response.json()
         setTotalCount(data.time_credit_in_minutes)
     }, [])
 
