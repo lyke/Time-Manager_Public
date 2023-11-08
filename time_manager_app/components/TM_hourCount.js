@@ -1,11 +1,10 @@
-import {Pressable, StyleSheet, Text, View} from "react-native";
-import {useContext, useEffect, useState} from "react";
+import {StyleSheet, Text, View} from "react-native";
+import {useContext, useState} from "react";
 import {Context} from "./TM_ContextProvider";
 import commonStyles from "./commonStyles";
 
 export default function TM_hourCount() {
     const context = useContext(Context)
-    const dayCount = -4
     const [totalCount, setTotalCount] = useState(0)
 
     useState( async () => {
