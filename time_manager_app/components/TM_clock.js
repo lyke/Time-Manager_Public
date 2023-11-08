@@ -9,6 +9,7 @@ export default function TM_clock() {
     const [timer, setTimer] = useState("Clock in")
     const [clockoutText, setClockoutText] = useState("")
     const [clockedIn, setClockedIn] = useState(false)
+    const [hasAlreadyClockedOut, setHasAlreadyClockedOut] = useState(false)
     const [timerInterval, setTimerInterval] = useState(null)
 
     //called only once when the component is mounted
@@ -17,11 +18,17 @@ export default function TM_clock() {
     }, [])
 
     async function launchTimerIfAlreadyClockIn() {
-        const lastClockIn = await context.getLastClockIn()
-        if (lastClockIn !== null) {
+        const lastClock = await context.getLastClock()
+        if (lastClock === null) return
+
+        const arrivaleTime = new Date(lastClock.time)
+        const elapsedTimeInMiliSec = (Date.now() - arrivaleTime.getTime())
+        if (lastClock.status === false){
+            setHasAlreadyClockedOut(true)
+            setClockoutText("Already clocked out today")
+            setTimer(formatMilisecInHMS(elapsedTimeInMiliSec))
+        } else {
             setClockedIn(true)
-            const arrivaleTime = new Date(lastClockIn.time)
-            const elapsedTimeInMiliSec = (Date.now() - arrivaleTime.getTime())
             launchTimer(elapsedTimeInMiliSec)
         }
     }
@@ -78,10 +85,10 @@ export default function TM_clock() {
         <View style={[commonStyles.box, styles.boxOverride]}>
             <Pressable
                 style={styles.clock}
-                onPress={clockedIn ? clockOut : clockIn}
+                onPress={ hasAlreadyClockedOut ? null : clockedIn ? clockOut : clockIn}
             >
                 <Text style={[commonStyles.buttonText, styles.buttonTexteOverride]}> {timer} </Text>
-                {clockoutText === "" ? null : <Text style={commonStyles.buttonText}> {clockoutText} </Text> }
+                {clockoutText === "" ? null : <Text style={[commonStyles.buttonText, styles.textCenter]}> {clockoutText} </Text>}
             </Pressable>
         </View>
     )
@@ -120,6 +127,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     buttonTexteOverride: {
-        fontSize: 22
+        fontSize: 22,
+        marginBottom: "4%"
     },
+    textCenter: {
+        textAlign: "center",
+    }
 });
