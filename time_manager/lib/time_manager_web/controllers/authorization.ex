@@ -73,7 +73,6 @@ defmodule TimeManagerWeb.Authorization do
   end
 
   def is_member_of_team(conn, team_id) do
-    IO.inspect(team_id)
     case extract_team_from_token(conn) do
       {:ok, token_team} ->
         Enum.any?(token_team, fn team -> team.id == team_id end)
@@ -82,14 +81,34 @@ defmodule TimeManagerWeb.Authorization do
   end
 
   def is_identified(conn) do
-    header = Enum.find(conn.req_headers, fn {k, _} -> k == "authorization" end)
-    case header do
-      {"authorization", "Bearer " <> token} ->
-        {:ok, token}
+    case extract_authorization_token(conn) do
+      {:ok, token_data} ->
+        token_id = token_data.id
+        user = TimeManager.Repo.get(User, token_id)
+        {:ok, user} ->
+          true
+        _ ->
+          false
+
       _ ->
-        {:error, "unauthorized"}
+        false
     end
   end
+
+  defp extract_authorization_token(conn) do
+    case Enum.find(conn.req_headers, fn {k, _} -> k == "authorization" end) do
+      {"authorization", "Bearer " <> token} ->
+        case Phoenix.Token.verify(TimeManagerWeb.Endpoint, "user auth", token, max_age: 86400) do
+          {:ok, token_data} ->
+            {:ok, token_data}
+          _ ->
+            :error
+        end
+      _ ->
+        :error
+    end
+  end
+
 
   defp extract_team_from_token(conn) do
     header = Enum.find(conn.req_headers, fn {k, _} -> k == "authorization" end)
