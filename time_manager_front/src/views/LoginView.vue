@@ -29,7 +29,9 @@
 
                         <div class="box">
                             <p>Don't have an account ? <a href="/register">Sign up</a></p>
-                            <a  href="#">GTS</a>
+                            <router-link :to="{name:'gts'}">
+                                <a>GTS</a>
+                            </router-link>
                         </div>
                     </div>
                 </div>

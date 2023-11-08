@@ -41,7 +41,9 @@
                         </form>
                         <div class="box">
                             <p>Already an account ? <a href="/">Sign in</a></p>
-                            <a  href="#">GTS</a>
+                            <router-link :to="{name:'gts'}">
+                                <a>GTS</a>
+                            </router-link>
                         </div>
                     </div>
                 </div>
