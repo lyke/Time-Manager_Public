@@ -9,91 +9,100 @@ export default function TM_clock() {
     const [timer, setTimer] = useState("Clock in")
     const [clockoutText, setClockoutText] = useState("")
     const [clockedIn, setClockedIn] = useState(false)
+    const [timerInterval, setTimerInterval] = useState(null)
 
     //called only once when the component is mounted
-    useEffect( () => {launchTimerIfAlreadyClockIn()}, [] )
+    useEffect(() => {
+        launchTimerIfAlreadyClockIn()
+    }, [])
 
     async function launchTimerIfAlreadyClockIn() {
         const lastClockIn = await context.getLastClockIn()
         if (lastClockIn !== null) {
-            setClockedIn( true)
+            setClockedIn(true)
             const arrivaleTime = new Date(lastClockIn.time)
-            arrivaleTime.setHours( arrivaleTime.getHours() + 1 )
-            const elapsedTimeInMiliSec = ( Date.now() - arrivaleTime.getTime() )
+            const elapsedTimeInMiliSec = (Date.now() - arrivaleTime.getTime())
             launchTimer(elapsedTimeInMiliSec)
         }
     }
 
-    let timerInterval
     // this interval add one second every second
     function launchTimer(elapsedTimeInMiliSeconds) {
         setTimer(formatMilisecInHMS(elapsedTimeInMiliSeconds))
         setClockoutText("Clock out")
 
-        timerInterval = setInterval(() => {
+        setTimerInterval(setInterval(() => {
                 setTimer(formatMilisecInHMS(elapsedTimeInMiliSeconds))
                 elapsedTimeInMiliSeconds += 1000
             }, 1000)
-        }
+        )
+    }
 
     const stopTimer = () => {
         setClockoutText("Clocked out")
         clearInterval(timerInterval)
     }
 
-    function createClockNow(){
+    function createClockNow() {
         const body = {
             clock: {
-                time: new Date(Date.now()).toISOString(),
+                time: getUtcDate(new Date(Date.now())),
                 fk_user: context.user.id
             }
         }
 
-        fetch(context.baseUri+"/clocks", {
+        fetch(context.baseUri + "/clocks", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: context.token
             },
             body: JSON.stringify(body)
+        }).catch(e => {/*ignore*/
         })
     }
 
     function clockIn() {
         setClockedIn(true)
+        launchTimer(0)
         createClockNow()
     }
 
-    function clockOut(){
+    function clockOut() {
         stopTimer()
         setClockedIn(false)
         createClockNow()
-        launchTimer(0)
     }
 
     return (
-        <View style={[commonStyles.box, styles.boxOverride]} >
+        <View style={[commonStyles.box, styles.boxOverride]}>
             <Pressable
                 style={styles.clock}
-                onPress={ clockedIn ? clockOut : clockIn}
+                onPress={clockedIn ? clockOut : clockIn}
             >
                 <Text style={[commonStyles.buttonText, styles.buttonTexteOverride]}> {timer} </Text>
-                <Text style={commonStyles.buttonText}> { clockoutText } </Text>
+                {clockoutText === "" ? null : <Text style={commonStyles.buttonText}> {clockoutText} </Text> }
             </Pressable>
         </View>
     )
 }
 
-function formatNumber(number){
+function formatNumber(number) {
     return number < 10 ? "0" + number : number
 }
 
-function formatMilisecInHMS(TimeInMiliSeconds){
+function formatMilisecInHMS(TimeInMiliSeconds) {
     const dateForDisplaying = new Date(TimeInMiliSeconds)
+    dateForDisplaying.setHours(dateForDisplaying.getHours() - 1)
     const hours = formatNumber(dateForDisplaying.getHours())
     const minutes = formatNumber(dateForDisplaying.getMinutes())
     const seconds = formatNumber(dateForDisplaying.getSeconds())
-    return hours +" : " + minutes + " : " + seconds
+    return hours + " : " + minutes + " : " + seconds
+}
+
+function getUtcDate(date) {
+    date.setHours(date.getHours() + 1)
+    return date
 }
 
 const styles = StyleSheet.create({
@@ -104,8 +113,8 @@ const styles = StyleSheet.create({
         width: '90%',
     },
     clock: {
-        width: 150,
-        height: 150,
+        width: 170,
+        height: 170,
         borderRadius: 65,
         backgroundColor: '#ccc',
         marginTop: '4%',
