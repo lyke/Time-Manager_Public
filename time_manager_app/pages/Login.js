@@ -1,5 +1,5 @@
 import {StatusBar} from 'expo-status-bar';
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 import {useContext, useState} from "react";
 import TM_RequiredInput from "../components/TM_RequiredInput";
 import TM_Modal from "../components/TM_Modal";
@@ -43,13 +43,14 @@ export default function Login() {
             }
 
             const data = await response.json()
-            context.setToken(data.token)
+            const token = data.token
 
             const idUser = data.user_id
             const userResponse = await fetch(context.baseUri + "/users/" + idUser,{
                 headers: { Authorization: "Bearer "+data.token }
             })
-            context.setUser((await userResponse.json()).data)
+            const user = (await userResponse.json()).data
+            context.login(token, user)
             goToPages.goToDashBoard()
         } catch (error) {
             setModalTextError("une erreur est survenue lors de la connection au serveur.\n\n veuillez réessayer plus tard")

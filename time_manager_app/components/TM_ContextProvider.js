@@ -4,13 +4,20 @@ import {useNavigation} from "@react-navigation/native";
 export const Context = createContext()
 export const TM_ContextProvider = ({children}) => {
     const baseUri = "https://time-manager-epitech.gigalixirapp.com/api"
-    const [token, setNewToken] = useState("")
+    const [token, setToken] = useState("")
     const [user, setUser] = useState(null)
+    const [userTeams, setUserTeams] = useState([])
 
     const navigation = useNavigation();
 
-    function setToken(token) {
-        setNewToken("Bearer " + token)
+    function login(token, user) {
+        setUser(user)
+        setToken("Bearer " + token)
+
+        setUserTeams(user.teams)
+        if (user.role === "super_manager"){
+            getAllTeams()
+        }
     }
 
     function logout() {
@@ -53,8 +60,17 @@ export const TM_ContextProvider = ({children}) => {
         navigation.navigate(page)
     }
 
+    const getAllTeams = async () => {
+        const url = baseUri + "/teams"
+        const response = await fetch(url, {
+            headers: {Authorization: token}
+        })
+        const data = await response.json()
+        setUserTeams(data.data)
+    }
+
     return (
-        <Context.Provider value={{baseUri, token, setToken, user, setUser, goToPages, logout, getLastClock}}>
+        <Context.Provider value={{baseUri, token, login, user, goToPages, logout, getLastClock, userTeams}}>
             {children}
         </Context.Provider>
     )
