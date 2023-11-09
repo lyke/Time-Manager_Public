@@ -27,7 +27,7 @@ export default function Main() {
             <Tab.Screen name="Register" component={Register} options={{ headerShown: false, tabBarStyle: {display:"none"}, tabBarItemStyle: {display: "none"} }}/>
             <Tab.Screen name="Dashboard" component={Dashboard} options={{headerShown: false}}/>
             {user && user.role === "user" ? <></> : <Tab.Screen name="My Teams" component={TM_MyTeams} options={{headerShown: false}}/> }
-            <Tab.Screen name="Logout" component={TM_LogOut} options={{headerShown: false}}/>
+            <Tab.Screen name="Account" component={TM_LogOut} options={{headerShown: false}}/>
         </Tab.Navigator>
     );
 }
@@ -38,15 +38,15 @@ const getScreenOptions = ({ route }) => ({
 
         switch (route.name) {
             case "Dashboard": {
-                iconName += "home";
+                iconName = "home";
                 break;
             }
             case "My Teams": {
-                iconName += "people-outline";
+                iconName = "people-outline";
                 break;
             }
-            case "Logout": {
-                iconName += "exit-outline";
+            case "Account": {
+                iconName = "person-circle-outline";
                 break;
             }
             default: {
