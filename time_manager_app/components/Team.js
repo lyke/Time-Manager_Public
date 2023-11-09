@@ -1,13 +1,13 @@
 import {ScrollView, StyleSheet} from "react-native";
 import TM_container from "./TM_container";
-import TM_user from "./TM_user";
+import TM_userCard from "./TM_userCard";
 
 export default function Team() {
 
     return (
         <TM_container>
             <ScrollView style={styles.scrollView}>
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -18,7 +18,7 @@ export default function Team() {
                         lastname: "smith"
                     }}
                 />
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -29,7 +29,7 @@ export default function Team() {
                         lastname: "smith"
                     }}
                 />
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -40,7 +40,7 @@ export default function Team() {
                         lastname: "smith"
                     }}
                 />
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -51,7 +51,7 @@ export default function Team() {
                         lastname: "smith"
                     }}
                 />
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -62,7 +62,7 @@ export default function Team() {
                         lastname: "smith"
                     }}
                 />
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -73,7 +73,7 @@ export default function Team() {
                         lastname: "smith"
                     }}
                 />
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -85,7 +85,7 @@ export default function Team() {
                     }}
                 />
 
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -96,7 +96,7 @@ export default function Team() {
                         lastname: "smith"
                     }}
                 />
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -107,7 +107,7 @@ export default function Team() {
                         lastname: "smith"
                     }}
                 />
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -118,7 +118,7 @@ export default function Team() {
                         lastname: "smith"
                     }}
                 />
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -129,7 +129,7 @@ export default function Team() {
                         lastname: "smith"
                     }}
                 />
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",
@@ -140,7 +140,7 @@ export default function Team() {
                         lastname: "smith"
                     }}
                 />
-                <TM_user
+                <TM_userCard
                     user={{
                         id: "c9a3bbfe-3721-4adf-8f8a-cc88443bf880",
                         role: "super_manager",

@@ -3,7 +3,7 @@ import {useContext, useState} from "react";
 import {Context} from "./TM_ContextProvider";
 import commonStyles from "./commonStyles";
 
-export default function TM_user({user}) {
+export default function TM_userCard({user}) {
     const context = useContext(Context)
 
     const [timeCredit, setTimeCredit] = useState(0)
