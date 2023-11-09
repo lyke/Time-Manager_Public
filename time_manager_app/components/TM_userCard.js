@@ -25,8 +25,8 @@ export default function TM_userCard({user}) {
         <View style={[commonStyles.box, styles.boxOverride]}>
             <View style={styles.container}>
                 <View>
-                    <Text> {user.firstname+" "+user.lastname} </Text>
-                    <Text> role : {" "+user.role} </Text>
+                    <Text style={[commonStyles.title, styles.textCentered]}> {user.firstname+" "+user.lastname} </Text>
+                    <Text style={styles.textCentered}> role : {" "+user.role} </Text>
                 </View>
                 <View style={styles.rightPart}>
                     <Text> Time credit </Text>
@@ -49,9 +49,16 @@ const styles = StyleSheet.create({
     container: {
         display: "flex",
         flexDirection: "row",
-        padding: "2%",
+        width: "100%",
+        justifyContent: "space-evenly",
+        paddingVertical: "3%",
     },
     rightPart: {
-        borderLeftColor: "#ccc"
-    }
-});
+        paddingLeft: "2%",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    textCentered:{
+        textAlign: "center",
+    },
+})
