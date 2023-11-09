@@ -1,11 +1,13 @@
-import {ScrollView, StyleSheet} from "react-native";
+import {ScrollView, StyleSheet, Text} from "react-native";
 import TM_container from "./TM_container";
 import TM_userCard from "./TM_userCard";
+import commonStyles from "./commonStyles";
 
-export default function TM_Team() {
+export default function TM_Team({id, name}) {
 
     return (
         <TM_container>
+            <Text style={[commonStyles.box, styles.boxOverride, commonStyles.title]}> Team : {name} </Text>
             <ScrollView style={styles.scrollView}>
                 <TM_userCard
                     user={{
@@ -157,6 +159,10 @@ export default function TM_Team() {
 }
 
 const styles = StyleSheet.create({
+    boxOverride :{
+        width: "auto",
+        marginTop: "3%"
+    },
     scrollView: {
         width: "100%",
         height: "100%",
