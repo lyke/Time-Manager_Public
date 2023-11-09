@@ -20,6 +20,7 @@ defmodule TimeManager.Accounts do
   def list_users do
     Repo.all(User)
     |> Repo.preload(:teams)
+    |> Repo.preload(:tasks)
   end
 
   @doc """
@@ -39,6 +40,7 @@ defmodule TimeManager.Accounts do
   def get_user!(id) do
     Repo.get!(User, id)
     |> Repo.preload(:teams)
+    |> Repo.preload(:tasks)
   end
 
   def get_user_by_email!(email) do

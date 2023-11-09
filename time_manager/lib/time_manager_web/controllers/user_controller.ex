@@ -33,14 +33,14 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def index(conn, _params) do
-    # if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") do
+    if verify_role(conn, "super_manager") || verify_role(conn, "manager") do
       users = Accounts.list_users()
       render(conn, :index, users: users)
-    # else
-    #   conn
-    #   |> put_status(:unauthorized)
-    #   |> json(%{error: gettext("unauthorized")})
-    # end
+    else
+      conn
+      |> put_status(:unauthorized)
+      |> json(%{error: gettext("unauthorized")})
+    end
   end
 
   def create(conn, %{"user" => user_params}) do
@@ -54,9 +54,9 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    if verify_role_super_manager(conn, "super_manager") || (verify_role_manager(conn, "manager") && is_same_team(conn, id)) || verify_user_id(conn, id) do
+    if verify_role(conn, "super_manager") || (verify_role(conn, "manager") && is_same_team(conn, id)) || verify_user_id(conn, id) do
       user = Accounts.get_user!(id)
-      IO.inspect(user.teams)
+      inspect(user.teams)
       render(conn, :show_with_teams, user: user)
     else
       conn
@@ -66,7 +66,7 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    if verify_role_super_manager(conn, "super_manager") || (verify_role_manager(conn, "manager") && is_same_team(conn, id))|| verify_user_id(conn, id) do
+    if verify_role(conn, "super_manager") || (verify_role(conn, "manager") && is_same_team(conn, id))|| verify_user_id(conn, id) do
       user = Accounts.get_user!(id)
       if Map.has_key?(user_params, "role") && ! Enum.member?(@roles, user_params["role"]) do
         raise "role is not correct, please select a correct value"
@@ -82,7 +82,7 @@ defmodule TimeManagerWeb.UserController do
   end
 
   def delete(conn, %{"id" => id}) do
-    if verify_role_super_manager(conn, "super_manager") || (verify_role_manager(conn, "manager") && is_same_team(conn, id))|| verify_user_id(conn, id) do
+    if verify_role(conn, "super_manager") || (verify_role(conn, "manager") && is_same_team(conn, id))|| verify_user_id(conn, id) do
       user = Accounts.get_user!(id)
 
       with {:ok, %User{}} <- Accounts.delete_user(user) do
@@ -97,7 +97,7 @@ defmodule TimeManagerWeb.UserController do
 
 #  get the (+ or -) time credit of the user, in minutes.
   def get_time_credit(conn, %{"id" => id}) do
-    if verify_role_super_manager(conn, "super_manager") || (verify_role_manager(conn, "manager") && is_same_team(conn, id))|| verify_user_id(conn, id) do
+    if verify_role(conn, "super_manager") || (verify_role(conn, "manager") && is_same_team(conn, id))|| verify_user_id(conn, id) do
       minutes_per_day = 7 * 60
 
       working_times = TimeManager.WorkingTimes.list_working_times()
