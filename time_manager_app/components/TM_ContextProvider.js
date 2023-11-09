@@ -7,6 +7,7 @@ export const TM_ContextProvider = ({children}) => {
     const [token, setToken] = useState("")
     const [user, setUser] = useState(null)
     const [userTeams, setUserTeams] = useState([])
+    const [msTimeSinceLastClockIn, setMsTimeSinceLastClockIn] = useState(0)
 
     const navigation = useNavigation();
 
@@ -15,7 +16,7 @@ export const TM_ContextProvider = ({children}) => {
         setToken("Bearer " + token)
 
         setUserTeams(user.teams)
-        if (user.role === "super_manager"){
+        if (user.role === "super_manager") {
             getAllTeams()
         }
     }
@@ -45,7 +46,7 @@ export const TM_ContextProvider = ({children}) => {
         })
         const todayClocks = (await response.json()).data
         if (todayClocks.length > 0) {
-            todayClocks.sort( (clockA, clockB) => {
+            todayClocks.sort((clockA, clockB) => {
                 const dateA = new Date(clockA.time)
                 const dateB = new Date(clockB.time)
                 return dateB - dateA
@@ -70,7 +71,18 @@ export const TM_ContextProvider = ({children}) => {
     }
 
     return (
-        <Context.Provider value={{baseUri, token, login, user, goToPages, logout, getLastClock, userTeams}}>
+        <Context.Provider value={{
+            baseUri,
+            token,
+            login,
+            user,
+            goToPages,
+            logout,
+            getLastClock,
+            userTeams,
+            msTimeSinceLastClockIn,
+            setMsTimeSinceLastClockIn
+        }}>
             {children}
         </Context.Provider>
     )

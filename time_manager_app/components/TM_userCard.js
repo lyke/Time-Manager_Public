@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from "react-native";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Context} from "./TM_ContextProvider";
 import commonStyles from "./commonStyles";
 
@@ -8,7 +8,7 @@ export default function TM_userCard({user}) {
 
     const [timeCredit, setTimeCredit] = useState(0)
 
-    useState(async () => {
+    useEffect(async () => {
         const getTimeCredit = async () => {
             const url = context.baseUri + "/users/time_credit/" + user.id;
             const response = await fetch(url, {

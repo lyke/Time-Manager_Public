@@ -39,7 +39,8 @@ export default function TM_clock() {
         setClockoutText("Clock out")
 
         setTimerInterval(setInterval(() => {
-                setTimer(formatMilisecInHMS(elapsedTimeInMiliSeconds))
+            context.setMsTimeSinceLastClockIn(elapsedTimeInMiliSeconds)
+            setTimer(formatMilisecInHMS(elapsedTimeInMiliSeconds))
                 elapsedTimeInMiliSeconds += 1000
             }, 1000)
         )
