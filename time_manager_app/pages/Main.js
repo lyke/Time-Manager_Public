@@ -5,7 +5,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Login from "./Login";
 import Register from "./Register";
 import Dashboard from "./Dashboard";
-import MyTeams from "./MyTeams";
+import TM_MyTeams from "./TM_MyTeams";
 import TM_LogOut from "../components/TM_LogOut";
 import {Platform} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
@@ -23,7 +23,7 @@ export default function Main() {
             <Tab.Screen name="Login" component={Login} options={{ headerShown: false, tabBarStyle: {display: "none"}, tabBarItemStyle: {display: "none"} }}/>
             <Tab.Screen name="Register" component={Register} options={{ headerShown: false, tabBarStyle: {display:"none"}, tabBarItemStyle: {display: "none"} }}/>
             <Tab.Screen name="Dashboard" component={Dashboard} options={{headerShown: false}}/>
-            <Tab.Screen name="My Teams" component={MyTeams} options={{headerShown: false}}/>
+            <Tab.Screen name="My Teams" component={TM_MyTeams} options={{headerShown: false}}/>
             <Tab.Screen name="Logout" component={TM_LogOut} options={{headerShown: false}}/>
         </Tab.Navigator>
 

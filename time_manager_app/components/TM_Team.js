@@ -2,7 +2,7 @@ import {ScrollView, StyleSheet} from "react-native";
 import TM_container from "./TM_container";
 import TM_userCard from "./TM_userCard";
 
-export default function Team() {
+export default function TM_Team() {
 
     return (
         <TM_container>
