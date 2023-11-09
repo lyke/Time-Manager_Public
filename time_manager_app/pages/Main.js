@@ -7,7 +7,6 @@ import Register from "./Register";
 import Dashboard from "./Dashboard";
 import TM_MyTeams from "./TM_MyTeams";
 import TM_LogOut from "../components/TM_LogOut";
-import {Platform} from "react-native";
 import {Ionicons} from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator()
@@ -26,7 +25,6 @@ export default function Main() {
             <Tab.Screen name="My Teams" component={TM_MyTeams} options={{headerShown: false}}/>
             <Tab.Screen name="Logout" component={TM_LogOut} options={{headerShown: false}}/>
         </Tab.Navigator>
-
     );
 }
 
@@ -34,14 +32,6 @@ const getScreenOptions = ({ route }) => ({
     tabBarIcon: ({ focused, color, size }) => {
         let iconName = "";
 
-        // Definit le type d icones selon la platforme
-        if (Platform.OS === "android") {
-            iconName += "md-";
-        } else if (Platform.OS === "ios") {
-            iconName += "ios-";
-        }
-
-        // assigne l icone
         switch (route.name) {
             case "Dashboard": {
                 iconName += "home";

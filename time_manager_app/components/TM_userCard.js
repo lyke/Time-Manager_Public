@@ -9,7 +9,7 @@ export default function TM_userCard({user}) {
     const [timeCredit, setTimeCredit] = useState(0)
 
     useState(async () => {
-        const fetchData = async () => {
+        const getTimeCredit = async () => {
             const url = context.baseUri + "/users/time_credit/" + user.id;
             const response = await fetch(url, {
                 headers: { Authorization: context.token }
@@ -18,7 +18,7 @@ export default function TM_userCard({user}) {
             setTimeCredit(data.time_credit_in_minutes);
         };
 
-        fetchData();
+        getTimeCredit();
     }, [user, context.token])
 
     return (
