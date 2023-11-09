@@ -1,4 +1,4 @@
-import {Animated, StyleSheet, View} from "react-native";
+import {Animated, ImageBackground, StyleSheet, View} from "react-native";
 import React, {useContext, useEffect, useState} from "react";
 import {Context} from "./TM_ContextProvider";
 import commonStyles from "./commonStyles";
@@ -20,8 +20,10 @@ export default function TM_dailyHourCount() {
     return (
         <View style={[commonStyles.box, styles.boxOverride]}>
             <View style={styles.progressBar}>
-                <Animated.View
-                    style={[StyleSheet.absoluteFill, {backgroundColor: "#8BED4F", width: percentageOfTheDay}]}/>
+                <Animated.View style={[StyleSheet.absoluteFill, {width: percentageOfTheDay, maxWidth: "100%"}]}>
+                    <ImageBackground source={ require("../assets/gradiant.png") } style={StyleSheet.absoluteFill}>
+                    </ImageBackground>
+                </Animated.View>
             </View>
         </View>
     )
