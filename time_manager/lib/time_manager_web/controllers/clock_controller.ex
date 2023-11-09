@@ -12,14 +12,14 @@ defmodule TimeManagerWeb.ClockController do
   action_fallback TimeManagerWeb.FallbackController
 
   def index(conn, _params) do
-    # if verify_role_super_manager(conn, "super_manager") do
+    if verify_role_super_manager(conn, "super_manager") do
       clocks = Clocks.list_clocks()
       render(conn, :index, clocks: clocks)
-    # else
-    #   conn
-    #   |> put_status(:unauthorized)
-    #   |> json(%{error: gettext("unauthorized")})
-    # end
+    else
+      conn
+      |> put_status(:unauthorized)
+      |> json(%{error: gettext("unauthorized")})
+    end
   end
 
   def index_per_user_per_day(conn, %{"user_id" => id}) do
@@ -40,7 +40,6 @@ defmodule TimeManagerWeb.ClockController do
   end
 
   def create(conn, %{"clock" => clock_params}) do
-    IO.inspect(clock_params)
     if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") || is_identified(conn) do
       user_id = clock_params["fk_user"]
       last_clock = Clocks.get_last_clock(user_id)

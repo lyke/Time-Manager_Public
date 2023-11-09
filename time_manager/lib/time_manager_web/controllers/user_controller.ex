@@ -56,7 +56,7 @@ defmodule TimeManagerWeb.UserController do
   def show(conn, %{"id" => id}) do
     if verify_role_super_manager(conn, "super_manager") || (verify_role_manager(conn, "manager") && is_same_team(conn, id)) || verify_user_id(conn, id) do
       user = Accounts.get_user!(id)
-      IO.inspect(user.teams)
+      inspect(user.teams)
       render(conn, :show_with_teams, user: user)
     else
       conn

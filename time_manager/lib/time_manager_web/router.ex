@@ -17,5 +17,7 @@ defmodule TimeManagerWeb.Router do
     resources "/working_times", WorkingTimeController, except: [:new, :edit]
     resources "/teams", TeamController, except: [:new, :edit]
     resources "/user_teams", UserTeamController, except: [:new, :edit]
+    resources "/tasks", TaskController, except: [:new, :edit]
+    resources "/user_tasks", UserTaskController, except: [:new, :edit]
   end
 end

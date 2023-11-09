@@ -7,14 +7,14 @@ defmodule TimeManagerWeb.TeamController do
   action_fallback TimeManagerWeb.FallbackController
 
   def index(conn, _params) do
-    # if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") do
+    if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") do
       teams = Teams.get_teams_with_users()
       render(conn, :index, teams: teams)
-    # else
-    #   conn
-    #   |> put_status(:unauthorized)
-    #   |> json(%{error: gettext("unauthorized")})
-    # end
+    else
+      conn
+      |> put_status(:unauthorized)
+      |> json(%{error: gettext("unauthorized")})
+    end
   end
 
   def create(conn, %{"team" => team_params}) do

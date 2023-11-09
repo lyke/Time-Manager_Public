@@ -84,8 +84,8 @@ defmodule TimeManagerWeb.Authorization do
     case extract_authorization_token(conn) do
       {:ok, token_data} ->
         token_id = token_data.id
-        user = TimeManager.Repo.get(User, token_id)
-        {:ok, user} ->
+        _user = TimeManager.Repo.get(User, token_id)
+        {:ok, _user} ->
           true
         _ ->
           false
