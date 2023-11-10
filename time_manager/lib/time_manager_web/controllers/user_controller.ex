@@ -44,21 +44,8 @@ defmodule TimeManagerWeb.UserController do
     end
   end
 
-  # def create(conn, %{"user" => user_params}) do
-  #   user_params = Map.put(user_params, "role", Enum.at(@roles, 0))
-  #   with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
-  #     conn
-  #     |> put_status(:created)
-  #     |> put_resp_header("location", ~p"/api/users/#{user}")
-  #     |> render(:show, user: user)
-  #   end
-  # end
-
-
   def create(conn, %{"user" => user_params}) do
-    # hashed_password = Accounts.hash_password(user_params["password"])
     hashed_password = Bcrypt.hash_pwd_salt(user_params["password"])
-    IO.inspect(hashed_password)
     user_params = Map.put(user_params, "role", Enum.at(@roles, 0))
     user_params = Map.put(user_params, "password", hashed_password)
     with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
