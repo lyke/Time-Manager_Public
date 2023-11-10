@@ -16,15 +16,27 @@ defmodule TimeManagerWeb.TaskJSON do
   end
 
   defp data(%Task{} = task) do
-    %{
-      id: task.id,
-      name: task.name,
-      description: task.description,
-      type: task.type,
-      status: task.status,
-      start_date: task.start_date,
-      end_date: task.end_date,
-      users: task.users
-    }
+    if task.users != [] do
+      %{
+        id: task.id,
+        name: task.name,
+        description: task.description,
+        type: task.type,
+        status: task.status,
+        start_date: task.start_date,
+        end_date: task.end_date,
+        users: task.users
+      }
+    else
+      %{
+        id: task.id,
+        name: task.name,
+        description: task.description,
+        type: task.type,
+        status: task.status,
+        start_date: task.start_date,
+        end_date: task.end_date,
+      }
+    end
   end
 end
