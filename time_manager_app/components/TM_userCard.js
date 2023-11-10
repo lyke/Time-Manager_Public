@@ -31,8 +31,8 @@ export default function TM_userCard({user}) {
                 <View style={styles.rightPart}>
                     <Text> Time credit </Text>
                     {timeCredit >= 0 ?
-                        <Text style={{color: "green"}}> + {timeCredit} h</Text>
-                        : <Text style={{color: "red"}}> {timeCredit} h</Text>
+                        <Text style={{color: "green"}}> + {timeCredit.toFixed(1)} h</Text>
+                        : <Text style={{color: "red"}}> {timeCredit.toFixed(1)} h</Text>
                     }
                 </View>
             </View>

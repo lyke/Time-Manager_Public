@@ -36,7 +36,7 @@ export default function TM_totalHourCount() {
         <View style={[commonStyles.box, styles.boxOverride]}>
             <View style={styles.textTotalCount}>
                 <Text> {getTotalCountText()} </Text>
-                { totalCount === 0 ? null : <Text style={{ color: totalCount >= 0 ? "green" : "red" }}> {totalCount+" "}h </Text>}
+                { totalCount === 0 ? null : <Text style={{ color: totalCount >= 0 ? "green" : "red" }}> {totalCount.toFixed(1)+" "}h </Text>}
             </View>
         </View>
     )
