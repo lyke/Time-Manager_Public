@@ -14,7 +14,7 @@ export default function TM_totalHourCount() {
             headers:{ Authorization: context.token }
         })
         const data = await response.json()
-        setTotalCount(data.time_credit_in_minutes)
+        setTotalCount(data.time_credit_in_minutes / 60)
 
         const lastClock = await context.getLastClock()
         if (lastClock.status){

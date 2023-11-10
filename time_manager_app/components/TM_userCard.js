@@ -15,7 +15,8 @@ export default function TM_userCard({user}) {
                 headers: { Authorization: context.token }
             });
             const data = await response.json();
-            setTimeCredit(data.time_credit_in_minutes);
+            const timeCreditInHour = data.time_credit_in_minutes / 60
+            setTimeCredit(timeCreditInHour);
         };
 
         getTimeCredit();
