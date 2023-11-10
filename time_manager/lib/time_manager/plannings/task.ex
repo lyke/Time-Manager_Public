@@ -5,6 +5,7 @@ defmodule TimeManager.Plannings.Task do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   @derive {Jason.Encoder, only: [:id, :name, :status, :type, :description, :start_date, :end_date]}
+
   schema "tasks" do
     field :name, :string
     field :status, :boolean, default: false
