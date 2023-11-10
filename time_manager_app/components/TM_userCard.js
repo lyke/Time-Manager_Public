@@ -20,7 +20,7 @@ export default function TM_userCard({user}) {
         };
 
         getTimeCredit();
-    }, [user, context.token])
+    }, [context.token])
 
     return (
         <View style={[commonStyles.box, styles.boxOverride]}>
