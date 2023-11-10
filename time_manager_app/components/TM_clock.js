@@ -27,6 +27,7 @@ export default function TM_clock() {
             setHasAlreadyClockedOut(true)
             setClockoutText("Already clocked out today")
             setTimer(formatMilisecInHMS(elapsedTimeInMiliSec))
+            context.setMsTimeSinceLastClockIn(elapsedTimeInMiliSec)
         } else {
             setClockedIn(true)
             launchTimer(elapsedTimeInMiliSec)
