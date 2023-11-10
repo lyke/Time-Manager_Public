@@ -80,7 +80,6 @@ defmodule TimeManagerWeb.Authorization do
       {:ok, token_data} ->
         token_id = token_data.id
         user = TimeManager.Repo.get(User, token_id)
-        IO.inspect(user.role)
         # {:ok, _user}
       _ ->
         :error

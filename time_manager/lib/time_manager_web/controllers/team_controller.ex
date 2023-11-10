@@ -35,7 +35,6 @@ defmodule TimeManagerWeb.TeamController do
   def show(conn, %{"id" => id}) do
     if verify_role(conn, "super_manager") || (verify_role(conn, "manager") && is_member_of_team(conn, id)) do
       team = Teams.get_team!(id)
-    # IO.inspect(is_member_of_team(conn, team))
       render(conn, :show, team: team)
     else
       conn

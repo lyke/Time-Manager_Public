@@ -51,7 +51,8 @@ defmodule TimeManager.MixProject do
       {:guardian, "~> 2.0"},
       {:canada, "~> 2.0.0"},
       {:plug, "~> 1.15.1"},
-      {:timex, "~> 3.7"}
+      {:timex, "~> 3.7"},
+      {:bcrypt_elixir, "~> 3.1"}
     ]
   end
 

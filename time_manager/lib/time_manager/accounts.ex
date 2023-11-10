@@ -51,7 +51,7 @@ defmodule TimeManager.Accounts do
   end
 
   def login_user(%User{} = user, password) do
-    if user.password == password do
+    if Bcrypt.verify_pass(password, user.password) do
       {:ok, user}
     else
       {:error, "Invalid"}
