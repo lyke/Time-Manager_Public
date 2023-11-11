@@ -15,8 +15,11 @@ defmodule TimeManagerWeb.TaskJSON do
     %{data: data(task)}
   end
 
+  def show_without_users(%{task: task}) do
+    %{data: data_no_users(task)}
+  end
+
   defp data(%Task{} = task) do
-    if task.users != [] do
       %{
         id: task.id,
         name: task.name,
@@ -27,16 +30,17 @@ defmodule TimeManagerWeb.TaskJSON do
         end_date: task.end_date,
         users: task.users
       }
-    else
-      %{
-        id: task.id,
-        name: task.name,
-        description: task.description,
-        type: task.type,
-        status: task.status,
-        start_date: task.start_date,
-        end_date: task.end_date,
-      }
-    end
   end
+
+  defp data_no_users(%Task{} = task) do
+    %{
+      id: task.id,
+      name: task.name,
+      description: task.description,
+      type: task.type,
+      status: task.status,
+      start_date: task.start_date,
+      end_date: task.end_date,
+    }
+end
 end
