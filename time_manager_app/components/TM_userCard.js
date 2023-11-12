@@ -23,6 +23,7 @@ export default function TM_userCard({user}) {
     }, [context.token])
 
     return (
+        user ?
         <View style={[commonStyles.box, styles.boxOverride]}>
             <View style={styles.container}>
                 <View>
@@ -38,6 +39,8 @@ export default function TM_userCard({user}) {
                 </View>
             </View>
         </View>
+            :
+            <></>
     )
 }
 

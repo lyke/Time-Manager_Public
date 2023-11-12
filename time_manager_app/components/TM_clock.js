@@ -80,6 +80,7 @@ export default function TM_clock() {
     function clockOut() {
         stopTimer()
         setClockedIn(false)
+        setHasAlreadyClockedOut(true)
         createClockNow()
     }
 
@@ -87,7 +88,8 @@ export default function TM_clock() {
         <View style={[commonStyles.box, styles.boxOverride]}>
             <Pressable
                 style={styles.clock}
-                onPress={ hasAlreadyClockedOut ? null : clockedIn ? clockOut : clockIn}
+                onPress={ clockedIn ? clockOut : clockIn}
+                disabled={hasAlreadyClockedOut}
             >
                 <Text style={[commonStyles.buttonText, styles.buttonTexteOverride]}> {timer} </Text>
                 {clockoutText === "" ? null : <Text style={[commonStyles.buttonText, styles.textCenter]}> {clockoutText} </Text>}
