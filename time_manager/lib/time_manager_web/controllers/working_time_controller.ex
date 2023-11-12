@@ -24,7 +24,6 @@ defmodule TimeManagerWeb.WorkingTimeController do
         conn
         |> put_status(:created)
         |> put_resp_header("location", ~p"/api/working_times/#{working_time}")
-        |> render(:show, working_time: working_time)
       end
     else
       conn
