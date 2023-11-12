@@ -6,7 +6,6 @@ import commonStyles from "./commonStyles";
 export default function TM_totalHourCount() {
     const context = useContext(Context)
     const [totalCount, setTotalCount] = useState(0)
-    const [lastClockIn, setLastClockIn] = useState(null)
 
     useState( async () => {
         const url = context.baseUri+"/users/time_credit/"+context.user.id
@@ -15,11 +14,6 @@ export default function TM_totalHourCount() {
         })
         const data = await response.json()
         setTotalCount(data.time_credit_in_minutes / 60)
-
-        const lastClock = await context.getLastClock()
-        if (lastClock.status){
-            setLastClockIn(lastClock)
-        }
     }, [])
 
     function getTotalCountText(){

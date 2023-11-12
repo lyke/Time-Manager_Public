@@ -17,7 +17,7 @@ export const TM_ContextProvider = ({children}) => {
 
         setUserTeams(user.teams)
         if (user.role === "super_manager") {
-            getAllTeams()
+            getAllTeams("Bearer " + token)
         }
     }
 
@@ -61,7 +61,7 @@ export const TM_ContextProvider = ({children}) => {
         navigation.navigate(page)
     }
 
-    const getAllTeams = async () => {
+    const getAllTeams = async (token) => {
         const url = baseUri + "/teams"
         const response = await fetch(url, {
             headers: {Authorization: token}
