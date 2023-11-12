@@ -15,6 +15,7 @@ defmodule TimeManagerWeb.ClockJSON do
   Renders the list of clock linked with a user.
   """
   def show(%{clock: clock}) do
+    IO.inspect(clock)
     %{data: data(clock)}
   end
 
