@@ -12,7 +12,7 @@ export default function TM_MyTeams() {
     const {userTeams} = useContext(Context)
 
     return (
-        userTeams.length === 0 ?
+        ! userTeams || userTeams.length === 0 ?
             <TM_container>
                 <Text style={[commonStyles.box, commonStyles.title]}>
                     You are not currently in a team !
