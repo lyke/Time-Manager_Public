@@ -18,9 +18,6 @@ export default function Main() {
 
     return (
         <Tab.Navigator
-            tabBarOptions={{
-                    labelPosition: 'below-icon'
-                }}
             screenOptions={getScreenOptions}
         >
             <Tab.Screen name="Login" component={Login} options={{ headerShown: false, tabBarStyle: {display: "none"}, tabBarItemStyle: {display: "none"} }}/>
@@ -33,6 +30,7 @@ export default function Main() {
 }
 
 const getScreenOptions = ({ route }) => ({
+    tabBarLabelPosition: "below-icon",
     tabBarIcon: ({ focused, color, size }) => {
         let iconName = "";
 
