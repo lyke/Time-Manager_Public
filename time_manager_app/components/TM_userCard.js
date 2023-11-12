@@ -8,7 +8,7 @@ export default function TM_userCard({user}) {
 
     const [timeCredit, setTimeCredit] = useState(0)
 
-    useEffect(async () => {
+    useEffect(() => {
         const getTimeCredit = async () => {
             const url = context.baseUri + "/users/time_credit/" + user.id;
             const response = await fetch(url, {

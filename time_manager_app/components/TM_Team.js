@@ -33,8 +33,9 @@ export default function TM_Team({id, name}) {
                 <Text style={[commonStyles.box, styles.boxOverride, commonStyles.title]}> Team : {name} </Text>
                 <ScrollView style={styles.scrollView}>
                     {
-                        users.map((user) => (
+                        users.map((user, index) => (
                             <TM_userCard
+                                key={index}
                                 user={user}
                             />
                         ))
