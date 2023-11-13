@@ -12,18 +12,18 @@ defmodule TimeManagerWeb.ClockController do
   action_fallback TimeManagerWeb.FallbackController
 
   def index(conn, _params) do
-    # if verify_role_super_manager(conn, "super_manager") do
+    if verify_role(conn, "super_manager") do
       clocks = Clocks.list_clocks()
       render(conn, :index, clocks: clocks)
-    # else
-    #   conn
-    #   |> put_status(:unauthorized)
-    #   |> json(%{error: gettext("unauthorized")})
-    # end
+    else
+      conn
+      |> put_status(:unauthorized)
+      |> json(%{error: gettext("unauthorized")})
+    end
   end
 
   def index_per_user_per_day(conn, %{"user_id" => id}) do
-    if verify_role_super_manager(conn, "super_manager") || (verify_role_manager(conn, "manager") && is_same_team(conn, id))|| verify_user_id(conn, id) do
+    if verify_role(conn, "super_manager") || (verify_role(conn, "manager") && is_same_team(conn, id))|| verify_user_id(conn, id) do
       clocks = Clocks.list_clocks()
       filtered_clocks = Enum.filter(clocks, fn clock -> clock.fk_user == id end)
       {:ok, today_date} = DateTime.now("Europe/Paris")
@@ -40,8 +40,7 @@ defmodule TimeManagerWeb.ClockController do
   end
 
   def create(conn, %{"clock" => clock_params}) do
-    IO.inspect(clock_params)
-    if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") || is_identified(conn) do
+    if is_identified(conn) do
       user_id = clock_params["fk_user"]
       last_clock = Clocks.get_last_clock(user_id)
       new_status =
@@ -73,10 +72,9 @@ defmodule TimeManagerWeb.ClockController do
 
 
   def show(conn, %{"id" => id}) do
-    if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") || is_identified(conn) do
-      clocks = Clocks.list_clocks()
-      filtered_clocks = Enum.filter(clocks, fn clock -> clock.fk_user == id end)
-      render(conn, :index, clocks: filtered_clocks)
+    clock = Clocks.get_clock!(id)
+    if verify_role(conn, "super_manager") || verify_role(conn, "manager") || extract_user_id(conn) == clock.fk_user do
+      render(conn, :show, clock: clock)
     else
       conn
       |> put_status(:unauthorized)
@@ -85,8 +83,8 @@ defmodule TimeManagerWeb.ClockController do
   end
 
   def update(conn, %{"id" => id, "clock" => clock_params}) do
-    if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") || is_identified(conn) do
-      clock = Clocks.get_clock!(id)
+    clock = Clocks.get_clock!(id)
+    if verify_role(conn, "super_manager") || verify_role(conn, "manager") || extract_user_id(conn) == clock.fk_user do
       with {:ok, %Clock{} = clock} <- Clocks.update_clock(clock, clock_params) do
         render(conn, :show, clock: clock)
       end
@@ -98,8 +96,8 @@ defmodule TimeManagerWeb.ClockController do
   end
 
   def delete(conn, %{"id" => id}) do
-    if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") || is_identified(conn) do
-      clock = Clocks.get_clock!(id)
+    clock = Clocks.get_clock!(id)
+    if verify_role(conn, "super_manager") || verify_role(conn, "manager") || extract_user_id(conn) == clock.fk_user do
       with {:ok, %Clock{}} <- Clocks.delete_clock(clock) do
         send_resp(conn, :no_content, "")
       end

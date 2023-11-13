@@ -19,12 +19,11 @@ defmodule TimeManagerWeb.WorkingTimeController do
   end
 
   def create(conn, %{"working_time" => working_time_params}) do
-    if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") do
+    if is_identified(conn) do
       with {:ok, %WorkingTime{} = working_time} <- WorkingTimes.create_working_time(working_time_params) do
         conn
         |> put_status(:created)
         |> put_resp_header("location", ~p"/api/working_times/#{working_time}")
-        |> render(:show, working_time: working_time)
       end
     else
       conn
@@ -34,8 +33,8 @@ defmodule TimeManagerWeb.WorkingTimeController do
   end
 
   def show(conn, %{"id" => id}) do
-    if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") do
-      working_time = WorkingTimes.get_working_time!(id)
+    working_time = WorkingTimes.get_working_time!(id)
+    if verify_role(conn, "super_manager") || verify_role(conn, "manager") || extract_user_id(conn) == working_time.user_id do
       render(conn, :show, working_time: working_time)
     else
       conn
@@ -45,9 +44,8 @@ defmodule TimeManagerWeb.WorkingTimeController do
   end
 
   def update(conn, %{"id" => id, "working_time" => working_time_params}) do
-    if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") do
       working_time = WorkingTimes.get_working_time!(id)
-
+    if verify_role(conn, "super_manager") || verify_role(conn, "manager") || extract_user_id(conn) == working_time.user_id do
       with {:ok, %WorkingTime{} = working_time} <- WorkingTimes.update_working_time(working_time, working_time_params) do
         render(conn, :show, working_time: working_time)
       end
@@ -59,9 +57,8 @@ defmodule TimeManagerWeb.WorkingTimeController do
   end
 
   def delete(conn, %{"id" => id}) do
-      if verify_role_super_manager(conn, "super_manager") || verify_role_manager(conn, "manager") do
       working_time = WorkingTimes.get_working_time!(id)
-
+    if verify_role(conn, "super_manager") || verify_role(conn, "manager") || extract_user_id(conn) == working_time.user_id do
       with {:ok, %WorkingTime{}} <- WorkingTimes.delete_working_time(working_time) do
         send_resp(conn, :no_content, "")
       end

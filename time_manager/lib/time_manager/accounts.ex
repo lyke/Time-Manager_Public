@@ -20,6 +20,7 @@ defmodule TimeManager.Accounts do
   def list_users do
     Repo.all(User)
     |> Repo.preload(:teams)
+    |> Repo.preload(:tasks)
   end
 
   @doc """
@@ -39,6 +40,7 @@ defmodule TimeManager.Accounts do
   def get_user!(id) do
     Repo.get!(User, id)
     |> Repo.preload(:teams)
+    |> Repo.preload(:tasks)
   end
 
   def get_user_by_email!(email) do
@@ -49,7 +51,7 @@ defmodule TimeManager.Accounts do
   end
 
   def login_user(%User{} = user, password) do
-    if user.password == password do
+    if Bcrypt.verify_pass(password, user.password) do
       {:ok, user}
     else
       {:error, "Invalid"}

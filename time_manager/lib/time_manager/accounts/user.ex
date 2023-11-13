@@ -12,6 +12,8 @@ defmodule TimeManager.Accounts.User do
     field :lastname, :string
     field :email, :string
     has_many :user_teams, TimeManager.UserTeams.UserTeam
+    has_many :user_tasks, TimeManager.UserTasks.UserTask
+    many_to_many :tasks, TimeManager.Plannings.Task, join_through: TimeManager.UserTasks.UserTask
     many_to_many :teams, TimeManager.Teams.Team, join_through: TimeManager.UserTeams.UserTeam
 
     timestamps(type: :utc_datetime)

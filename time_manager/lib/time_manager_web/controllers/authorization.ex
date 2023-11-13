@@ -23,32 +23,13 @@ defmodule TimeManagerWeb.Authorization do
     end
   end
 
-
-  def verify_role_manager(conn, manager) do
+  def verify_role(conn, role) do
     header = Enum.find(conn.req_headers, fn {k, _} -> k == "authorization" end)
     case header do
       {"authorization", "Bearer " <> token} ->
         case Phoenix.Token.verify(TimeManagerWeb.Endpoint, "user auth", token, max_age: 86400) do
           {:ok, token_data} ->
-            if token_data.role == manager do
-              true
-            else
-              false
-            end
-          {:error, _} -> false
-        end
-      _ ->
-        false
-    end
-  end
-
-  def verify_role_super_manager(conn, super_manager) do
-    header = Enum.find(conn.req_headers, fn {k, _} -> k == "authorization" end)
-    case header do
-      {"authorization", "Bearer " <> token} ->
-        case Phoenix.Token.verify(TimeManagerWeb.Endpoint, "user auth", token, max_age: 86400) do
-          {:ok, token_data} ->
-            if token_data.role == super_manager do
+            if token_data.role == role do
               true
             else
               false
@@ -84,14 +65,33 @@ defmodule TimeManagerWeb.Authorization do
     case extract_authorization_token(conn) do
       {:ok, token_data} ->
         token_id = token_data.id
-        user = TimeManager.Repo.get(User, token_id)
-        {:ok, user} ->
+        if TimeManager.Repo.get(User, token_id) do
           true
-        _ ->
+        else
           false
-
+        end
       _ ->
         false
+    end
+  end
+
+  def extract_user(conn) do
+    case extract_authorization_token(conn) do
+      {:ok, token_data} ->
+        token_id = token_data.id
+        user = TimeManager.Repo.get(User, token_id)
+        # {:ok, _user}
+      _ ->
+        :error
+    end
+  end
+
+  def extract_user_id(conn) do
+    case extract_authorization_token(conn) do
+      {:ok, token_data} ->
+        _token_id = token_data.id
+      _ ->
+        :error
     end
   end
 
@@ -135,14 +135,6 @@ defmodule TimeManagerWeb.Authorization do
         {:error, "User not found"}
     end
   end
-
-  # defp get_team_from_team_id(id) do
-  #   if team_with_users = TimeManager.Repo.get(Team, id) do
-  #       {:ok, team_with_users}
-  #   else
-  #       {:error, "Team not found"}
-  #   end
-  # end
 
   defp have_common_teams(manager_teams, user_teams) do
     Enum.any?(manager_teams, fn element ->
